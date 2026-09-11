@@ -33,8 +33,13 @@ def read_event() -> dict:
         return {}
 
 
-def final_response(transcript_path: str):
-    """Last assistant message of the turn, as (text, model). Skips subagent sidechains."""
+def final_response(transcript_path: str, bound_to_turn: bool = True):
+    """Last assistant message of the turn, as (text, model). Skips subagent sidechains.
+
+    With bound_to_turn, only entries after the most recent user entry are considered, so
+    a turn that ends without a text block logs nothing instead of re-logging the previous
+    turn's answer. Callers that just want the model in play pass bound_to_turn=False.
+    """
     path = Path(transcript_path or "")
     if not path.is_file():
         return None, None
@@ -48,6 +53,13 @@ def final_response(transcript_path: str):
                 entries.append(json.loads(line))
             except json.JSONDecodeError:
                 continue
+    if bound_to_turn:
+        for i in range(len(entries) - 1, -1, -1):
+            entry = entries[i]
+            if entry.get("type") == "user" and not entry.get("isSidechain"):
+                entries = entries[i + 1:]
+                break
+
     for entry in reversed(entries):
         if entry.get("type") != "assistant" or entry.get("isSidechain"):
             continue
@@ -67,7 +79,7 @@ def final_response(transcript_path: str):
 
 
 def known_model(transcript_path: str) -> str:
-    _, model = final_response(transcript_path)
+    _, model = final_response(transcript_path, bound_to_turn=False)
     return model or "unknown"
 
 
@@ -121,7 +133,19 @@ def append(kind: str, session_id: str, text: str, model: str) -> None:
     )
 
     if model != "unknown":
-        body = body.replace("model: unknown", f"model: {model}")
+        # Back-fill only what this turn actually proves: the frontmatter, and the
+        # prompt this response answers (its model is unreadable until a reply exists).
+        # A blanket replace would relabel older turns whose model was never known.
+        body = re.sub(
+            r"\A(---\n(?:(?!---\n).*\n)*?)model: unknown\n",
+            lambda m: m.group(1) + f"model: {model}\n",
+            body,
+            count=1,
+        )
+        if kind == "RESPONSE":
+            head, sep, tail = body.rpartition(f"[LOG_ENTRY type=PROMPT num={num} ")
+            if sep:
+                body = head + sep + tail.replace("model: unknown", f"model: {model}", 1)
     body = re.sub(r"^total_exchanges: .*$", f"total_exchanges: {num}", body, count=1, flags=re.M)
     body = re.sub(r"^last_prompt_time: .*$", f"last_prompt_time: {timestamp}", body, count=1, flags=re.M)
     path.write_text(body, encoding="utf-8")
