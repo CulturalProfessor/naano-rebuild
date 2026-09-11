@@ -1,0 +1,7 @@
+node_modules/
+.next/
+.env
+.env.local
+.DS_Store
+
+# .agent-logs/ is intentionally NOT ignored. It ships with the repo.
