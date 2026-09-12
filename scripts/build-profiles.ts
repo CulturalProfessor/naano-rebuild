@@ -95,15 +95,60 @@ const UNCLAIMED: Row[] = [
     }) as Row,
 ) as unknown as Row[];
 
-/** Illustrated, deterministic, and obviously not a photograph of a real person. */
-function avatarFor(slug: string) {
-  return `https://api.dicebear.com/9.x/notionists/png?seed=${encodeURIComponent(slug)}&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256`;
+/**
+ * Illustrated, deterministic, and obviously not a photograph of a real person.
+ *
+ * The presentation is written down here rather than derived from the name at
+ * render time. These are invented people and this file invents them, so
+ * picking the portrait alongside the name is authorship; inferring a face from
+ * a string of letters later would be a guess, and the wrong kind. The three
+ * names that are genuinely ambiguous in English are left out of both lists and
+ * get the androgynous pool, which is the honest answer for them.
+ */
+const PRESENTS_FEM = [
+  "nina-costa", "amara-okafor", "sofie-jansen", "clara-dubois", "marta-nowak",
+  "ines-navarro", "hannah-mueller", "elena-petrova", "priya-shah",
+  "freya-andersen", "nadia-haddad", "mei-lin-chen", "laura-kelly", "sana-iqbal",
+];
+
+const PRESENTS_MASC = [
+  "tomas-berg", "luca-ferrari", "daniel-mwangi", "ravi-menon",
+  "james-whitfield", "kwame-asante", "oliver-reid", "marcus-lindqvist",
+  "ben-kaplan", "carlos-mendes", "samuel-adeyemi", "theo-brennan",
+];
+
+/** Hair variants read off a contact sheet of all 63, not picked blind. */
+const HAIR = {
+  fem: [8, 23, 28, 36, 45, 47, 48, 57, 58, 59, 2, 13],
+  masc: [1, 5, 7, 9, 16, 19, 25, 33, 34, 40, 49, 52, 55, 60],
+  neutral: [21, 22, 26, 35, 42, 50, 53],
+} as const;
+
+function avatarFor(slug: string, order: number) {
+  const femIndex = PRESENTS_FEM.indexOf(slug);
+  const mascIndex = PRESENTS_MASC.indexOf(slug);
+  const [group, i] =
+    femIndex >= 0
+      ? (["fem", femIndex] as const)
+      : mascIndex >= 0
+        ? (["masc", mascIndex] as const)
+        : (["neutral", order] as const);
+
+  const pool = HAIR[group];
+  const hair = `variant${String(pool[i % pool.length]).padStart(2, "0")}`;
+  const beard = group === "masc" && i % 3 === 0 ? 100 : 0;
+
+  return (
+    `https://api.dicebear.com/9.x/notionists/png?seed=${encodeURIComponent(slug)}` +
+    `&hair=${hair}&beardProbability=${beard}` +
+    `&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256`
+  );
 }
 
 const ALL = [...ROWS, ...UNCLAIMED];
 
 const profiles = Object.fromEntries(
-  ALL.map((r) => [
+  ALL.map((r, order) => [
     r.slug,
     {
       // Shaped exactly like the live service's ProfileResponse, so tier 1 and
@@ -134,7 +179,7 @@ const profiles = Object.fromEntries(
         headline: r.headline,
         follower_count: r.followers,
         location: `${r.city}, ${r.country}`,
-        images: { profile_picture: avatarFor(r.slug), background_picture: null },
+        images: { profile_picture: avatarFor(r.slug, order), background_picture: null },
       },
       limitations: [],
       // Seed-only. The importer strips underscore keys before storing, and the

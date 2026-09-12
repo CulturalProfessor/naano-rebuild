@@ -130,6 +130,7 @@ export async function sendOffer(
   });
 
   revalidatePath("/brand");
+  revalidatePath("/brand/campaigns");
   return { ok: `Offer sent to ${creator.displayName}.` };
 }
 
@@ -248,6 +249,7 @@ export async function acceptOffer(
 
   revalidatePath("/creator");
   revalidatePath("/brand");
+  revalidatePath("/brand/campaigns");
   return { ok: "Booking confirmed." };
 }
 
@@ -269,6 +271,7 @@ export async function declineOffer(
 
   revalidatePath("/creator");
   revalidatePath("/brand");
+  revalidatePath("/brand/campaigns");
   return { ok: "Declined." };
 }
 
@@ -312,6 +315,7 @@ export async function counterOffer(
 
   revalidatePath("/creator");
   revalidatePath("/brand");
+  revalidatePath("/brand/campaigns");
   return { ok: "Counter sent. The brand answers on the same clock." };
 }
 
@@ -345,6 +349,7 @@ export async function respondToCounter(
       data: { status: "declined" },
     });
     revalidatePath("/brand");
+  revalidatePath("/brand/campaigns");
     revalidatePath("/creator");
     return { ok: "Counter declined." };
   }
@@ -359,6 +364,7 @@ export async function respondToCounter(
 
   await createBookingFromOffer(offer.id, price);
   revalidatePath("/brand");
+  revalidatePath("/brand/campaigns");
   revalidatePath("/creator");
   return { ok: "Counter accepted. The booking is live." };
 }

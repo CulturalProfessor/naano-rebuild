@@ -63,5 +63,6 @@ export async function submitLead(
   revalidatePath(`/brand/bookings/${booking.id}`);
   revalidatePath(`/creator/bookings/${booking.id}`);
   revalidatePath("/brand");
+  revalidatePath("/brand/campaigns");
   return { ok: "Thanks. The team will be in touch." };
 }

@@ -170,6 +170,7 @@ export async function respondToApplication(
 
   revalidatePath("/brand/offers");
   revalidatePath("/brand");
+  revalidatePath("/brand/campaigns");
   revalidatePath("/creator");
   revalidatePath("/creator/opportunities");
   return { ok: `Booked ${application.creator.displayName} at ${formatEuros(price)}.` };

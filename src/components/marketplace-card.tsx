@@ -6,6 +6,7 @@ import {
   DASH,
   bundleEconomics,
 } from "@/lib/pricing";
+import { CardAvatar } from "@/components/card-avatar";
 
 /**
  * The marketplace card.
@@ -43,15 +44,6 @@ function flagEmoji(countryCode: string) {
       .split("")
       .map((c) => 0x1f1e6 + c.charCodeAt(0) - 65),
   );
-}
-
-function initials(name: string) {
-  return name
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((p) => p[0])
-    .join("")
-    .toUpperCase();
 }
 
 function LinkedInGlyph() {
@@ -140,16 +132,20 @@ export function MarketplaceCard({
         <span className="absolute left-4 top-4 grid h-8 w-8 place-items-center rounded-[10px] bg-white/95">
           <LinkedInGlyph />
         </span>
-        <span className="absolute left-1/2 top-5 -translate-x-1/2 font-display text-sm font-bold tracking-tight text-white/95">
-          naano
-        </span>
+        {!reading && (
+          <span className="absolute left-1/2 top-5 -translate-x-1/2 font-display text-sm font-bold tracking-tight text-white/95">
+            naano
+          </span>
+        )}
         {flag && !reading && (
           <span className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-[10px] bg-white/95 text-base">
             <span title={creator.country}>{flag}</span>
           </span>
         )}
         {reading && (
-          <span className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-pill bg-white px-3 py-1.5 text-xs font-medium text-ink shadow-[var(--shadow-card)]">
+          // Where the wordmark sits, not the header's midpoint: the avatar
+          // well starts 56px down and the two were overlapping.
+          <span className="absolute left-1/2 top-3.5 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-pill bg-white px-3 py-1.5 text-xs font-medium text-ink shadow-[var(--shadow-card)]">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand" />
             Reading your profile…
           </span>
@@ -159,20 +155,7 @@ export function MarketplaceCard({
       {/* avatar */}
       <div className="relative z-10 -mt-10 flex shrink-0 justify-center">
         <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full bg-surface-3 ring-4 ring-white">
-          {creator.avatarUrl ? (
-            // Seeded avatars are illustrated and deterministic. A plain img
-            // keeps a dead image host from taking the card down with it.
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={creator.avatarUrl}
-              alt=""
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div className="grid h-full w-full place-items-center font-display text-2xl font-semibold text-ink-mute">
-              {creator.displayName ? initials(creator.displayName) : "?"}
-            </div>
-          )}
+          <CardAvatar src={creator.avatarUrl} displayName={creator.displayName} />
         </div>
       </div>
 

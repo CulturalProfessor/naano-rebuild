@@ -5,6 +5,7 @@ import { LinkPending } from "@/components/link-pending";
 import { CardGridSkeleton, Skeleton } from "@/components/loading";
 import { listCreators, countriesInMarketplace, INDUSTRIES } from "@/lib/queries";
 import { formatEuros } from "@/lib/pricing";
+import { currentAccount } from "@/lib/session";
 
 export const metadata = {
   title: "Creator marketplace — naano",
@@ -46,10 +47,12 @@ async function CreatorGrid({
   industry,
   country,
   cap,
+  asCreator,
 }: {
   industry?: string;
   country?: string;
   cap?: number;
+  asCreator: boolean;
 }) {
   const creators = await listCreators({
     industries: industry ? [industry] : undefined,
@@ -63,8 +66,9 @@ async function CreatorGrid({
     <>
       <p className="-mt-4 mb-8 max-w-2xl text-ink-soft">
         {creators.length} vetted LinkedIn creator{creators.length === 1 ? "" : "s"}.
-        Price is derived from audience, so a card is bookable the day it goes
-        live.
+        {asCreator
+          ? " This is exactly what a brand sees when they browse, yours included. Price is derived from audience, so every card is bookable the day it goes live."
+          : " Price is derived from audience, so a card is bookable the day it goes live."}
         {pending > 0 && (
           <>
             {" "}
@@ -132,7 +136,14 @@ export default async function MarketplacePage({
   const country = typeof sp.country === "string" ? sp.country : undefined;
   const cap = typeof sp.cap === "string" ? Number(sp.cap) : undefined;
 
-  const countries = await countriesInMarketplace();
+  const [countries, viewer] = await Promise.all([
+    countriesInMarketplace(),
+    currentAccount(),
+  ]);
+  // The same grid answers a different question depending on who is looking.
+  // A creator is not shopping; they are seeing where their own card sits and
+  // what the going rate is, and the heading should say so.
+  const asCreator = viewer?.role === "creator";
 
   const qs = (patch: Record<string, string | undefined>) => {
     const next = new URLSearchParams();
@@ -150,7 +161,9 @@ export default async function MarketplacePage({
             Creator marketplace
           </p>
           <h1 className="mt-2 font-display text-4xl">
-            Find creators your buyers already trust.
+            {asCreator
+              ? "See where your card sits."
+              : "Find creators your buyers already trust."}
           </h1>
         </header>
 
@@ -216,7 +229,12 @@ export default async function MarketplacePage({
           key={`${industry ?? ""}|${country ?? ""}|${cap ?? ""}`}
           fallback={<GridFallback />}
         >
-          <CreatorGrid industry={industry} country={country} cap={cap} />
+          <CreatorGrid
+            industry={industry}
+            country={country}
+            cap={cap}
+            asCreator={asCreator}
+          />
         </Suspense>
       </div>
     </main>

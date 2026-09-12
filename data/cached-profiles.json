@@ -26,7 +26,7 @@
       "follower_count": 8200,
       "location": "Lisbon, Portugal",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=nina-costa&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=nina-costa&hair=variant08&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -65,7 +65,7 @@
       "follower_count": 11400,
       "location": "Stockholm, Sweden",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=tomas-berg&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=tomas-berg&hair=variant01&beardProbability=100&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -104,7 +104,7 @@
       "follower_count": 5600,
       "location": "London, United Kingdom",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=amara-okafor&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=amara-okafor&hair=variant23&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -143,7 +143,7 @@
       "follower_count": 9800,
       "location": "Milan, Italy",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=luca-ferrari&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=luca-ferrari&hair=variant05&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -182,7 +182,7 @@
       "follower_count": 4300,
       "location": "Amsterdam, Netherlands",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=sofie-jansen&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=sofie-jansen&hair=variant28&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -221,7 +221,7 @@
       "follower_count": 6700,
       "location": "Nairobi, Kenya",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=daniel-mwangi&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=daniel-mwangi&hair=variant07&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -260,7 +260,7 @@
       "follower_count": 7900,
       "location": "Paris, France",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=clara-dubois&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=clara-dubois&hair=variant36&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -299,7 +299,7 @@
       "follower_count": 5100,
       "location": "Bengaluru, India",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=ravi-menon&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=ravi-menon&hair=variant09&beardProbability=100&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -338,7 +338,7 @@
       "follower_count": 9100,
       "location": "Warsaw, Poland",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=marta-nowak&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=marta-nowak&hair=variant45&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -377,7 +377,7 @@
       "follower_count": 3800,
       "location": "Manchester, United Kingdom",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=james-whitfield&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=james-whitfield&hair=variant16&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -416,7 +416,7 @@
       "follower_count": 6400,
       "location": "Barcelona, Spain",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=ines-navarro&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=ines-navarro&hair=variant47&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -455,7 +455,7 @@
       "follower_count": 4600,
       "location": "Accra, Ghana",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=kwame-asante&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=kwame-asante&hair=variant19&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -494,7 +494,7 @@
       "follower_count": 2900,
       "location": "Berlin, Germany",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=hannah-mueller&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=hannah-mueller&hair=variant48&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -533,7 +533,7 @@
       "follower_count": 8600,
       "location": "Dublin, Ireland",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=oliver-reid&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=oliver-reid&hair=variant25&beardProbability=100&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -572,7 +572,7 @@
       "follower_count": 5900,
       "location": "Tokyo, Japan",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=yuki-tanaka&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=yuki-tanaka&hair=variant21&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -611,7 +611,7 @@
       "follower_count": 3400,
       "location": "Sofia, Bulgaria",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=elena-petrova&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=elena-petrova&hair=variant57&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -650,7 +650,7 @@
       "follower_count": 2400,
       "location": "Oslo, Norway",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=marcus-lindqvist&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=marcus-lindqvist&hair=variant33&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -689,7 +689,7 @@
       "follower_count": 4900,
       "location": "Mumbai, India",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=priya-shah&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=priya-shah&hair=variant58&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -728,7 +728,7 @@
       "follower_count": 3100,
       "location": "New York, United States",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=ben-kaplan&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=ben-kaplan&hair=variant34&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -767,7 +767,7 @@
       "follower_count": 7200,
       "location": "Copenhagen, Denmark",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=freya-andersen&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=freya-andersen&hair=variant59&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -806,7 +806,7 @@
       "follower_count": 4100,
       "location": "Sao Paulo, Brazil",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=carlos-mendes&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=carlos-mendes&hair=variant40&beardProbability=100&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -845,7 +845,7 @@
       "follower_count": 3600,
       "location": "Dubai, United Arab Emirates",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=nadia-haddad&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=nadia-haddad&hair=variant02&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -884,7 +884,7 @@
       "follower_count": 2100,
       "location": "Lagos, Nigeria",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=samuel-adeyemi&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=samuel-adeyemi&hair=variant49&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -923,7 +923,7 @@
       "follower_count": 2800,
       "location": "Singapore, Singapore",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=mei-lin-chen&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=mei-lin-chen&hair=variant13&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -962,7 +962,7 @@
       "follower_count": 1900,
       "location": "Prague, Czechia",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=alex-novak&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=alex-novak&hair=variant35&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -1001,7 +1001,7 @@
       "follower_count": 2500,
       "location": "Toronto, Canada",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=laura-kelly&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=laura-kelly&hair=variant08&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -1040,7 +1040,7 @@
       "follower_count": 6300,
       "location": "Berlin, Germany",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=dana-whitmore&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=dana-whitmore&hair=variant50&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -1080,7 +1080,7 @@
       "follower_count": 4700,
       "location": "Dublin, Ireland",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=theo-brennan&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=theo-brennan&hair=variant52&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },
@@ -1120,7 +1120,7 @@
       "follower_count": 5200,
       "location": "Karachi, Pakistan",
       "images": {
-        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=sana-iqbal&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=sana-iqbal&hair=variant23&beardProbability=0&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
         "background_picture": null
       }
     },

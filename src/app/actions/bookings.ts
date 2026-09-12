@@ -59,6 +59,7 @@ export async function submitPost(
   revalidatePath(`/creator/bookings/${booking.id}`);
   revalidatePath("/creator");
   revalidatePath("/brand");
+  revalidatePath("/brand/campaigns");
   return { ok: "Post recorded. Your tracking link is live." };
 }
 

@@ -84,6 +84,7 @@ export async function completeBooking(
   revalidatePath(`/brand/bookings/${booking.id}`);
   revalidatePath(`/creator/bookings/${booking.id}`);
   revalidatePath("/brand");
+  revalidatePath("/brand/campaigns");
   revalidatePath("/creator");
   return {
     ok: `Completed. ${booking.creator.displayName} has been credited ${formatEuros(booking.agreedPriceCents)}.`,
@@ -200,5 +201,6 @@ export async function topUpWallet(
 
   revalidatePath("/brand/billing");
   revalidatePath("/brand");
+  revalidatePath("/brand/campaigns");
   return { ok: `${formatEuros(amountCents)} added to your wallet.` };
 }
