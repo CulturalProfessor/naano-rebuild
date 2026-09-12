@@ -2,16 +2,9 @@ import "server-only";
 import { prisma } from "./db";
 import type { Prisma } from "@prisma/client";
 
-/** Every industry chip offered during creator onboarding, in recon order. */
-export const INDUSTRIES = [
-  "B2B", "B2C", "AI", "SaaS", "Software", "Sales", "Marketing", "SEO",
-  "Outreach", "CRM", "Creative", "Productivity", "Fintech", "HealthTech",
-  "EdTech", "Cybersecurity", "Growth / GTM", "HR", "E-commerce",
-  "Developer Tools", "Data / Analytics", "Customer Support", "Design",
-  "Real Estate / PropTech", "LegalTech",
-] as const;
-
-export const MAX_INDUSTRIES = 3;
+// The taxonomy lives in lib/taxonomy.ts so client components can import it
+// without dragging this server-only module into the browser bundle.
+export { INDUSTRIES, MAX_INDUSTRIES, REGIONS } from "./taxonomy";
 
 export type MarketplaceFilters = {
   industries?: string[];

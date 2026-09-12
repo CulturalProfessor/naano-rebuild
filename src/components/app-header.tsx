@@ -42,6 +42,7 @@ export async function AppHeader({
           { href: "/brand/offers", label: "Offers" },
           { href: "/brand/messages", label: "Messages", badge: unread },
           { href: "/brand/billing", label: "Billing" },
+          { href: "/brand/account", label: "Account" },
         ]
       : [
           { href: "/creator", label: "Studio" },
@@ -49,6 +50,7 @@ export async function AppHeader({
           { href: "/creator/messages", label: "Messages", badge: unread },
           { href: "/creator/earnings", label: "Earnings" },
           { href: "/marketplace", label: "Marketplace" },
+          { href: "/creator/account", label: "My card" },
         ];
 
   return (

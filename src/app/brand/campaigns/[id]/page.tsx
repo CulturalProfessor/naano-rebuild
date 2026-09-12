@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { requireBrand } from "@/lib/auth";
 import { campaignDashboard, type PostRow } from "@/lib/dashboard";
 import { AppHeader } from "@/components/app-header";
+import { CampaignStatusForm } from "./status-form";
 import {
   formatEuros,
   formatMoneyMetric,
@@ -28,18 +29,47 @@ export default async function CampaignDashboard({
 
   return (
     <>
-      <AppHeader accountId={account.id} role="brand" active="/brand" />
+      <AppHeader accountId={account.id} role="brand" active="/brand/campaigns" />
       <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
         <Link href="/brand/campaigns" className="text-sm text-ink-soft hover:text-ink">
           ← Back to campaigns
         </Link>
-        <h1 className="mt-3 font-display text-3xl">{campaign.name}</h1>
-        <p className="mt-1 text-ink-soft">
-          {totals.bookings} booking{totals.bookings === 1 ? "" : "s"} ·{" "}
-          {totals.livePosts} live post{totals.livePosts === 1 ? "" : "s"}
-          {campaign.budgetCapCents != null &&
-            ` · cap ${formatEuros(campaign.budgetCapCents)} per post`}
-        </p>
+        <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 className="font-display text-3xl">{campaign.name}</h1>
+              <span
+                className={`rounded-pill px-3 py-1 text-xs font-medium ${
+                  campaign.status === "open"
+                    ? "bg-success-soft text-ink"
+                    : "bg-surface-3 text-ink-soft"
+                }`}
+              >
+                {campaign.status}
+              </span>
+            </div>
+            <p className="mt-1 text-ink-soft">
+              {totals.bookings} booking{totals.bookings === 1 ? "" : "s"} ·{" "}
+              {totals.livePosts} live post{totals.livePosts === 1 ? "" : "s"}
+              {campaign.budgetCapCents != null &&
+                ` · cap ${formatEuros(campaign.budgetCapCents)} per post`}
+            </p>
+          </div>
+          <div className="flex shrink-0 gap-3">
+            <Link
+              href={`/brand/campaigns/${campaign.id}/edit`}
+              className="rounded-card border border-line bg-surface px-4 py-2.5 text-sm font-medium transition-colors hover:border-ink-mute"
+            >
+              Edit the brief
+            </Link>
+            <Link
+              href={`/brand/matching?campaign=${campaign.id}`}
+              className="rounded-card bg-brand px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
+            >
+              Find creators
+            </Link>
+          </div>
+        </div>
 
         {/* measured */}
         <section className="mt-8">
@@ -143,6 +173,16 @@ export default async function CampaignDashboard({
             A dash is a number we do not have. It is never a zero: zero clicks
             on a live post is a measurement, and no post yet is not.
           </p>
+        </section>
+        <section className="mt-10 rounded-panel border border-line bg-surface p-6">
+          <h2 className="font-display text-xl">Campaign status</h2>
+          <div className="mt-4">
+            <CampaignStatusForm
+              campaignId={campaign.id}
+              status={campaign.status}
+              bookingCount={totals.bookings}
+            />
+          </div>
         </section>
       </main>
     </>

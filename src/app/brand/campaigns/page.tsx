@@ -61,7 +61,15 @@ export default async function BrandCampaigns() {
         <p className="text-xs font-semibold uppercase tracking-widest text-brand">
           {brand.name}
         </p>
-        <h1 className="mt-1 font-display text-3xl">Campaigns</h1>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h1 className="mt-1 font-display text-3xl">Campaigns</h1>
+          <Link
+            href="/brand/campaigns/new"
+            className="rounded-card bg-brand px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
+          >
+            + New campaign
+          </Link>
+        </div>
 
         {(awaiting > 0 || countered > 0) && (
           <Link
@@ -121,6 +129,12 @@ export default async function BrandCampaigns() {
                 className="text-sm font-medium text-brand hover:text-brand-strong"
               >
                 Open the dashboard →
+              </Link>
+              <Link
+                href={`/brand/campaigns/${c.id}/edit`}
+                className="text-sm font-medium text-ink-soft hover:text-ink"
+              >
+                Edit the brief →
               </Link>
               <Link
                 href={`/marketplace?industry=${encodeURIComponent(c.industries[0] ?? "")}`}
