@@ -85,7 +85,7 @@ export async function countriesInMarketplace() {
 }
 
 export async function getCreatorBySlug(slug: string) {
-  return prisma.creator.findUnique({
+  const row = await prisma.creator.findUnique({
     where: { urlSlug: slug },
     select: {
       ...CARD_SELECT,
@@ -99,4 +99,6 @@ export async function getCreatorBySlug(slug: string) {
       },
     },
   });
+  // Same shape the grid hands the card, so one component serves both.
+  return row ? { ...row, bundle: row.bundles[0] ?? null } : null;
 }

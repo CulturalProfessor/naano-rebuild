@@ -217,11 +217,16 @@ model ProfileImport {
   fieldsUsed String[] @default(["name", "photo", "headline", "country", "followerCount"])
 
   errorMessage String?
+  // Hashed, never raw. Every live call spends money, so the import endpoint is
+  // rate limited per source: an unmetered importer on a public URL is the one
+  // thing in this build that can generate a bill overnight.
+  ipHash       String?
   fetchedAt    DateTime @default(now())
 
   creator Creator? @relation(fields: [creatorId], references: [id], onDelete: SetNull)
 
   @@index([urlSlug])
+  @@index([ipHash, fetchedAt])
   @@map("profile_imports")
 }
 

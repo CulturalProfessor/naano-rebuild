@@ -44,6 +44,8 @@ type CachedProfile = {
   images: { avatar: string | null };
   skills: string[];
   _seedMedianViews: number | null;
+  /** Present on profiles kept free so a live signup can claim them. */
+  _unclaimed?: boolean;
 };
 
 const INDUSTRY_BY_SLUG: Record<string, string[]> = {};
@@ -124,6 +126,9 @@ async function main() {
   const creators: Record<string, { id: string; price: number; medianViews: number | null }> = {};
 
   for (const [slug, p] of Object.entries(raw)) {
+    // Left in the cache with no creator attached, so a signup on camera has a
+    // profile to claim that resolves from tier 1 and needs no live call.
+    if (p._unclaimed) continue;
     const price = derivePricePerPostCents(p.followerCount);
     const account = await prisma.account.create({
       data: {

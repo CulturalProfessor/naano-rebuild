@@ -187,9 +187,14 @@ export function MarketplaceCard({
             {creator.industries.join(" · ")}
           </p>
         ) : (
-          <p className="mt-1 text-sm text-ink-mute">
-            Your LinkedIn headline and topics will appear here.
-          </p>
+          // Only a genuinely empty card gets the placeholder. Once a headline
+          // has arrived it carries this line, and the topics slot waits quietly
+          // for step 3 rather than talking over it.
+          !creator.headline && (
+            <p className="mt-1 text-sm text-ink-mute">
+              Your LinkedIn headline and topics will appear here.
+            </p>
+          )
         )}
         {creator.headline && (
           <p className="mt-3 line-clamp-2 text-sm text-ink">{creator.headline}</p>

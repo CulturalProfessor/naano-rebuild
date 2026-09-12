@@ -1038,5 +1038,128 @@
       "fetchedAt": "2026-09-11T00:00:00.000Z"
     },
     "_seedMedianViews": null
+  },
+  "dana-whitmore": {
+    "url": "https://www.linkedin.com/in/dana-whitmore",
+    "name": "Dana Whitmore",
+    "headline": "Product marketing for developer platforms, and the positioning work nobody budgets for",
+    "location": {
+      "city": "Berlin",
+      "country": "Germany",
+      "countryCode": "DE"
+    },
+    "about": "PMM for infrastructure products.",
+    "followerCount": 6300,
+    "images": {
+      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=dana-whitmore&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+      "banner": null
+    },
+    "experience": [
+      {
+        "title": "Product marketing for developer platforms, and the positioni",
+        "company": "Independent",
+        "startYear": 2021,
+        "endYear": null
+      }
+    ],
+    "education": [
+      {
+        "school": "—",
+        "degree": null
+      }
+    ],
+    "skills": [
+      "Positioning",
+      "Messaging",
+      "Launches"
+    ],
+    "meta": {
+      "source": "cached",
+      "fetchedAt": "2026-09-11T00:00:00.000Z"
+    },
+    "_seedMedianViews": null,
+    "_unclaimed": true
+  },
+  "theo-brennan": {
+    "url": "https://www.linkedin.com/in/theo-brennan",
+    "name": "Theo Brennan",
+    "headline": "Vertical SaaS operator writing about pricing, packaging and churn",
+    "location": {
+      "city": "Dublin",
+      "country": "Ireland",
+      "countryCode": "IE"
+    },
+    "about": "Operator, two exits, still arguing about pricing.",
+    "followerCount": 4700,
+    "images": {
+      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=theo-brennan&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+      "banner": null
+    },
+    "experience": [
+      {
+        "title": "Vertical SaaS operator writing about pricing, packaging and ",
+        "company": "Independent",
+        "startYear": 2021,
+        "endYear": null
+      }
+    ],
+    "education": [
+      {
+        "school": "—",
+        "degree": null
+      }
+    ],
+    "skills": [
+      "Pricing",
+      "Packaging",
+      "Retention"
+    ],
+    "meta": {
+      "source": "cached",
+      "fetchedAt": "2026-09-11T00:00:00.000Z"
+    },
+    "_seedMedianViews": null,
+    "_unclaimed": true
+  },
+  "sana-iqbal": {
+    "url": "https://www.linkedin.com/in/sana-iqbal",
+    "name": "Sana Iqbal",
+    "headline": "Applied AI for support teams - what deflects tickets and what annoys customers",
+    "location": {
+      "city": "Karachi",
+      "country": "Pakistan",
+      "countryCode": "PK"
+    },
+    "about": "Support automation lead.",
+    "followerCount": 5200,
+    "images": {
+      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=sana-iqbal&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+      "banner": null
+    },
+    "experience": [
+      {
+        "title": "Applied AI for support teams",
+        "company": "Independent",
+        "startYear": 2021,
+        "endYear": null
+      }
+    ],
+    "education": [
+      {
+        "school": "—",
+        "degree": null
+      }
+    ],
+    "skills": [
+      "LLMs",
+      "Deflection",
+      "CX"
+    ],
+    "meta": {
+      "source": "cached",
+      "fetchedAt": "2026-09-11T00:00:00.000Z"
+    },
+    "_seedMedianViews": null,
+    "_unclaimed": true
   }
 }

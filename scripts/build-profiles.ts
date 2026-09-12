@@ -72,13 +72,38 @@ const ROWS: Row[] = [
     }) as Row,
 ) as unknown as Row[];
 
+
+/**
+ * Unclaimed on purpose.
+ *
+ * Every other profile here is claimed by a seeded creator, which means a fresh
+ * signup could never hit the cache tier: dedupe would reject it first. These
+ * three exist in the cache with no creator attached, so a signup on camera
+ * resolves locally and deterministically, with no live call and no dependency
+ * on the profile service being up. The seed skips them via `_unclaimed`.
+ */
+const UNCLAIMED: Row[] = [
+  ["dana-whitmore", "Dana Whitmore", "Product marketing for developer platforms, and the positioning work nobody budgets for", "Berlin", "Germany", "DE", 6300, ["Marketing", "Developer Tools", "B2B"], null, "PMM for infrastructure products.", ["Positioning", "Messaging", "Launches"]],
+  ["theo-brennan", "Theo Brennan", "Vertical SaaS operator writing about pricing, packaging and churn", "Dublin", "Ireland", "IE", 4700, ["SaaS", "B2B", "Fintech"], null, "Operator, two exits, still arguing about pricing.", ["Pricing", "Packaging", "Retention"]],
+  ["sana-iqbal", "Sana Iqbal", "Applied AI for support teams - what deflects tickets and what annoys customers", "Karachi", "Pakistan", "PK", 5200, ["AI", "Customer Support", "SaaS"], null, "Support automation lead.", ["LLMs", "Deflection", "CX"]],
+].map(
+  (r) =>
+    ({
+      slug: r[0], name: r[1], headline: r[2], city: r[3], country: r[4],
+      cc: r[5], followers: r[6], industries: r[7], medianViews: r[8],
+      about: r[9], skills: r[10],
+    }) as Row,
+) as unknown as Row[];
+
 /** Illustrated, deterministic, and obviously not a photograph of a real person. */
 function avatarFor(slug: string) {
   return `https://api.dicebear.com/9.x/notionists/png?seed=${encodeURIComponent(slug)}&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256`;
 }
 
+const ALL = [...ROWS, ...UNCLAIMED];
+
 const profiles = Object.fromEntries(
-  ROWS.map((r) => [
+  ALL.map((r) => [
     r.slug,
     {
       url: `https://www.linkedin.com/in/${r.slug}`,
@@ -99,6 +124,8 @@ const profiles = Object.fromEntries(
       // Seed-only, not a service field: our own measured history for creators
       // that already have one. Null stays null all the way to the card.
       _seedMedianViews: r.medianViews,
+      // The seed skips these, leaving them free for a live signup demo.
+      _unclaimed: UNCLAIMED.some((u) => u.slug === r.slug) || undefined,
     },
   ]),
 );
@@ -109,4 +136,7 @@ writeFileSync(
   join(outDir, "cached-profiles.json"),
   JSON.stringify(profiles, null, 2) + "\n",
 );
-console.log(`wrote data/cached-profiles.json with ${ROWS.length} profiles`);
+console.log(
+  `wrote data/cached-profiles.json with ${ALL.length} profiles ` +
+    `(${UNCLAIMED.length} left unclaimed for signup demos)`,
+);
