@@ -204,3 +204,11 @@ export function normalizeLinkedinSlug(input: string): string | null {
 export function canonicalLinkedinUrl(slug: string): string {
   return `https://www.linkedin.com/in/${slug}`;
 }
+
+/**
+ * The floor of the band. The brand picks 10, 20 or 30 percent off, or types a
+ * number inside the same range, and cannot go below it. This is the rule that
+ * keeps the marketplace transactional instead of turning every booking into a
+ * negotiation, and it is the other half of deriving the price from followers.
+ */
+export const MAX_DISCOUNT_PCT = 30;

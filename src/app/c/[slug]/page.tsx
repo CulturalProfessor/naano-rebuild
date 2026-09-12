@@ -2,12 +2,26 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarketplaceCard } from "@/components/marketplace-card";
 import { getCreatorBySlug } from "@/lib/queries";
-import { deriveCpmCents, formatEuros, compactNumber, DASH } from "@/lib/pricing";
+import { deriveCpmCents, formatEuros, compactNumber, DASH, DEFAULT_POST_BY_DAYS } from "@/lib/pricing";
+import { currentAccount } from "@/lib/session";
+import { openCampaignsForBrand } from "@/lib/offers";
+import { daysFromNow, isoDate } from "@/lib/dates";
+import { OfferModal } from "@/components/offer-modal";
 
 export default async function PublicCardPage({ params }: PageProps<"/c/[slug]">) {
   const { slug } = await params;
-  const creator = await getCreatorBySlug(slug);
+  const [creator, viewer] = await Promise.all([
+    getCreatorBySlug(slug),
+    currentAccount(),
+  ]);
   if (!creator) notFound();
+
+  // A signed-in brand gets the booking flow in place of the signup call to
+  // action. Everyone else gets the invitation.
+  const campaigns =
+    viewer?.role === "brand" && viewer.brand
+      ? await openCampaignsForBrand(viewer.brand.id)
+      : [];
 
   const cpm = deriveCpmCents(creator.pricePerPostCents, creator.medianViews);
   const postsWithUs = creator.bookings.length;
@@ -80,13 +94,39 @@ export default async function PublicCardPage({ params }: PageProps<"/c/[slug]">)
             </ul>
           </div>
 
-          <div className="mt-6 flex gap-3">
-            <Link
-              href="/register/brand"
-              className="rounded-card bg-brand px-5 py-3 font-medium text-white transition-colors hover:bg-brand-strong"
-            >
-              Book {creator.displayName.split(" ")[0]}
-            </Link>
+          <div className="mt-6">
+            {viewer?.role === "brand" && campaigns.length > 0 ? (
+              <OfferModal
+                creator={{
+                  id: creator.id,
+                  displayName: creator.displayName,
+                  avatarUrl: creator.avatarUrl,
+                  headline: creator.headline,
+                  pricePerPostCents: creator.pricePerPostCents,
+                  autoRespond: creator.autoRespond,
+                  bundle: creator.bundle,
+                }}
+                campaigns={campaigns}
+                defaultPostBy={daysFromNow(DEFAULT_POST_BY_DAYS)}
+                today={isoDate(new Date())}
+                trigger={
+                  <button className="rounded-card bg-brand px-5 py-3 font-medium text-white transition-colors hover:bg-brand-strong">
+                    Book {creator.displayName.split(" ")[0]}
+                  </button>
+                }
+              />
+            ) : viewer?.role === "creator" ? (
+              <Link href="/creator" className="font-medium text-brand">
+                Back to your studio →
+              </Link>
+            ) : (
+              <Link
+                href="/register/brand"
+                className="inline-block rounded-card bg-brand px-5 py-3 font-medium text-white transition-colors hover:bg-brand-strong"
+              >
+                Book {creator.displayName.split(" ")[0]}
+              </Link>
+            )}
           </div>
         </div>
       </div>
