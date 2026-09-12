@@ -1,5 +1,4 @@
 import {
-  compactNumber,
   deriveCpmCents,
   formatEuros,
   metricOf,
