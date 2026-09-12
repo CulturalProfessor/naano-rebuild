@@ -12,6 +12,8 @@ from naano.com's own stylesheet.
 
 ---
 
+**Live at [naano-ashy.vercel.app](https://naano-ashy.vercel.app).**
+
 ## Try it as a stranger
 
 Sign up with your own public LinkedIn profile URL and you get a real card in the
