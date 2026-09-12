@@ -12,6 +12,7 @@ import {
   normalizeLinkedinSlug,
 } from "@/lib/pricing";
 import { MAX_INDUSTRIES, INDUSTRIES } from "@/lib/queries";
+import { fetchAvatarData, avatarRoute } from "@/lib/avatar";
 
 /** A cache hit resolves instantly. Hold it so the reading state is a state the
  *  creator can actually see, rather than a flash. */
@@ -51,11 +52,18 @@ async function callerIp() {
   return fwd?.split(",")[0]?.trim() || h.get("x-real-ip") || null;
 }
 
-function cardFrom(profile: ImportedProfile, industries: string[] = []): DraftCard {
+function cardFrom(
+  profile: ImportedProfile,
+  industries: string[] = [],
+  /* The copied bytes. The preview runs before the creator row exists, so there
+     is no /a/<id> to point at yet and the data URI is right for this one
+     render. Every other screen goes through the route. */
+  avatarData?: string | null,
+): DraftCard {
   return {
     displayName: deriveDisplayName(profile.fullName),
     headline: profile.headline,
-    avatarUrl: profile.avatarUrl,
+    avatarUrl: avatarData ?? profile.avatarUrl,
     country: profile.country,
     countryCode: profile.countryCode,
     followerCount: profile.followerCount,
@@ -98,6 +106,11 @@ export async function readProfile(
   }
 
   const profile = result.profile;
+
+  // Copy the picture while the signed URL is still good. Null on any failure,
+  // which leaves the card on initials rather than on a broken image.
+  const avatarData = await fetchAvatarData(profile.avatarUrl);
+
   const creator = await prisma.creator.upsert({
     where: { accountId: account.id },
     create: {
@@ -107,6 +120,7 @@ export async function readProfile(
       fullName: profile.fullName,
       displayName: deriveDisplayName(profile.fullName),
       avatarUrl: profile.avatarUrl,
+      avatarData,
       headline: profile.headline,
       country: profile.country,
       countryCode: profile.countryCode,
@@ -122,6 +136,7 @@ export async function readProfile(
       fullName: profile.fullName,
       displayName: deriveDisplayName(profile.fullName),
       avatarUrl: profile.avatarUrl,
+      avatarData,
       headline: profile.headline,
       country: profile.country,
       countryCode: profile.countryCode,
@@ -131,11 +146,21 @@ export async function readProfile(
     },
   });
 
+  // The id only exists after the upsert, so the pointer is written second.
+  // avatarUrl is what the card renders; the URL it came from lives on the
+  // ProfileImport row, which is where provenance belongs.
+  if (avatarData) {
+    await prisma.creator.update({
+      where: { id: creator.id },
+      data: { avatarUrl: avatarRoute(creator.id) },
+    });
+  }
+
   await attachImportTo(creator.id, result.slug);
 
   return {
     status: "done",
-    card: cardFrom(profile),
+    card: cardFrom(profile, [], avatarData),
     tier: result.tier,
     freshness: result.freshness,
     limitations: result.limitations,

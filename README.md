@@ -90,6 +90,15 @@ is money that goes wrong on camera.
   is one that guesses a creator's gender from their name, and a missing key, a
   timeout or the daily call cap all fall back to the template silently. The page
   says which of the two wrote the text it is showing.
+- **The profile picture is copied, not linked.** LinkedIn returns a signed CDN
+  URL a browser usually cannot load: the host refuses off-site requests and the
+  signature expires within days, so a real signup ended up with an empty circle
+  on the card they had just built. Proxying does not fix expiry, because once
+  it lapses there is nothing left to proxy. The bytes are fetched
+  server-to-server at import time, while the URL is still good, and served from
+  our own route with a year-long immutable cache. One fetch, a five-second
+  timeout, a 512KB cap, and null on any failure, which leaves the card on
+  initials rather than on a broken image.
 - **Campaigns and accounts.** Create and edit a campaign from the app rather
   than only as a side effect of signing up, and close or reopen one. No delete:
   a campaign owns offers, bookings, clicks, leads and ledger rows, and removing

@@ -157,7 +157,19 @@ model Creator {
   urlSlug     String  @unique // [D] normalized; the dedupe key
   fullName    String // [I]
   displayName String // [D] first name + last initial, as "Shubham P."
-  avatarUrl   String? // [I]
+  // [I/D] What the card renders. For a seeded creator this is the illustrated
+  // URL; for a real import it is /a/<id>, our own route over the bytes below.
+  avatarUrl   String?
+  // [D] The picture itself, copied once at import time.
+  //
+  // LinkedIn hands back a signed CDN URL that a browser usually cannot load:
+  // the host refuses off-site requests and the signature expires within days.
+  // Proxying does not help, because once it expires there is nothing left to
+  // proxy. The bytes are fetched server-to-server while the URL is still good
+  // and kept here as a data URI. Never selected on a list query: it is tens of
+  // kilobytes a row. The originating URL stays on the ProfileImport audit row,
+  // which is where provenance belongs anyway.
+  avatarData  String? @db.Text
   headline    String? // [I]
   country     String // [I], confirmed [M] in step 3
   countryCode String // [D] for the flag badge
