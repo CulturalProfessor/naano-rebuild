@@ -3,10 +3,12 @@ import { notFound } from "next/navigation";
 import { requireCreator } from "@/lib/auth";
 import { bookingForCreator, requestOrigin } from "@/lib/bookings";
 import { AppHeader } from "@/components/app-header";
+import { MessageThread } from "@/components/message-thread";
+import { threadFor, markThreadRead } from "@/lib/messages";
 import { CopyField } from "@/components/copy-field";
 import { PostForm } from "./post-form";
 import { formatEuros, compactNumber, DASH } from "@/lib/pricing";
-import { formatDay } from "@/lib/dates";
+import { formatDay, formatDayTime } from "@/lib/dates";
 
 export const metadata = { title: "Booking — naano" };
 
@@ -20,6 +22,11 @@ export default async function CreatorBooking({
     requestOrigin(),
   ]);
   if (!booking) notFound();
+
+  // Opening the booking is opening the thread, so the badge clears here too.
+  const conversation = await threadFor("creator", creator.id, booking.id);
+  const thread = conversation?.messages ?? [];
+  await markThreadRead("creator", creator.id, booking.id);
 
   const trackingUrl = `${origin}/r/${booking.trackingCode}`;
 
@@ -120,6 +127,36 @@ export default async function CreatorBooking({
             </p>
           </section>
         )}
+
+        {/* The thread, in place. The conversation belongs next to the work it
+            is about, not only in a separate inbox. */}
+        <section className="mt-8 flex min-h-[26rem] flex-col overflow-hidden rounded-panel border border-line bg-surface-2">
+          <header className="flex items-baseline justify-between gap-3 border-b border-line bg-surface px-5 py-4">
+            <div>
+              <h2 className="font-display text-xl">Messages</h2>
+              <p className="text-xs text-ink-soft">
+                Just you and {booking.brand.name}.
+              </p>
+            </div>
+            <Link
+              href="/creator/messages"
+              className="shrink-0 text-sm font-medium text-brand hover:text-brand-strong"
+            >
+              All conversations →
+            </Link>
+          </header>
+          <MessageThread
+            bookingId={booking.id}
+            viewerRole="creator"
+            counterpartName={booking.brand.name}
+            messages={thread.map((m) => ({
+              id: m.id,
+              body: m.body,
+              senderRole: m.senderRole as "brand" | "creator",
+              at: formatDayTime(m.createdAt),
+            }))}
+          />
+        </section>
       </main>
     </>
   );

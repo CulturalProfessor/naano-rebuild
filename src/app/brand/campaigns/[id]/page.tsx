@@ -30,7 +30,7 @@ export default async function CampaignDashboard({
     <>
       <AppHeader accountId={account.id} role="brand" active="/brand" />
       <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
-        <Link href="/brand" className="text-sm text-ink-soft hover:text-ink">
+        <Link href="/brand/campaigns" className="text-sm text-ink-soft hover:text-ink">
           ← Back to campaigns
         </Link>
         <h1 className="mt-3 font-display text-3xl">{campaign.name}</h1>

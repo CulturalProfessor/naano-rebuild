@@ -164,3 +164,41 @@ export async function withdrawEarnings(
   revalidatePath("/creator/earnings");
   return { ok: `${formatEuros(total)} paid out.` };
 }
+
+/**
+ * Wallet top-up.
+ *
+ * Play money, and the UI says so. There is no card processor in this build:
+ * a top-up writes one credit row and the balance moves, because the balance is
+ * a sum over the ledger rather than a column. That is the whole point of
+ * modelling it this way, and it is the same path a real settlement would take.
+ */
+export async function topUpWallet(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const { account } = await requireBrand();
+
+  const euros = Number(formData.get("amount"));
+  if (!Number.isFinite(euros) || euros <= 0) {
+    return { error: "Enter an amount above zero." };
+  }
+  if (euros > 100_000) {
+    return { error: "Keep a single top-up under €100,000." };
+  }
+
+  const amountCents = Math.round(euros * 100);
+  await prisma.ledgerEntry.create({
+    data: {
+      accountId: account.id,
+      direction: "credit",
+      amountCents,
+      kind: "wallet_topup",
+      memo: "Wallet top-up",
+    },
+  });
+
+  revalidatePath("/brand/billing");
+  revalidatePath("/brand");
+  return { ok: `${formatEuros(amountCents)} added to your wallet.` };
+}

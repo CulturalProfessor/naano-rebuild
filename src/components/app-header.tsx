@@ -2,6 +2,8 @@ import Link from "next/link";
 import { signOut } from "@/app/actions/auth";
 import { SubmitButton } from "@/components/action-button";
 import { walletBalanceCents } from "@/lib/money";
+import { unreadCountFor } from "@/lib/messages";
+import { prisma } from "@/lib/db";
 import { formatEuros } from "@/lib/pricing";
 
 /**
@@ -18,19 +20,33 @@ export async function AppHeader({
   role: "creator" | "brand";
   active?: string;
 }) {
-  const balance = await walletBalanceCents(accountId);
+  const party = role === "brand" ? "brand" : "creator";
+  const sides = await prisma.account.findUnique({
+    where: { id: accountId },
+    select: { brand: { select: { id: true } }, creator: { select: { id: true } } },
+  });
+  const partyId = party === "brand" ? sides?.brand?.id : sides?.creator?.id;
+
+  const [balance, unread] = await Promise.all([
+    walletBalanceCents(accountId),
+    partyId ? unreadCountFor(party, partyId) : Promise.resolve(0),
+  ]);
 
   const links =
     role === "brand"
       ? [
-          { href: "/brand", label: "Campaigns" },
+          { href: "/brand", label: "Overview" },
+          { href: "/brand/campaigns", label: "Campaigns" },
           { href: "/brand/matching", label: "AI matching" },
           { href: "/marketplace", label: "Marketplace" },
           { href: "/brand/offers", label: "Offers" },
+          { href: "/brand/messages", label: "Messages", badge: unread },
+          { href: "/brand/billing", label: "Billing" },
         ]
       : [
           { href: "/creator", label: "Studio" },
           { href: "/creator/opportunities", label: "Opportunities" },
+          { href: "/creator/messages", label: "Messages", badge: unread },
           { href: "/creator/earnings", label: "Earnings" },
           { href: "/marketplace", label: "Marketplace" },
         ];
@@ -52,20 +68,27 @@ export async function AppHeader({
             <Link
               key={l.href}
               href={l.href}
-              className={`shrink-0 rounded-pill px-3 py-1.5 transition-colors ${
+              className={`flex shrink-0 items-center gap-1.5 rounded-pill px-3 py-1.5 transition-colors ${
                 active === l.href
                   ? "bg-brand-soft font-medium text-brand-strong"
                   : "text-ink-soft hover:text-ink"
               }`}
             >
               {l.label}
+              {/* A count, not a dot: "3 waiting" is actionable, a dot is not. */}
+              {"badge" in l && l.badge ? (
+                <span className="grid h-4 min-w-4 place-items-center rounded-pill bg-brand px-1 text-[10px] font-semibold text-white">
+                  {l.badge}
+                </span>
+              ) : null}
             </Link>
           ))}
         </nav>
 
         <div className="ml-auto flex items-center gap-3">
-          <span
-            className="rounded-pill border border-line px-3 py-1.5 text-sm tabular-nums"
+          <Link
+            href={role === "brand" ? "/brand/billing" : "/creator/earnings"}
+            className="rounded-pill border border-line px-3 py-1.5 text-sm tabular-nums transition-colors hover:border-ink-mute"
             title={
               role === "brand"
                 ? "Play money. Every balance is a sum over the ledger."
@@ -73,7 +96,7 @@ export async function AppHeader({
             }
           >
             {formatEuros(balance)}
-          </span>
+          </Link>
           <form action={signOut}>
             <SubmitButton variant="quiet" size="sm" pendingLabel="Signing out…">
               Sign out

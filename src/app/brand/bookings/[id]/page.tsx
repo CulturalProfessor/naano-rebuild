@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 import { requireBrand } from "@/lib/auth";
 import { bookingForBrand, requestOrigin } from "@/lib/bookings";
 import { AppHeader } from "@/components/app-header";
+import { MessageThread } from "@/components/message-thread";
+import { threadFor, markThreadRead } from "@/lib/messages";
 import { CopyField } from "@/components/copy-field";
 import { formatEuros, compactNumber, deriveCpmCents, DASH } from "@/lib/pricing";
-import { formatDay } from "@/lib/dates";
+import { formatDay, formatDayTime } from "@/lib/dates";
 import { CompleteForm } from "./complete-form";
 
 export const metadata = { title: "Booking — naano" };
@@ -21,6 +23,11 @@ export default async function BrandBooking({
   ]);
   if (!booking) notFound();
 
+  // Opening the booking is opening the thread, so the badge clears here too.
+  const conversation = await threadFor("brand", brand.id, booking.id);
+  const thread = conversation?.messages ?? [];
+  await markThreadRead("brand", brand.id, booking.id);
+
   const views = booking.selfReportedViews;
   const cpm = deriveCpmCents(booking.agreedPriceCents, views);
   const clicks = booking._count.clicks;
@@ -31,7 +38,7 @@ export default async function BrandBooking({
     <>
       <AppHeader accountId={account.id} role="brand" active="/brand" />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-10">
-        <Link href="/brand" className="text-sm text-ink-soft hover:text-ink">
+        <Link href="/brand/campaigns" className="text-sm text-ink-soft hover:text-ink">
           ← Back to campaigns
         </Link>
 
@@ -150,6 +157,36 @@ export default async function BrandBooking({
           <p className="rounded-card bg-brand-soft px-4 py-3 text-sm">
             {booking.campaign.briefGuardrail}
           </p>
+        </section>
+
+        {/* The thread, in place. The conversation belongs next to the work it
+            is about, not only in a separate inbox. */}
+        <section className="mt-8 flex min-h-[26rem] flex-col overflow-hidden rounded-panel border border-line bg-surface-2">
+          <header className="flex items-baseline justify-between gap-3 border-b border-line bg-surface px-5 py-4">
+            <div>
+              <h2 className="font-display text-xl">Messages</h2>
+              <p className="text-xs text-ink-soft">
+                Just you and {booking.creator.displayName}.
+              </p>
+            </div>
+            <Link
+              href="/brand/messages"
+              className="shrink-0 text-sm font-medium text-brand hover:text-brand-strong"
+            >
+              All conversations →
+            </Link>
+          </header>
+          <MessageThread
+            bookingId={booking.id}
+            viewerRole="brand"
+            counterpartName={booking.creator.displayName}
+            messages={thread.map((m) => ({
+              id: m.id,
+              body: m.body,
+              senderRole: m.senderRole as "brand" | "creator",
+              at: formatDayTime(m.createdAt),
+            }))}
+          />
         </section>
       </main>
     </>

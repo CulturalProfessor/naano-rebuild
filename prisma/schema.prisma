@@ -115,9 +115,10 @@ model Account {
   createdAt    DateTime @default(now())
   lastSeenAt   DateTime @default(now())
 
-  brand   Brand?
-  creator Creator?
-  ledger  LedgerEntry[]
+  brand    Brand?
+  creator  Creator?
+  ledger   LedgerEntry[]
+  messages Message[]
 
   @@map("accounts")
 }
@@ -364,16 +365,22 @@ model Booking {
   createdAt   DateTime  @default(now())
   completedAt DateTime?
 
+  // The thread's read marks. Unread is "their messages newer than my mark",
+  // which is one comparison rather than a per-message flag two people write.
+  brandReadAt   DateTime?
+  creatorReadAt DateTime?
+
   offer       Offer?       @relation(fields: [offerId], references: [id], onDelete: SetNull)
   application Application? @relation(fields: [applicationId], references: [id], onDelete: SetNull)
   campaign    Campaign     @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   creator     Creator      @relation(fields: [creatorId], references: [id], onDelete: Cascade)
   brand       Brand        @relation(fields: [brandId], references: [id], onDelete: Cascade)
 
-  clicks  ClickEvent[]
-  leads   Lead[]
-  payout  Payout?
-  ledger  LedgerEntry[]
+  clicks   ClickEvent[]
+  leads    Lead[]
+  payout   Payout?
+  ledger   LedgerEntry[]
+  messages Message[]
 
   @@index([creatorId, status])
   @@index([brandId, status])
@@ -425,6 +432,28 @@ model Lead {
 // ---------------------------------------------------------------- money
 // Three ledger rows per booking: a hold at accepted, a charge at completed,
 // a payout at paid. Every balance is a sum over this table.
+
+/// The thread attached to one booking.
+///
+/// Not a general inbox. A message only exists inside a deal both sides already
+/// agreed to, which is what makes every thread addressable without a contacts
+/// model, a block list or a spam surface. The counter-offer note stays where it
+/// is: it is part of the terms, not of the conversation.
+model Message {
+  id        String  @id @default(cuid())
+  bookingId String
+  accountId String
+
+  senderRole Role // [D] denormalised so a thread renders without joining accounts
+  body       String
+  createdAt  DateTime @default(now())
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId, createdAt])
+  @@map("messages")
+}
 
 model LedgerEntry {
   id        String  @id @default(cuid())

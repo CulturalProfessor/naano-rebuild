@@ -82,11 +82,20 @@ is money that goes wrong on camera.
 
 ## What is stubbed, and why
 
-- **The matcher.** A deterministic scorer over topic overlap, region, budget and
-  reach, and a template that writes the rationale out of the reasons that scorer
-  actually used. No model call. It is reproducible, it cannot name a creator who
-  is not in the database, it needs no API key, and it costs nothing when a
-  stranger hammers it. The page says all of this rather than implying otherwise.
+- **The matcher.** The ranking is a deterministic scorer over topic overlap,
+  region, budget and reach. No model ranks anything, so the shortlist is
+  reproducible and cannot contain a creator who is not in the database. A model
+  is then handed that scorer's own reasons and asked only to write them up, and
+  it is held to it: a reply naming anyone outside the shortlist is discarded, so
+  is one that guesses a creator's gender from their name, and a missing key, a
+  timeout or the daily call cap all fall back to the template silently. The page
+  says which of the two wrote the text it is showing.
+- **Messaging.** One thread per booking, both sides, with unread counts. Not a
+  general inbox: a message only exists inside a deal both parties already
+  agreed to, which is the whole access model and is why there is no contacts
+  list, no block list and no spam surface. No realtime either — messages land
+  on the next render, because claiming live delivery with a poll would be the
+  same kind of lie as an estimated impression count.
 - **Payments.** No Stripe. A wallet top-up writes a ledger row and a payout flips
   a status. The money model is the thing worth judging and the ledger shows it
   completely; a redirect and a webhook would show nothing new.
@@ -120,7 +129,7 @@ is money that goes wrong on camera.
 - **The Deal Link and the 25% referral share.** The best business idea in the
   product and it produces nothing visible inside five minutes: it pays out months
   later and has no state either side can watch.
-- **EN/FR toggle, multi-network, messaging, the MCP connector, notifications,
+- **EN/FR toggle, multi-network, the MCP connector, notifications,
   teams and seats, invoice PDFs, disputes, the vetting queue, multi-currency.**
   Each is real surface. None is on the line from search to bank balance.
 

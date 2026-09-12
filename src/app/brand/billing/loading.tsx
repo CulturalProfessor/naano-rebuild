@@ -1,5 +1,5 @@
 import { AppPageLoading } from "@/components/app-loading";
 
 export default function Loading() {
-  return <AppPageLoading title="Overview" width="max-w-5xl" panels={2} rows={0} />;
+  return <AppPageLoading title="Billing" panels={2} rows={0} />;
 }

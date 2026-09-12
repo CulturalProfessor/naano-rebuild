@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { openCampaignsForBrand } from "@/lib/offers";
 import { INDUSTRIES } from "@/lib/queries";
 import { AppHeader } from "@/components/app-header";
+import { rationaleFromModel, type RationaleSource } from "@/lib/ai";
 import { OfferModal } from "@/components/offer-modal";
 import {
   scoreMatch,
@@ -52,6 +53,7 @@ export default async function Matching({
 
   let ranked: Ranked[] = [];
   let rationale: string[] = [];
+  let rationaleSource: RationaleSource = "template";
 
   if (prompt && campaignRow) {
     const parsed = parsePrompt(prompt, INDUSTRIES);
@@ -100,7 +102,15 @@ export default async function Matching({
       )
       .slice(0, parsed.count);
 
+    // The template is computed first and always. The model is asked to say the
+    // same conclusions better, and anything short of a clean, verified answer
+    // leaves the template in place.
     rationale = buildRationale(brand.name, ranked, criteria);
+    const written = await rationaleFromModel(brand.name, prompt, ranked);
+    if (written) {
+      rationale = written;
+      rationaleSource = "model";
+    }
   }
 
   return (
@@ -169,11 +179,12 @@ export default async function Matching({
         )}
 
         <p className="mt-6 rounded-card bg-surface-3 px-4 py-3 text-xs text-ink-soft">
-          Nao ranks with a scorer over topic overlap, region, budget and reach,
-          and writes the answer from a template built out of the reasons that
-          scorer used. There is no model call behind it in this build, which is
-          why it cannot name a creator who is not in the marketplace, and why
-          the same question gives the same answer twice.
+          Nao ranks with a scorer over topic overlap, region, budget and reach.
+          The ranking is entirely that scorer, so it cannot name a creator who
+          is not in the marketplace and the same question gives the same
+          shortlist twice. A model is then handed those reasons and asked only
+          to write them up; it moves nobody, and a reply that names anyone
+          outside the shortlist is thrown away for the template version.
         </p>
 
         {prompt && (
@@ -182,12 +193,22 @@ export default async function Matching({
               {prompt}
             </p>
 
-            <div className="mt-5 space-y-3 rounded-panel border border-line bg-surface p-6">
-              {rationale.map((para, i) => (
-                <p key={i} className={i === 0 ? "font-medium" : "text-ink-soft"}>
-                  {para}
-                </p>
-              ))}
+            <div className="mt-5 rounded-panel border border-line bg-surface p-6">
+              <div className="space-y-3">
+                {rationale.map((para, i) => (
+                  <p key={i} className={i === 0 ? "font-medium" : "text-ink-soft"}>
+                    {para}
+                  </p>
+                ))}
+              </div>
+              {/* Which one wrote this is a fact about the answer, so it is on
+                  the answer rather than in a footnote. Same rule as the
+                  self-reported label on a view count. */}
+              <p className="mt-4 border-t border-line pt-3 text-xs text-ink-mute">
+                {rationaleSource === "model"
+                  ? "Written by a model from the scorer's own reasons. It ranked nothing, and a reply naming anyone outside this shortlist is discarded."
+                  : "Written from a template out of the scorer's own reasons. No model call was made or it did not return a usable answer."}
+              </p>
             </div>
 
             <ol className="mt-5 space-y-3">

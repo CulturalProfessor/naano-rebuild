@@ -68,6 +68,7 @@ async function main() {
 
   console.log("clearing…");
   // Order matters: children first. Accounts cascade to brand/creator.
+  await prisma.message.deleteMany();
   await prisma.ledgerEntry.deleteMany();
   await prisma.payout.deleteMany();
   await prisma.lead.deleteMany();
@@ -419,6 +420,59 @@ async function main() {
         scheduledFor: daysAgo(Math.max(1, h.postedDaysAgo - 5)),
         paidAt: daysAgo(Math.max(1, h.postedDaysAgo - 7)),
       },
+    });
+    // A short exchange on every completed booking. Threads that open empty
+    // were the reason chat was cut in the first place; seeded history is what
+    // makes the screen worth having.
+    const brandAccountId = (
+      await prisma.brand.findUniqueOrThrow({
+        where: { id: brand.id },
+        select: { accountId: true },
+      })
+    ).accountId;
+    const creatorAccountId = (
+      await prisma.creator.findUniqueOrThrow({
+        where: { id: creator.id },
+        select: { accountId: true },
+      })
+    ).accountId;
+
+    const exchange: [("brand" | "creator"), string, number][] = [
+      [
+        "brand",
+        "Thanks for taking this one. The only hard ask is the tracking link in the post itself, everything else is yours.",
+        h.postedDaysAgo + 5,
+      ],
+      [
+        "creator",
+        "Understood. I will open with the problem rather than the product and put the link at the end.",
+        h.postedDaysAgo + 4,
+      ],
+      [
+        "creator",
+        "Posted this morning, URL is on the booking. I will send the view count once it settles.",
+        h.postedDaysAgo,
+      ],
+      [
+        "brand",
+        `Seeing the clicks come through, ${clicks} so far. Completing it now so your payout schedules.`,
+        Math.max(1, h.postedDaysAgo - 7),
+      ],
+    ];
+
+    await prisma.message.createMany({
+      data: exchange.map(([role, body, ago]) => ({
+        bookingId: booking.id,
+        accountId: role === "brand" ? brandAccountId : creatorAccountId,
+        senderRole: role,
+        body,
+        createdAt: daysAgo(ago),
+      })),
+    });
+    // The brand has read its own thread; the creator has not seen the last one.
+    await prisma.booking.update({
+      where: { id: booking.id },
+      data: { brandReadAt: new Date() },
     });
   }
   console.log(`seeded ${history.length} completed bookings with clicks and leads`);
