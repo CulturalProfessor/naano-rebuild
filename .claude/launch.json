@@ -1,6 +1,14 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "naano", "runtimeExecutable": "pnpm", "runtimeArgs": ["dev"], "port": 3000 }
+    {
+      "name": "naano",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "dev"
+      ],
+      "port": 3000,
+      "autoPort": true
+    }
   ]
 }

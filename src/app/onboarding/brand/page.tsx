@@ -133,6 +133,24 @@ export default async function BrandOnboardingPage() {
               />
             </label>
 
+            <label className="block">
+              <span className="text-xs font-semibold uppercase tracking-wide text-ink-soft">
+                What one customer is worth to you (optional)
+              </span>
+              <input
+                name="dealValue"
+                type="number"
+                min={0}
+                placeholder="5000"
+                className="mt-1.5 w-full rounded-card border border-line bg-surface px-3.5 py-3 outline-none focus:border-brand"
+              />
+              <span className="mt-1.5 block text-xs text-ink-soft">
+                naano cannot read your CRM, so estimated pipeline is lead count
+                times this number, and this number is shown next to every total
+                it produces.
+              </span>
+            </label>
+
             <button
               type="submit"
               className="w-full rounded-card bg-brand px-4 py-3 font-medium text-white transition-colors hover:bg-brand-strong"

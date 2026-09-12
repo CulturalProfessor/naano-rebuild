@@ -182,6 +182,7 @@ async function main() {
         regions: ["Europe", "North America"],
         cap: 150000,
         deadlineDays: 14,
+        dealValue: 480000,
       },
     },
     {
@@ -202,6 +203,7 @@ async function main() {
         regions: ["Europe", "North America"],
         cap: 100000,
         deadlineDays: 14,
+        dealValue: 350000,
       },
     },
     {
@@ -222,6 +224,7 @@ async function main() {
         regions: ["Europe"],
         cap: 90000,
         deadlineDays: 21,
+        dealValue: 420000,
       },
     },
     {
@@ -242,6 +245,7 @@ async function main() {
         regions: ["Europe", "North America"],
         cap: 200000,
         deadlineDays: 14,
+        dealValue: 520000,
       },
     },
   ];
@@ -277,6 +281,10 @@ async function main() {
         regions: b.campaign.regions,
         budgetCapCents: b.campaign.cap,
         postDeadlineDays: b.campaign.deadlineDays,
+        // The multiplier behind "estimated pipeline". Shown next to every
+        // total it feeds, because a euro figure without its assumption is the
+        // same sin as an invented impression count.
+        assumedDealValueCents: b.campaign.dealValue,
         status: "open",
       },
     });
@@ -308,15 +316,14 @@ async function main() {
     ctrPerMille: number;
     /** leads per 100 clicks */
     conversionPct: number;
-    dealValueCents: number;
     postedDaysAgo: number;
   }[] = [
-    { brand: "orbisearch", creator: "tomas-berg", discountPct: 10, ctrPerMille: 27, conversionPct: 2.0, dealValueCents: 480000, postedDaysAgo: 26 },
-    { brand: "orbisearch", creator: "ravi-menon", discountPct: 0, ctrPerMille: 31, conversionPct: 2.6, dealValueCents: 480000, postedDaysAgo: 19 },
-    { brand: "orbisearch", creator: "hannah-mueller", discountPct: 20, ctrPerMille: 29, conversionPct: 3.4, dealValueCents: 480000, postedDaysAgo: 12 },
-    { brand: "premium-inboxes", creator: "clara-dubois", discountPct: 10, ctrPerMille: 30, conversionPct: 2.3, dealValueCents: 350000, postedDaysAgo: 22 },
-    { brand: "premium-inboxes", creator: "elena-petrova", discountPct: 20, ctrPerMille: 33, conversionPct: 2.9, dealValueCents: 350000, postedDaysAgo: 9 },
-    { brand: "huxley-hr", creator: "amara-okafor", discountPct: 0, ctrPerMille: 28, conversionPct: 2.5, dealValueCents: 420000, postedDaysAgo: 15 },
+    { brand: "orbisearch", creator: "tomas-berg", discountPct: 10, ctrPerMille: 27, conversionPct: 2.0, postedDaysAgo: 26 },
+    { brand: "orbisearch", creator: "ravi-menon", discountPct: 0, ctrPerMille: 31, conversionPct: 2.6, postedDaysAgo: 19 },
+    { brand: "orbisearch", creator: "hannah-mueller", discountPct: 20, ctrPerMille: 29, conversionPct: 3.4, postedDaysAgo: 12 },
+    { brand: "premium-inboxes", creator: "clara-dubois", discountPct: 10, ctrPerMille: 30, conversionPct: 2.3, postedDaysAgo: 22 },
+    { brand: "premium-inboxes", creator: "elena-petrova", discountPct: 20, ctrPerMille: 33, conversionPct: 2.9, postedDaysAgo: 9 },
+    { brand: "huxley-hr", creator: "amara-okafor", discountPct: 0, ctrPerMille: 28, conversionPct: 2.5, postedDaysAgo: 15 },
   ];
 
   for (const h of history) {
@@ -382,7 +389,7 @@ async function main() {
         email: `lead${i + 1}.${h.creator}@example.com`,
         company: `Company ${String.fromCharCode(65 + (i % 26))}${i}`,
         occurredAt: daysAgo(Math.max(0, h.postedDaysAgo - Math.floor((i / leads) * 7))),
-        pipelineValueCents: h.dealValueCents,
+        pipelineValueCents: brandRows.find((b) => b.slug === h.brand)!.campaign.dealValue,
       })),
     });
 

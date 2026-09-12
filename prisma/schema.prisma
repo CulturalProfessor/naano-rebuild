@@ -262,6 +262,13 @@ model Campaign {
   postDeadlineDays Int     @default(14)
   budgetCapCents  Int? // the "EUR 1500 cap" the matcher honoured
 
+  // The softest number in the model, and the reason it is a column rather than
+  // a hidden constant: estimated pipeline is lead count times this, and the UI
+  // shows this multiplier next to the total. Real pipeline value comes out of a
+  // CRM we are not integrating, so we say what we assumed instead of implying
+  // we measured it. [S]
+  assumedDealValueCents Int @default(500000)
+
   status    CampaignStatus @default(open)
   createdAt DateTime       @default(now())
 

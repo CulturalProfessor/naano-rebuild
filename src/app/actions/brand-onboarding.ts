@@ -39,6 +39,7 @@ export async function saveBrandProfile(formData: FormData) {
     .filter((i) => (INDUSTRIES as readonly string[]).includes(i));
 
   const budgetEuros = Number(formData.get("budgetCap"));
+  const dealValueEuros = Number(formData.get("dealValue"));
 
   const slugBase = name
     .toLowerCase()
@@ -85,6 +86,12 @@ export async function saveBrandProfile(formData: FormData) {
     budgetCapCents: Number.isFinite(budgetEuros) && budgetEuros > 0
       ? Math.round(budgetEuros * 100)
       : null,
+    // Estimated pipeline is lead count times this, and the dashboard shows the
+    // multiplier next to the total. A brand that does not state one keeps the
+    // default, and the default is shown too.
+    ...(Number.isFinite(dealValueEuros) && dealValueEuros > 0
+      ? { assumedDealValueCents: Math.round(dealValueEuros * 100) }
+      : {}),
     status: "open" as const,
   };
 
