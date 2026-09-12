@@ -400,9 +400,14 @@ async function main() {
     });
     await prisma.ledgerEntry.createMany({
       data: [
-        { accountId: brand.accountId, bookingId: booking.id, direction: "debit", amountCents: priceCents, kind: "booking_charge", memo: "Post published", createdAt: daysAgo(h.postedDaysAgo) },
-        { accountId: creatorAccount.accountId, bookingId: booking.id, direction: "credit", amountCents: priceCents, kind: "creator_earning", memo: "Post published", createdAt: daysAgo(h.postedDaysAgo) },
-        { accountId: creatorAccount.accountId, bookingId: booking.id, direction: "debit", amountCents: priceCents, kind: "payout", memo: "Paid out", createdAt: daysAgo(Math.max(1, h.postedDaysAgo - 7)) },
+        // The same three rows the live path writes: a hold on the brand at
+        // acceptance, an earning credited to the creator at completion, and a
+        // payout debited when they withdraw. The hold is the charge; the
+        // agreed price is frozen at acceptance and never moves, so a second
+        // brand debit would charge them twice.
+        { accountId: brand.accountId, bookingId: booking.id, direction: "debit", amountCents: priceCents, kind: "booking_hold", memo: "Booking accepted — funds held", createdAt: daysAgo(h.postedDaysAgo + 6) },
+        { accountId: creatorAccount.accountId, bookingId: booking.id, direction: "credit", amountCents: priceCents, kind: "creator_earning", memo: "Post published — earning credited", createdAt: daysAgo(h.postedDaysAgo) },
+        { accountId: creatorAccount.accountId, bookingId: booking.id, direction: "debit", amountCents: priceCents, kind: "payout", memo: "Payout sent", createdAt: daysAgo(Math.max(1, h.postedDaysAgo - 7)) },
       ],
     });
     await prisma.payout.create({

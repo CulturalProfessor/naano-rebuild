@@ -86,26 +86,45 @@ export function OfferRow({
 
         <div className="text-right">
           <div className="font-display text-2xl font-semibold tracking-tight">
-            {formatEuros(offer.offerPriceCents)}
+            {formatEuros(
+              offer.status === "countered" && offer.counterPriceCents != null
+                ? offer.counterPriceCents
+                : offer.offerPriceCents,
+            )}
           </div>
-          {offer.discountPct > 0 && (
+          {offer.status === "countered" && offer.counterPriceCents != null ? (
             <p className="text-xs text-ink-soft">
-              <span className="line-through">{formatEuros(offer.listPriceCents)}</span>{" "}
-              listed · {offer.discountPct}% off
+              your counter · they offered {formatEuros(offer.offerPriceCents)}
             </p>
+          ) : (
+            offer.discountPct > 0 && (
+              <p className="text-xs text-ink-soft">
+                <span className="line-through">
+                  {formatEuros(offer.listPriceCents)}
+                </span>{" "}
+                listed · {offer.discountPct}% off
+              </p>
+            )
           )}
         </div>
       </div>
 
       <div className="grid gap-4 px-5 py-4 sm:grid-cols-2">
         <Field label="Post by">{offer.postBy}</Field>
-        <Field label={live ? "Answer within" : "Status"}>
-          {live ? (
-            <Countdown
-              expiresAt={offer.expiresAt}
-              serverNow={serverNow}
-              expiresLabel={offer.expiresLabel}
-            />
+        <Field label={live || offer.status === "countered" ? "Answer within" : "Status"}>
+          {live || (offer.status === "countered" && new Date(offer.expiresAt) > new Date()) ? (
+            <>
+              <Countdown
+                expiresAt={offer.expiresAt}
+                serverNow={serverNow}
+                expiresLabel={offer.expiresLabel}
+              />
+              {offer.status === "countered" && (
+                <span className="ml-2 text-sm font-normal text-ink-soft">
+                  waiting on the brand
+                </span>
+              )}
+            </>
           ) : (
             <StatusLabel status={offer.status} />
           )}

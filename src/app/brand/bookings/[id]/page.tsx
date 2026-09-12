@@ -6,6 +6,7 @@ import { AppHeader } from "@/components/app-header";
 import { CopyField } from "@/components/copy-field";
 import { formatEuros, compactNumber, deriveCpmCents, DASH } from "@/lib/pricing";
 import { formatDay } from "@/lib/dates";
+import { CompleteForm } from "./complete-form";
 
 export const metadata = { title: "Booking — naano" };
 
@@ -116,6 +117,31 @@ export default async function BrandBooking({
             read LinkedIn, so we do not claim to have measured it.
           </p>
         </section>
+
+        {(booking.status === "posted" || booking.status === "measuring") && (
+          <section className="mt-6 rounded-panel border border-line bg-surface p-6">
+            <h2 className="font-display text-xl">Close this booking</h2>
+            <div className="mt-1">
+              <CompleteForm
+                bookingId={booking.id}
+                priceCents={booking.agreedPriceCents}
+                creatorName={booking.creator.displayName}
+              />
+            </div>
+          </section>
+        )}
+
+        {(booking.status === "completed" || booking.status === "paid") && (
+          <section className="mt-6 rounded-panel border border-line bg-surface p-6">
+            <h2 className="font-display text-xl">Closed</h2>
+            <p className="mt-1 text-sm text-ink-soft">
+              Completed{booking.completedAt ? ` on ${formatDay(booking.completedAt)}` : ""}.
+              {booking.creator.displayName} was credited{" "}
+              {formatEuros(booking.agreedPriceCents)}
+              {booking.status === "paid" ? " and has withdrawn it." : " and their payout is scheduled."}
+            </p>
+          </section>
+        )}
 
         <section className="mt-6 space-y-4 rounded-panel border border-line bg-surface p-6">
           <h2 className="font-display text-xl">The brief they are working to</h2>

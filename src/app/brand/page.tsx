@@ -112,10 +112,16 @@ export default async function BrandHome() {
               )}
             </div>
 
-            <footer className="border-t border-line px-6 py-4">
+            <footer className="flex flex-wrap gap-6 border-t border-line px-6 py-4">
+              <Link
+                href={`/brand/campaigns/${c.id}`}
+                className="text-sm font-medium text-brand hover:text-brand-strong"
+              >
+                Open the dashboard →
+              </Link>
               <Link
                 href={`/marketplace?industry=${encodeURIComponent(c.industries[0] ?? "")}`}
-                className="text-sm font-medium text-brand hover:text-brand-strong"
+                className="text-sm font-medium text-ink-soft hover:text-ink"
               >
                 Find creators for this campaign →
               </Link>

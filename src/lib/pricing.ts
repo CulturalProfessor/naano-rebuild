@@ -158,6 +158,19 @@ export function formatCountMetric(metric: Metric): string {
   return metric.known ? compactNumber(metric.value) : DASH;
 }
 
+/**
+ * Clicks and leads are the numbers we measured ourselves, and they are the
+ * reason a brand believes the rest of the page. Rounding 1,995 to "2K" saves
+ * three characters and spends the precision that makes them worth trusting.
+ */
+export function formatExactCount(value: number): string {
+  return new Intl.NumberFormat("en").format(value);
+}
+
+export function formatExactCountMetric(metric: Metric): string {
+  return metric.known ? formatExactCount(metric.value) : DASH;
+}
+
 // ---------------------------------------------------------------- identity
 
 /**

@@ -17,6 +17,15 @@ const STATUS_COPY: Record<string, string> = {
   expired: "Expired",
 };
 
+/** What this offer is actually worth now: a counter, once made, is the number
+ *  on the table, and once accepted it is the number in the contract. */
+function agreedOrOffered(o: {
+  offerPriceCents: number;
+  counterPriceCents: number | null;
+}) {
+  return o.counterPriceCents ?? o.offerPriceCents;
+}
+
 export default async function BrandOffers() {
   const { account, brand } = await requireBrand();
   const offers = await offersForBrand(brand.id);
@@ -74,13 +83,23 @@ export default async function BrandOffers() {
                       </p>
                     </div>
                     <div className="text-right">
+                      {/* Once a counter is accepted, the agreed number is the
+                          counter. Leading with what you first offered would
+                          misreport the deal you are now in. */}
                       <div className="font-display text-xl font-semibold tracking-tight">
-                        {formatEuros(o.offerPriceCents)}
+                        {formatEuros(agreedOrOffered(o))}
                       </div>
-                      {o.discountPct > 0 && (
+                      {o.counterPriceCents != null ? (
                         <p className="text-xs text-ink-soft">
-                          {o.discountPct}% off {formatEuros(o.listPriceCents)}
+                          {o.status === "accepted" ? "agreed" : "their counter"} ·
+                          you offered {formatEuros(o.offerPriceCents)}
                         </p>
+                      ) : (
+                        o.discountPct > 0 && (
+                          <p className="text-xs text-ink-soft">
+                            {o.discountPct}% off {formatEuros(o.listPriceCents)}
+                          </p>
+                        )
                       )}
                     </div>
                   </div>

@@ -29,3 +29,60 @@ export const LEDGER_MEMO = {
   earning: "Post published — earning credited",
   payout: "Payout sent",
 } as const;
+
+/** The rows behind a balance, newest first. A balance nobody can audit is a
+ *  claim; a balance with its rows under it is an explanation. */
+export async function ledgerFor(accountId: string, take = 50) {
+  return prisma.ledgerEntry.findMany({
+    where: { accountId },
+    orderBy: { createdAt: "desc" },
+    take,
+    select: {
+      id: true,
+      direction: true,
+      amountCents: true,
+      kind: true,
+      memo: true,
+      createdAt: true,
+      booking: {
+        select: {
+          id: true,
+          brand: { select: { name: true } },
+          creator: { select: { displayName: true } },
+        },
+      },
+    },
+  });
+}
+
+export async function earningsSummary(creatorId: string) {
+  const [earned, paid, scheduled] = await Promise.all([
+    prisma.payout.aggregate({
+      where: { creatorId },
+      _sum: { amountCents: true },
+    }),
+    prisma.payout.aggregate({
+      where: { creatorId, status: "paid" },
+      _sum: { amountCents: true },
+    }),
+    prisma.payout.findMany({
+      where: { creatorId, status: "scheduled" },
+      orderBy: { scheduledFor: "asc" },
+      select: {
+        id: true,
+        amountCents: true,
+        scheduledFor: true,
+        booking: {
+          select: { id: true, brand: { select: { name: true } } },
+        },
+      },
+    }),
+  ]);
+
+  return {
+    lifetimeCents: earned._sum.amountCents ?? 0,
+    paidCents: paid._sum.amountCents ?? 0,
+    scheduled,
+    scheduledCents: scheduled.reduce((s, p) => s + p.amountCents, 0),
+  };
+}

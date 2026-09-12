@@ -28,6 +28,7 @@ export async function AppHeader({
         ]
       : [
           { href: "/creator", label: "Studio" },
+          { href: "/creator/earnings", label: "Earnings" },
           { href: "/marketplace", label: "Marketplace" },
         ];
 

@@ -31,8 +31,14 @@ export default async function CreatorHome() {
   ]);
 
   const serverNow = requestNow();
+  // A countered offer is not answered and it is not waiting on the creator
+  // either. Burying it with the expired ones loses the one thing the creator
+  // wants to know, which is that the ball is in the brand's court.
   const live = offers.filter(isLive);
-  const answered = offers.filter((o) => !isLive(o));
+  const waiting = offers.filter(
+    (o) => o.status === "countered" && o.expiresAt.getTime() > serverNow,
+  );
+  const answered = offers.filter((o) => !live.includes(o) && !waiting.includes(o));
 
   const toRow = (o: (typeof offers)[number]): InboxOffer => ({
     id: o.id,
@@ -89,7 +95,7 @@ export default async function CreatorHome() {
             inside your own price, or decline.
           </p>
 
-          {live.length === 0 && answered.length === 0 ? (
+          {offers.length === 0 ? (
             <div className="mt-4 rounded-panel border border-dashed border-line bg-surface p-8 text-center">
               <p className="font-display text-lg">No offers yet.</p>
               <p className="mx-auto mt-1 max-w-md text-sm text-ink-soft">
@@ -106,6 +112,9 @@ export default async function CreatorHome() {
           ) : (
             <div className="mt-4 space-y-4">
               {live.map((o) => (
+                <OfferRow key={o.id} offer={toRow(o)} serverNow={serverNow} />
+              ))}
+              {waiting.map((o) => (
                 <OfferRow key={o.id} offer={toRow(o)} serverNow={serverNow} />
               ))}
               {answered.length > 0 && (
