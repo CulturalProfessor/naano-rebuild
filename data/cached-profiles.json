@@ -1,1165 +1,1136 @@
 {
   "nina-costa": {
-    "url": "https://www.linkedin.com/in/nina-costa",
-    "name": "Nina Costa",
-    "headline": "Helping B2B SaaS teams turn product launches into pipeline",
-    "location": {
-      "city": "Lisbon",
-      "country": "Portugal",
-      "countryCode": "PT"
-    },
-    "about": "Ex-demand gen lead. I write about launches that actually move revenue.",
-    "followerCount": 8200,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=nina-costa&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Helping B2B SaaS teams turn product launches into pipeline",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Demand Generation",
-      "Product Marketing",
-      "GTM"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-nina-costa",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 34000
+    "profile": {
+      "public_identifier": "nina-costa",
+      "name": "Nina Costa",
+      "headline": "Helping B2B SaaS teams turn product launches into pipeline",
+      "follower_count": 8200,
+      "location": "Lisbon, Portugal",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=nina-costa&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 34000,
+    "_seedIndustries": [
+      "B2B",
+      "SaaS",
+      "Marketing"
+    ]
   },
   "tomas-berg": {
-    "url": "https://www.linkedin.com/in/tomas-berg",
-    "name": "Tomas Berg",
-    "headline": "Building in public - developer tools, DX and the occasional rant",
-    "location": {
-      "city": "Stockholm",
-      "country": "Sweden",
-      "countryCode": "SE"
-    },
-    "about": "Engineer turned founder. Ten years of shipping tools other engineers use.",
-    "followerCount": 11400,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=tomas-berg&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Building in public",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Developer Experience",
-      "APIs",
-      "Open Source"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-tomas-berg",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 68000
+    "profile": {
+      "public_identifier": "tomas-berg",
+      "name": "Tomas Berg",
+      "headline": "Building in public - developer tools, DX and the occasional rant",
+      "follower_count": 11400,
+      "location": "Stockholm, Sweden",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=tomas-berg&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 68000,
+    "_seedIndustries": [
+      "Developer Tools",
+      "Software",
+      "B2B"
+    ]
   },
   "amara-okafor": {
-    "url": "https://www.linkedin.com/in/amara-okafor",
-    "name": "Amara Okafor",
-    "headline": "HR Tech, hiring systems and why your ATS is the problem",
-    "location": {
-      "city": "London",
-      "country": "United Kingdom",
-      "countryCode": "GB"
-    },
-    "about": "Talent operations for fast-scaling teams. I write about hiring that scales.",
-    "followerCount": 5600,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=amara-okafor&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "HR Tech, hiring systems and why your ATS is the problem",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Talent Ops",
-      "Recruiting",
-      "People Analytics"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-amara-okafor",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 21000
+    "profile": {
+      "public_identifier": "amara-okafor",
+      "name": "Amara Okafor",
+      "headline": "HR Tech, hiring systems and why your ATS is the problem",
+      "follower_count": 5600,
+      "location": "London, United Kingdom",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=amara-okafor&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 21000,
+    "_seedIndustries": [
+      "HR",
+      "B2B",
+      "SaaS"
+    ]
   },
   "luca-ferrari": {
-    "url": "https://www.linkedin.com/in/luca-ferrari",
-    "name": "Luca Ferrari",
-    "headline": "AI infrastructure, evals and what actually ships to production",
-    "location": {
-      "city": "Milan",
-      "country": "Italy",
-      "countryCode": "IT"
-    },
-    "about": "ML platform engineer. Less hype, more benchmarks.",
-    "followerCount": 9800,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=luca-ferrari&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "AI infrastructure, evals and what actually ships to producti",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "LLMs",
-      "MLOps",
-      "Evaluation"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-luca-ferrari",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 62000
+    "profile": {
+      "public_identifier": "luca-ferrari",
+      "name": "Luca Ferrari",
+      "headline": "AI infrastructure, evals and what actually ships to production",
+      "follower_count": 9800,
+      "location": "Milan, Italy",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=luca-ferrari&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 62000,
+    "_seedIndustries": [
+      "AI",
+      "Software",
+      "Developer Tools"
+    ]
   },
   "sofie-jansen": {
-    "url": "https://www.linkedin.com/in/sofie-jansen",
-    "name": "Sofie Jansen",
-    "headline": "Growth for product-led SaaS - experiments, not opinions",
-    "location": {
-      "city": "Amsterdam",
-      "country": "Netherlands",
-      "countryCode": "NL"
-    },
-    "about": "PLG growth lead. I publish the experiments that failed too.",
-    "followerCount": 4300,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=sofie-jansen&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Growth for product-led SaaS",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "PLG",
-      "Experimentation",
-      "Activation"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-sofie-jansen",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 19500
+    "profile": {
+      "public_identifier": "sofie-jansen",
+      "name": "Sofie Jansen",
+      "headline": "Growth for product-led SaaS - experiments, not opinions",
+      "follower_count": 4300,
+      "location": "Amsterdam, Netherlands",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=sofie-jansen&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 19500,
+    "_seedIndustries": [
+      "Growth / GTM",
+      "SaaS",
+      "B2B"
+    ]
   },
   "daniel-mwangi": {
-    "url": "https://www.linkedin.com/in/daniel-mwangi",
-    "name": "Daniel Mwangi",
-    "headline": "Fintech product, payments rails and compliance in plain English",
-    "location": {
-      "city": "Nairobi",
-      "country": "Kenya",
-      "countryCode": "KE"
-    },
-    "about": "Payments product manager. I explain the boring parts that cost you money.",
-    "followerCount": 6700,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=daniel-mwangi&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Fintech product, payments rails and compliance in plain Engl",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Payments",
-      "Compliance",
-      "Product"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-daniel-mwangi",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 24000
+    "profile": {
+      "public_identifier": "daniel-mwangi",
+      "name": "Daniel Mwangi",
+      "headline": "Fintech product, payments rails and compliance in plain English",
+      "follower_count": 6700,
+      "location": "Nairobi, Kenya",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=daniel-mwangi&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 24000,
+    "_seedIndustries": [
+      "Fintech",
+      "B2B",
+      "Productivity"
+    ]
   },
   "clara-dubois": {
-    "url": "https://www.linkedin.com/in/clara-dubois",
-    "name": "Clara Dubois",
-    "headline": "Outbound that people reply to. Mostly about sequences and sanity",
-    "location": {
-      "city": "Paris",
-      "country": "France",
-      "countryCode": "FR"
-    },
-    "about": "Sales leader. Fifteen years of cold outreach, still learning.",
-    "followerCount": 7900,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=clara-dubois&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Outbound that people reply to. Mostly about sequences and sa",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Outbound",
-      "Sales Enablement",
-      "CRM"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-clara-dubois",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 41000
+    "profile": {
+      "public_identifier": "clara-dubois",
+      "name": "Clara Dubois",
+      "headline": "Outbound that people reply to. Mostly about sequences and sanity",
+      "follower_count": 7900,
+      "location": "Paris, France",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=clara-dubois&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 41000,
+    "_seedIndustries": [
+      "Outreach",
+      "Sales",
+      "B2B"
+    ]
   },
   "ravi-menon": {
-    "url": "https://www.linkedin.com/in/ravi-menon",
-    "name": "Ravi Menon",
-    "headline": "Data platforms, dbt and making analytics teams less miserable",
-    "location": {
-      "city": "Bengaluru",
-      "country": "India",
-      "countryCode": "IN"
-    },
-    "about": "Analytics engineer. I write about pipelines that do not page you at 3am.",
-    "followerCount": 5100,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=ravi-menon&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Data platforms, dbt and making analytics teams less miserabl",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "dbt",
-      "Warehousing",
-      "Analytics Engineering"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-ravi-menon",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 22800
+    "profile": {
+      "public_identifier": "ravi-menon",
+      "name": "Ravi Menon",
+      "headline": "Data platforms, dbt and making analytics teams less miserable",
+      "follower_count": 5100,
+      "location": "Bengaluru, India",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=ravi-menon&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 22800,
+    "_seedIndustries": [
+      "Data / Analytics",
+      "Developer Tools",
+      "B2B"
+    ]
   },
   "marta-nowak": {
-    "url": "https://www.linkedin.com/in/marta-nowak",
-    "name": "Marta Nowak",
-    "headline": "Cybersecurity for teams that cannot afford a security team",
-    "location": {
-      "city": "Warsaw",
-      "country": "Poland",
-      "countryCode": "PL"
-    },
-    "about": "Security engineer. Practical threat modelling for small teams.",
-    "followerCount": 9100,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=marta-nowak&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Cybersecurity for teams that cannot afford a security team",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "AppSec",
-      "Threat Modelling",
-      "Compliance"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-marta-nowak",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 47000
+    "profile": {
+      "public_identifier": "marta-nowak",
+      "name": "Marta Nowak",
+      "headline": "Cybersecurity for teams that cannot afford a security team",
+      "follower_count": 9100,
+      "location": "Warsaw, Poland",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=marta-nowak&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 47000,
+    "_seedIndustries": [
+      "Cybersecurity",
+      "Software",
+      "B2B"
+    ]
   },
   "james-whitfield": {
-    "url": "https://www.linkedin.com/in/james-whitfield",
-    "name": "James Whitfield",
-    "headline": "Content strategy for technical products. Words that sell software",
-    "location": {
-      "city": "Manchester",
-      "country": "United Kingdom",
-      "countryCode": "GB"
-    },
-    "about": "Freelance content lead for developer-facing companies.",
-    "followerCount": 3800,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=james-whitfield&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Content strategy for technical products. Words that sell sof",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Content Strategy",
-      "SEO",
-      "Technical Writing"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-james-whitfield",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 16400
+    "profile": {
+      "public_identifier": "james-whitfield",
+      "name": "James Whitfield",
+      "headline": "Content strategy for technical products. Words that sell software",
+      "follower_count": 3800,
+      "location": "Manchester, United Kingdom",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=james-whitfield&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 16400,
+    "_seedIndustries": [
+      "Marketing",
+      "B2B",
+      "SaaS"
+    ]
   },
   "ines-navarro": {
-    "url": "https://www.linkedin.com/in/ines-navarro",
-    "name": "Ines Navarro",
-    "headline": "Design systems, product design and shipping under constraint",
-    "location": {
-      "city": "Barcelona",
-      "country": "Spain",
-      "countryCode": "ES"
-    },
-    "about": "Product designer. I care about the states nobody designs.",
-    "followerCount": 6400,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=ines-navarro&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Design systems, product design and shipping under constraint",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Design Systems",
-      "Figma",
-      "Product Design"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-ines-navarro",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 33000
+    "profile": {
+      "public_identifier": "ines-navarro",
+      "name": "Ines Navarro",
+      "headline": "Design systems, product design and shipping under constraint",
+      "follower_count": 6400,
+      "location": "Barcelona, Spain",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=ines-navarro&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 33000,
+    "_seedIndustries": [
+      "Design",
+      "Software",
+      "Productivity"
+    ]
   },
   "kwame-asante": {
-    "url": "https://www.linkedin.com/in/kwame-asante",
-    "name": "Kwame Asante",
-    "headline": "E-commerce operations and the unglamorous side of DTC growth",
-    "location": {
-      "city": "Accra",
-      "country": "Ghana",
-      "countryCode": "GH"
-    },
-    "about": "Ops lead for DTC brands. Margins over vanity metrics.",
-    "followerCount": 4600,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=kwame-asante&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "E-commerce operations and the unglamorous side of DTC growth",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Supply Chain",
-      "Retention",
-      "Ops"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-kwame-asante",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 18900
+    "profile": {
+      "public_identifier": "kwame-asante",
+      "name": "Kwame Asante",
+      "headline": "E-commerce operations and the unglamorous side of DTC growth",
+      "follower_count": 4600,
+      "location": "Accra, Ghana",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=kwame-asante&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 18900,
+    "_seedIndustries": [
+      "E-commerce",
+      "B2C",
+      "Growth / GTM"
+    ]
   },
   "hannah-mueller": {
-    "url": "https://www.linkedin.com/in/hannah-mueller",
-    "name": "Hannah Mueller",
-    "headline": "Customer success, churn forensics and renewal conversations",
-    "location": {
-      "city": "Berlin",
-      "country": "Germany",
-      "countryCode": "DE"
-    },
-    "about": "CS leader. I write post-mortems on churn nobody wants to read.",
-    "followerCount": 2900,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=hannah-mueller&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Customer success, churn forensics and renewal conversations",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Retention",
-      "Onboarding",
-      "CS Ops"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-hannah-mueller",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 11200
+    "profile": {
+      "public_identifier": "hannah-mueller",
+      "name": "Hannah Mueller",
+      "headline": "Customer success, churn forensics and renewal conversations",
+      "follower_count": 2900,
+      "location": "Berlin, Germany",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=hannah-mueller&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 11200,
+    "_seedIndustries": [
+      "Customer Support",
+      "SaaS",
+      "B2B"
+    ]
   },
   "oliver-reid": {
-    "url": "https://www.linkedin.com/in/oliver-reid",
-    "name": "Oliver Reid",
-    "headline": "SEO for software companies - programmatic, technical, unsexy",
-    "location": {
-      "city": "Dublin",
-      "country": "Ireland",
-      "countryCode": "IE"
-    },
-    "about": "SEO consultant. Fifteen years, mostly in B2B SaaS.",
-    "followerCount": 8600,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=oliver-reid&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "SEO for software companies",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Technical SEO",
-      "Programmatic SEO",
-      "Content"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-oliver-reid",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 39000
+    "profile": {
+      "public_identifier": "oliver-reid",
+      "name": "Oliver Reid",
+      "headline": "SEO for software companies - programmatic, technical, unsexy",
+      "follower_count": 8600,
+      "location": "Dublin, Ireland",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=oliver-reid&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 39000,
+    "_seedIndustries": [
+      "SEO",
+      "Marketing",
+      "B2B"
+    ]
   },
   "yuki-tanaka": {
-    "url": "https://www.linkedin.com/in/yuki-tanaka",
-    "name": "Yuki Tanaka",
-    "headline": "Product-led onboarding and the first ten minutes of any SaaS",
-    "location": {
-      "city": "Tokyo",
-      "country": "Japan",
-      "countryCode": "JP"
-    },
-    "about": "Product manager. Obsessed with activation.",
-    "followerCount": 5900,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=yuki-tanaka&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Product-led onboarding and the first ten minutes of any SaaS",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Onboarding",
-      "Activation",
-      "PM"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-yuki-tanaka",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 26500
+    "profile": {
+      "public_identifier": "yuki-tanaka",
+      "name": "Yuki Tanaka",
+      "headline": "Product-led onboarding and the first ten minutes of any SaaS",
+      "follower_count": 5900,
+      "location": "Tokyo, Japan",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=yuki-tanaka&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 26500,
+    "_seedIndustries": [
+      "SaaS",
+      "Productivity",
+      "Growth / GTM"
+    ]
   },
   "elena-petrova": {
-    "url": "https://www.linkedin.com/in/elena-petrova",
-    "name": "Elena Petrova",
-    "headline": "RevOps - the plumbing between marketing, sales and finance",
-    "location": {
-      "city": "Sofia",
-      "country": "Bulgaria",
-      "countryCode": "BG"
-    },
-    "about": "RevOps consultant. Your CRM is lying to you.",
-    "followerCount": 3400,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=elena-petrova&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "RevOps",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "RevOps",
-      "Salesforce",
-      "Attribution"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-elena-petrova",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 14800
+    "profile": {
+      "public_identifier": "elena-petrova",
+      "name": "Elena Petrova",
+      "headline": "RevOps - the plumbing between marketing, sales and finance",
+      "follower_count": 3400,
+      "location": "Sofia, Bulgaria",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=elena-petrova&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 14800,
+    "_seedIndustries": [
+      "CRM",
+      "Sales",
+      "B2B"
+    ]
   },
   "marcus-lindqvist": {
-    "url": "https://www.linkedin.com/in/marcus-lindqvist",
-    "name": "Marcus Lindqvist",
-    "headline": "LegalTech, contracts and automating the parts lawyers hate",
-    "location": {
-      "city": "Oslo",
-      "country": "Norway",
-      "countryCode": "NO"
-    },
-    "about": "Lawyer turned product lead. Contract automation, mostly.",
-    "followerCount": 2400,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=marcus-lindqvist&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "LegalTech, contracts and automating the parts lawyers hate",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "CLM",
-      "Legal Ops",
-      "Automation"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-marcus-lindqvist",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 9600
+    "profile": {
+      "public_identifier": "marcus-lindqvist",
+      "name": "Marcus Lindqvist",
+      "headline": "LegalTech, contracts and automating the parts lawyers hate",
+      "follower_count": 2400,
+      "location": "Oslo, Norway",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=marcus-lindqvist&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 9600,
+    "_seedIndustries": [
+      "LegalTech",
+      "B2B",
+      "Productivity"
+    ]
   },
   "priya-shah": {
-    "url": "https://www.linkedin.com/in/priya-shah",
-    "name": "Priya Shah",
-    "headline": "EdTech, learning design and why most corporate training fails",
-    "location": {
-      "city": "Mumbai",
-      "country": "India",
-      "countryCode": "IN"
-    },
-    "about": "Learning designer. Evidence over engagement metrics.",
-    "followerCount": 4900,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=priya-shah&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "EdTech, learning design and why most corporate training fail",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Instructional Design",
-      "L&D",
-      "EdTech"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-priya-shah",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 20700
+    "profile": {
+      "public_identifier": "priya-shah",
+      "name": "Priya Shah",
+      "headline": "EdTech, learning design and why most corporate training fails",
+      "follower_count": 4900,
+      "location": "Mumbai, India",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=priya-shah&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 20700,
+    "_seedIndustries": [
+      "EdTech",
+      "HR",
+      "B2C"
+    ]
   },
   "ben-kaplan": {
-    "url": "https://www.linkedin.com/in/ben-kaplan",
-    "name": "Ben Kaplan",
-    "headline": "PropTech and the slow digitisation of commercial real estate",
-    "location": {
-      "city": "New York",
-      "country": "United States",
-      "countryCode": "US"
-    },
-    "about": "PropTech operator. I write about an industry that fears spreadsheets.",
-    "followerCount": 3100,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=ben-kaplan&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "PropTech and the slow digitisation of commercial real estate",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "PropTech",
-      "CRE",
-      "Ops"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-ben-kaplan",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 12400
+    "profile": {
+      "public_identifier": "ben-kaplan",
+      "name": "Ben Kaplan",
+      "headline": "PropTech and the slow digitisation of commercial real estate",
+      "follower_count": 3100,
+      "location": "New York, United States",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=ben-kaplan&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 12400,
+    "_seedIndustries": [
+      "Real Estate / PropTech",
+      "B2B",
+      "Fintech"
+    ]
   },
   "freya-andersen": {
-    "url": "https://www.linkedin.com/in/freya-andersen",
-    "name": "Freya Andersen",
-    "headline": "Brand and creative for B2B companies that look like everyone else",
-    "location": {
-      "city": "Copenhagen",
-      "country": "Denmark",
-      "countryCode": "DK"
-    },
-    "about": "Creative director. B2B does not have to be beige.",
-    "followerCount": 7200,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=freya-andersen&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Brand and creative for B2B companies that look like everyone",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Brand",
-      "Creative Direction",
-      "Positioning"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-freya-andersen",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 35800
+    "profile": {
+      "public_identifier": "freya-andersen",
+      "name": "Freya Andersen",
+      "headline": "Brand and creative for B2B companies that look like everyone else",
+      "follower_count": 7200,
+      "location": "Copenhagen, Denmark",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=freya-andersen&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 35800,
+    "_seedIndustries": [
+      "Creative",
+      "Marketing",
+      "B2B"
+    ]
   },
   "carlos-mendes": {
-    "url": "https://www.linkedin.com/in/carlos-mendes",
-    "name": "Carlos Mendes",
-    "headline": "HealthTech, EHR integrations and interoperability that works",
-    "location": {
-      "city": "Sao Paulo",
-      "country": "Brazil",
-      "countryCode": "BR"
-    },
-    "about": "Health IT engineer. FHIR, HL7 and the reality in between.",
-    "followerCount": 4100,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=carlos-mendes&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "HealthTech, EHR integrations and interoperability that works",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "FHIR",
-      "Interoperability",
-      "Health IT"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-carlos-mendes",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 17600
+    "profile": {
+      "public_identifier": "carlos-mendes",
+      "name": "Carlos Mendes",
+      "headline": "HealthTech, EHR integrations and interoperability that works",
+      "follower_count": 4100,
+      "location": "Sao Paulo, Brazil",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=carlos-mendes&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 17600,
+    "_seedIndustries": [
+      "HealthTech",
+      "Software",
+      "B2B"
+    ]
   },
   "nadia-haddad": {
-    "url": "https://www.linkedin.com/in/nadia-haddad",
-    "name": "Nadia Haddad",
-    "headline": "B2B partnerships and the channel nobody resources properly",
-    "location": {
-      "city": "Dubai",
-      "country": "United Arab Emirates",
-      "countryCode": "AE"
-    },
-    "about": "Partnerships lead. Channel is a product problem.",
-    "followerCount": 3600,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=nadia-haddad&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "B2B partnerships and the channel nobody resources properly",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Partnerships",
-      "Channel",
-      "Alliances"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-nadia-haddad",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": 15200
+    "profile": {
+      "public_identifier": "nadia-haddad",
+      "name": "Nadia Haddad",
+      "headline": "B2B partnerships and the channel nobody resources properly",
+      "follower_count": 3600,
+      "location": "Dubai, United Arab Emirates",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=nadia-haddad&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": 15200,
+    "_seedIndustries": [
+      "B2B",
+      "Sales",
+      "Growth / GTM"
+    ]
   },
   "samuel-adeyemi": {
-    "url": "https://www.linkedin.com/in/samuel-adeyemi",
-    "name": "Samuel Adeyemi",
-    "headline": "Platform engineering and the internal developer portal question",
-    "location": {
-      "city": "Lagos",
-      "country": "Nigeria",
-      "countryCode": "NG"
-    },
-    "about": "Platform engineer. New here, posting weekly.",
-    "followerCount": 2100,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=samuel-adeyemi&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Platform engineering and the internal developer portal quest",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Kubernetes",
-      "IDP",
-      "DevEx"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-samuel-adeyemi",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": null
+    "profile": {
+      "public_identifier": "samuel-adeyemi",
+      "name": "Samuel Adeyemi",
+      "headline": "Platform engineering and the internal developer portal question",
+      "follower_count": 2100,
+      "location": "Lagos, Nigeria",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=samuel-adeyemi&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": null,
+    "_seedIndustries": [
+      "Developer Tools",
+      "Software",
+      "Productivity"
+    ]
   },
   "mei-lin-chen": {
-    "url": "https://www.linkedin.com/in/mei-lin-chen",
-    "name": "Mei-Lin Chen",
-    "headline": "AI product management - shipping models people actually trust",
-    "location": {
-      "city": "Singapore",
-      "country": "Singapore",
-      "countryCode": "SG"
-    },
-    "about": "AI PM. Just started writing publicly.",
-    "followerCount": 2800,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=mei-lin-chen&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "AI product management",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "AI Product",
-      "Trust & Safety",
-      "PM"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-mei-lin-chen",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": null
+    "profile": {
+      "public_identifier": "mei-lin-chen",
+      "name": "Mei-Lin Chen",
+      "headline": "AI product management - shipping models people actually trust",
+      "follower_count": 2800,
+      "location": "Singapore, Singapore",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=mei-lin-chen&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": null,
+    "_seedIndustries": [
+      "AI",
+      "SaaS",
+      "Productivity"
+    ]
   },
   "alex-novak": {
-    "url": "https://www.linkedin.com/in/alex-novak",
-    "name": "Alex Novak",
-    "headline": "Sales engineering, demos and technical discovery",
-    "location": {
-      "city": "Prague",
-      "country": "Czechia",
-      "countryCode": "CZ"
-    },
-    "about": "Sales engineer. First month on here.",
-    "followerCount": 1900,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=alex-novak&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Sales engineering, demos and technical discovery",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Solutions Engineering",
-      "Demos",
-      "Discovery"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-alex-novak",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": null
+    "profile": {
+      "public_identifier": "alex-novak",
+      "name": "Alex Novak",
+      "headline": "Sales engineering, demos and technical discovery",
+      "follower_count": 1900,
+      "location": "Prague, Czechia",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=alex-novak&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": null,
+    "_seedIndustries": [
+      "Sales",
+      "SaaS",
+      "B2B"
+    ]
   },
   "laura-kelly": {
-    "url": "https://www.linkedin.com/in/laura-kelly",
-    "name": "Laura Kelly",
-    "headline": "Marketing ops, attribution and the reporting nobody believes",
-    "location": {
-      "city": "Toronto",
-      "country": "Canada",
-      "countryCode": "CA"
-    },
-    "about": "Marketing ops manager. New to posting.",
-    "followerCount": 2500,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=laura-kelly&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Marketing ops, attribution and the reporting nobody believes",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Attribution",
-      "Martech",
-      "Reporting"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-laura-kelly",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
-    "_seedMedianViews": null
+    "profile": {
+      "public_identifier": "laura-kelly",
+      "name": "Laura Kelly",
+      "headline": "Marketing ops, attribution and the reporting nobody believes",
+      "follower_count": 2500,
+      "location": "Toronto, Canada",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=laura-kelly&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
+    "_seedMedianViews": null,
+    "_seedIndustries": [
+      "Marketing",
+      "Data / Analytics",
+      "B2B"
+    ]
   },
   "dana-whitmore": {
-    "url": "https://www.linkedin.com/in/dana-whitmore",
-    "name": "Dana Whitmore",
-    "headline": "Product marketing for developer platforms, and the positioning work nobody budgets for",
-    "location": {
-      "city": "Berlin",
-      "country": "Germany",
-      "countryCode": "DE"
-    },
-    "about": "PMM for infrastructure products.",
-    "followerCount": 6300,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=dana-whitmore&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Product marketing for developer platforms, and the positioni",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Positioning",
-      "Messaging",
-      "Launches"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-dana-whitmore",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
+    "profile": {
+      "public_identifier": "dana-whitmore",
+      "name": "Dana Whitmore",
+      "headline": "Product marketing for developer platforms, and the positioning work nobody budgets for",
+      "follower_count": 6300,
+      "location": "Berlin, Germany",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=dana-whitmore&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
     "_seedMedianViews": null,
+    "_seedIndustries": [
+      "Marketing",
+      "Developer Tools",
+      "B2B"
+    ],
     "_unclaimed": true
   },
   "theo-brennan": {
-    "url": "https://www.linkedin.com/in/theo-brennan",
-    "name": "Theo Brennan",
-    "headline": "Vertical SaaS operator writing about pricing, packaging and churn",
-    "location": {
-      "city": "Dublin",
-      "country": "Ireland",
-      "countryCode": "IE"
-    },
-    "about": "Operator, two exits, still arguing about pricing.",
-    "followerCount": 4700,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=theo-brennan&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Vertical SaaS operator writing about pricing, packaging and ",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "Pricing",
-      "Packaging",
-      "Retention"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-theo-brennan",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
+    "profile": {
+      "public_identifier": "theo-brennan",
+      "name": "Theo Brennan",
+      "headline": "Vertical SaaS operator writing about pricing, packaging and churn",
+      "follower_count": 4700,
+      "location": "Dublin, Ireland",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=theo-brennan&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
     "_seedMedianViews": null,
+    "_seedIndustries": [
+      "SaaS",
+      "B2B",
+      "Fintech"
+    ],
     "_unclaimed": true
   },
   "sana-iqbal": {
-    "url": "https://www.linkedin.com/in/sana-iqbal",
-    "name": "Sana Iqbal",
-    "headline": "Applied AI for support teams - what deflects tickets and what annoys customers",
-    "location": {
-      "city": "Karachi",
-      "country": "Pakistan",
-      "countryCode": "PK"
-    },
-    "about": "Support automation lead.",
-    "followerCount": 5200,
-    "images": {
-      "avatar": "https://api.dicebear.com/9.x/notionists/png?seed=sana-iqbal&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
-      "banner": null
-    },
-    "experience": [
-      {
-        "title": "Applied AI for support teams",
-        "company": "Independent",
-        "startYear": 2021,
-        "endYear": null
-      }
-    ],
-    "education": [
-      {
-        "school": "—",
-        "degree": null
-      }
-    ],
-    "skills": [
-      "LLMs",
-      "Deflection",
-      "CX"
-    ],
+    "source": "cache",
+    "fetched_at": "2026-09-11T00:00:00.000Z",
     "meta": {
-      "source": "cached",
-      "fetchedAt": "2026-09-11T00:00:00.000Z"
+      "source": "cache",
+      "fetched_at": "2026-09-11T00:00:00.000Z",
+      "request_id": "seed-sana-iqbal",
+      "duration_ms": 0,
+      "upstream_requests": 0,
+      "cache_age_seconds": null,
+      "fields": [
+        "follower_count",
+        "headline",
+        "images",
+        "location",
+        "name",
+        "public_identifier"
+      ],
+      "quota_remaining": null
     },
+    "profile": {
+      "public_identifier": "sana-iqbal",
+      "name": "Sana Iqbal",
+      "headline": "Applied AI for support teams - what deflects tickets and what annoys customers",
+      "follower_count": 5200,
+      "location": "Karachi, Pakistan",
+      "images": {
+        "profile_picture": "https://api.dicebear.com/9.x/notionists/png?seed=sana-iqbal&backgroundColor=e8f0fe,f4f0e8,d7f2e9&size=256",
+        "background_picture": null
+      }
+    },
+    "limitations": [],
     "_seedMedianViews": null,
+    "_seedIndustries": [
+      "AI",
+      "Customer Support",
+      "SaaS"
+    ],
     "_unclaimed": true
   }
 }

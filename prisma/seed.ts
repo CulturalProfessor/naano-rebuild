@@ -26,6 +26,7 @@ import {
   deriveDisplayName,
   canonicalLinkedinUrl,
 } from "../src/lib/pricing";
+import { resolveLocation } from "../src/lib/geo";
 
 const prisma = new PrismaClient({
   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }),
@@ -34,21 +35,21 @@ const prisma = new PrismaClient({
 /** Every seeded account shares this password. Stated in the README. */
 const DEMO_PASSWORD = "naano-demo";
 
+/** The service's ProfileResponse shape, plus the seed-only underscore keys. */
 type CachedProfile = {
-  url: string;
-  name: string;
-  headline: string;
-  location: { city: string; country: string; countryCode: string };
-  about: string;
-  followerCount: number;
-  images: { avatar: string | null };
-  skills: string[];
+  profile: {
+    public_identifier: string;
+    name: string;
+    headline: string | null;
+    follower_count: number;
+    location: string | null;
+    images: { profile_picture: string | null } | null;
+  };
   _seedMedianViews: number | null;
+  _seedIndustries: string[];
   /** Present on profiles kept free so a live signup can claim them. */
   _unclaimed?: boolean;
 };
-
-const INDUSTRY_BY_SLUG: Record<string, string[]> = {};
 
 function trackingCode() {
   return randomBytes(5).toString("hex");
@@ -86,38 +87,6 @@ async function main() {
     readFileSync(join(process.cwd(), "data", "cached-profiles.json"), "utf-8"),
   ) as Record<string, CachedProfile>;
 
-  // Industries live in the build script's source rows; re-derive from skills is
-  // lossy, so they are carried here explicitly, keyed by slug.
-  const industryRows: [string, string[]][] = [
-    ["nina-costa", ["B2B", "SaaS", "Marketing"]],
-    ["tomas-berg", ["Developer Tools", "Software", "B2B"]],
-    ["amara-okafor", ["HR", "B2B", "SaaS"]],
-    ["luca-ferrari", ["AI", "Software", "Developer Tools"]],
-    ["sofie-jansen", ["Growth / GTM", "SaaS", "B2B"]],
-    ["daniel-mwangi", ["Fintech", "B2B", "Productivity"]],
-    ["clara-dubois", ["Outreach", "Sales", "B2B"]],
-    ["ravi-menon", ["Data / Analytics", "Developer Tools", "B2B"]],
-    ["marta-nowak", ["Cybersecurity", "Software", "B2B"]],
-    ["james-whitfield", ["Marketing", "B2B", "SaaS"]],
-    ["ines-navarro", ["Design", "Software", "Productivity"]],
-    ["kwame-asante", ["E-commerce", "B2C", "Growth / GTM"]],
-    ["hannah-mueller", ["Customer Support", "SaaS", "B2B"]],
-    ["oliver-reid", ["SEO", "Marketing", "B2B"]],
-    ["yuki-tanaka", ["SaaS", "Productivity", "Growth / GTM"]],
-    ["elena-petrova", ["CRM", "Sales", "B2B"]],
-    ["marcus-lindqvist", ["LegalTech", "B2B", "Productivity"]],
-    ["priya-shah", ["EdTech", "HR", "B2C"]],
-    ["ben-kaplan", ["Real Estate / PropTech", "B2B", "Fintech"]],
-    ["freya-andersen", ["Creative", "Marketing", "B2B"]],
-    ["carlos-mendes", ["HealthTech", "Software", "B2B"]],
-    ["nadia-haddad", ["B2B", "Sales", "Growth / GTM"]],
-    ["samuel-adeyemi", ["Developer Tools", "Software", "Productivity"]],
-    ["mei-lin-chen", ["AI", "SaaS", "Productivity"]],
-    ["alex-novak", ["Sales", "SaaS", "B2B"]],
-    ["laura-kelly", ["Marketing", "Data / Analytics", "B2B"]],
-  ];
-  for (const [slug, inds] of industryRows) INDUSTRY_BY_SLUG[slug] = inds;
-
   /** These two answer offers on their own so a lone visitor can finish a loop. */
   const AUTO_RESPOND_CREATORS = new Set(["nina-costa", "luca-ferrari"]);
   /** A couple of creators carry a bundle, to exercise the pill on the card. */
@@ -129,7 +98,9 @@ async function main() {
     // Left in the cache with no creator attached, so a signup on camera has a
     // profile to claim that resolves from tier 1 and needs no live call.
     if (p._unclaimed) continue;
-    const price = derivePricePerPostCents(p.followerCount);
+    const prof = p.profile;
+    const loc = resolveLocation(prof.location);
+    const price = derivePricePerPostCents(prof.follower_count);
     const account = await prisma.account.create({
       data: {
         email: `${slug}@demo.naano.test`,
@@ -143,14 +114,14 @@ async function main() {
         accountId: account.id,
         linkedinUrl: canonicalLinkedinUrl(slug),
         urlSlug: slug,
-        fullName: p.name,
-        displayName: deriveDisplayName(p.name),
-        avatarUrl: p.images.avatar,
-        headline: p.headline,
-        country: p.location.country,
-        countryCode: p.location.countryCode,
-        followerCount: p.followerCount,
-        industries: INDUSTRY_BY_SLUG[slug] ?? [],
+        fullName: prof.name,
+        displayName: deriveDisplayName(prof.name),
+        avatarUrl: prof.images?.profile_picture ?? null,
+        headline: prof.headline,
+        country: loc.country,
+        countryCode: loc.countryCode,
+        followerCount: prof.follower_count,
+        industries: p._seedIndustries ?? [],
         pricePerPostCents: price,
         medianViews: p._seedMedianViews,
         cardStatus: "live",

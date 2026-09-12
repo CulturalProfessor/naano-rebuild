@@ -106,25 +106,41 @@ const profiles = Object.fromEntries(
   ALL.map((r) => [
     r.slug,
     {
-      url: `https://www.linkedin.com/in/${r.slug}`,
-      name: r.name,
-      headline: r.headline,
-      location: { city: r.city, country: r.country, countryCode: r.cc },
-      about: r.about,
-      followerCount: r.followers,
-      images: { avatar: avatarFor(r.slug), banner: null },
-      experience: [
-        { title: r.headline.split(" - ")[0].slice(0, 60), company: "Independent", startYear: 2021, endYear: null },
-      ],
-      education: [{ school: "—", degree: null }],
-      skills: r.skills,
-      // Not part of the five fields we tell the creator we read. Carried here
-      // because the service returns it; the importer drops it on the floor.
-      meta: { source: "cached", fetchedAt: "2026-09-11T00:00:00.000Z" },
-      // Seed-only, not a service field: our own measured history for creators
-      // that already have one. Null stays null all the way to the card.
+      // Shaped exactly like the live service's ProfileResponse, so tier 1 and
+      // tier 2 of the importer parse the same thing and the demo cannot drift
+      // from production. snake_case, nested profile, location as one string.
+      source: "cache",
+      fetched_at: "2026-09-11T00:00:00.000Z",
+      meta: {
+        source: "cache",
+        fetched_at: "2026-09-11T00:00:00.000Z",
+        request_id: `seed-${r.slug}`,
+        duration_ms: 0,
+        upstream_requests: 0,
+        cache_age_seconds: null,
+        fields: [
+          "follower_count",
+          "headline",
+          "images",
+          "location",
+          "name",
+          "public_identifier",
+        ],
+        quota_remaining: null,
+      },
+      profile: {
+        public_identifier: r.slug,
+        name: r.name,
+        headline: r.headline,
+        follower_count: r.followers,
+        location: `${r.city}, ${r.country}`,
+        images: { profile_picture: avatarFor(r.slug), background_picture: null },
+      },
+      limitations: [],
+      // Seed-only. The importer strips underscore keys before storing, and the
+      // seed uses these to decide history and what to leave unclaimed.
       _seedMedianViews: r.medianViews,
-      // The seed skips these, leaving them free for a live signup demo.
+      _seedIndustries: r.industries,
       _unclaimed: UNCLAIMED.some((u) => u.slug === r.slug) || undefined,
     },
   ]),

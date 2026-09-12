@@ -30,7 +30,14 @@ export type DraftCard = {
 
 export type ImportState =
   | { status: "idle" }
-  | { status: "done"; card: DraftCard; tier: string; freshness: string }
+  | {
+      status: "done";
+      card: DraftCard;
+      tier: string;
+      freshness: string;
+      /** Where the service told us its own answer was thin. */
+      limitations: string[];
+    }
   | {
       status: "manual";
       message: string;
@@ -84,7 +91,9 @@ export async function readProfile(
           ? "A card already exists for that profile. Sign in to the account that claimed it."
           : result.reason === "rate_limited"
             ? "Too many reads from here in the last hour. Enter your details by hand and carry on."
-            : "We could not reach your profile just now. Enter your details by hand and carry on.";
+            : result.reason === "quota_exhausted"
+              ? "We have used today's profile reads. Enter your details by hand and carry on."
+              : "We could not reach your profile just now. Enter your details by hand and carry on.";
     return { status: "manual", message, slug: result.slug };
   }
 
@@ -129,6 +138,7 @@ export async function readProfile(
     card: cardFrom(profile),
     tier: result.tier,
     freshness: result.freshness,
+    limitations: result.limitations,
   };
 }
 
@@ -229,7 +239,13 @@ export async function saveManualProfile(
     },
   });
 
-  return { status: "done", card: cardFrom(profile), tier: "manual", freshness: "live" };
+  return {
+    status: "done",
+    card: cardFrom(profile),
+    tier: "manual",
+    freshness: "live",
+    limitations: [],
+  };
 }
 
 /** Step 3: confirm country, pick up to three industries. */

@@ -4,7 +4,11 @@ import { useState } from "react";
 import { MarketplaceCard, type CardCreator } from "@/components/marketplace-card";
 import { OnboardingPane } from "@/components/onboarding-pane";
 import { savePrice } from "@/app/actions/onboarding";
-import { formatEuros, compactNumber } from "@/lib/pricing";
+import {
+  formatEuros,
+  compactNumber,
+  priceIsCalibrated,
+} from "@/lib/pricing";
 
 /**
  * Step 4. The price is already filled in when the creator arrives: naano
@@ -96,6 +100,14 @@ export function PriceForm({
           This is your net price per post. You can change it at any time from
           your naano profile.
         </p>
+
+        {!priceIsCalibrated(followerCount) && (
+          <p className="mt-3 rounded-card bg-surface-3 p-3 text-left text-xs text-ink-soft">
+            Your audience is well above the range this recommendation was built
+            for, so treat the number as arithmetic rather than advice. Set a
+            price you would actually accept.
+          </p>
+        )}
       </div>
 
       {!bundleOpen ? (

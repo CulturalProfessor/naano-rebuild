@@ -2,6 +2,7 @@ import "server-only";
 import { createHash } from "node:crypto";
 import { prisma } from "./db";
 import { normalizeLinkedinSlug, canonicalLinkedinUrl } from "./pricing";
+import { resolveLocation } from "./geo";
 import cached from "../../data/cached-profiles.json";
 
 /**
@@ -46,49 +47,101 @@ export type ImportResult =
       freshness: "live" | "cached" | "stale";
       slug: string;
       profile: ImportedProfile;
+      /** The service says out loud where its own answer is thin. We pass it on
+       *  rather than quietly presenting a partial read as a complete one. */
+      limitations: string[];
     }
   | {
       ok: false;
-      reason: "invalid_url" | "already_claimed" | "rate_limited" | "unavailable";
+      reason:
+        | "invalid_url"
+        | "already_claimed"
+        | "rate_limited"
+        | "quota_exhausted"
+        | "unavailable";
       slug: string | null;
       /** Signup continues by hand. A failed import is slower, never a dead end. */
       fallback: "manual";
     };
 
-const LIVE_TIMEOUT_MS = 4000;
+/** Measured: the five consented fields cost three upstream requests and
+ *  about 3.5s. A cold start costs more. Four seconds was too tight. */
+const LIVE_TIMEOUT_MS = 15000;
 const RATE_LIMIT_PER_HOUR = 5;
 
-type ServiceProfile = {
-  name?: string;
-  headline?: string;
-  location?: { country?: string; countryCode?: string };
-  followerCount?: number;
-  images?: { avatar?: string | null };
-  meta?: { source?: string };
+/**
+ * The service's actual contract, from its OpenAPI spec. Note the shape: the
+ * profile is nested, the keys are snake_case, `location` is one string rather
+ * than an object, and `follower_count` is opt-in - it is absent unless named
+ * in `fields`, and it is the single number our whole price rests on.
+ */
+type ServiceResponse = {
+  source?: string;
+  fetched_at?: string;
+  meta?: {
+    source?: string;
+    cache_age_seconds?: number | null;
+    upstream_requests?: number;
+    quota_remaining?: number | null;
+    fields?: string[];
+  };
+  profile?: {
+    public_identifier?: string;
+    name?: string;
+    headline?: string | null;
+    follower_count?: number | null;
+    location?: string | null;
+    images?: {
+      profile_picture?: string | null;
+      background_picture?: string | null;
+    } | null;
+  };
+  /** The service says out loud where its own answer is thin. We keep it. */
+  limitations?: string[];
 };
+
+/** What we persist and re-read from our own cache: the service response as-is. */
+type ServiceProfile = ServiceResponse;
+
+/**
+ * Exactly the five fields the consent sentence names, and nothing else.
+ *
+ * The service takes a `fields` parameter, so the promise is enforced on the
+ * wire rather than by us fetching everything and averting our eyes. It is also
+ * the fast path: the full set is seven upstream requests and about 9.5s, this
+ * is three and about 3.5s. `name` and `public_identifier` come free.
+ */
+const CONSENTED_FIELDS = "name,headline,follower_count,images,location";
 
 function hashIp(ip: string) {
   return createHash("sha256").update(ip).digest("hex").slice(0, 32);
 }
 
 /** Narrow whatever the service returned down to the five consented fields. */
-function toImported(raw: ServiceProfile): ImportedProfile | null {
-  const fullName = typeof raw.name === "string" ? raw.name.trim() : "";
+function toImported(raw: ServiceResponse): ImportedProfile | null {
+  const p = raw.profile;
+  if (!p) return null;
+
+  const fullName = typeof p.name === "string" ? p.name.trim() : "";
   const followerCount =
-    typeof raw.followerCount === "number" && raw.followerCount >= 0
-      ? Math.round(raw.followerCount)
+    typeof p.follower_count === "number" && p.follower_count >= 0
+      ? Math.round(p.follower_count)
       : null;
 
-  // Name and follower count are the two the card cannot be built without:
-  // the name is the identity, the follower count is the entire price.
+  // Name and follower count are the two the card cannot be built without: the
+  // name is the identity, the follower count is the entire price. Anything else
+  // missing is a thinner card; these missing means no card at all, so the
+  // caller falls through to manual entry rather than inventing a number.
   if (!fullName || followerCount === null) return null;
+
+  const { country, countryCode } = resolveLocation(p.location);
 
   return {
     fullName,
-    avatarUrl: raw.images?.avatar ?? null,
-    headline: typeof raw.headline === "string" ? raw.headline.trim() : null,
-    country: raw.location?.country?.trim() || "Unknown",
-    countryCode: (raw.location?.countryCode || "").toUpperCase().slice(0, 2),
+    avatarUrl: p.images?.profile_picture ?? null,
+    headline: typeof p.headline === "string" ? p.headline.trim() : null,
+    country,
+    countryCode,
     followerCount,
   };
 }
@@ -120,28 +173,49 @@ async function fromCache(slug: string) {
 
 // -------------------------------------------------------------- tier 2: live
 
+function serviceUrl() {
+  return process.env.LINKEDIN_API || process.env.PROFILE_SERVICE_URL || "";
+}
+
+/**
+ * The service's own daily quota is small and shared across everyone using this
+ * deployment, and it does not cache repeats: the same profile fetched twice
+ * costs twice. Our cache tier is what keeps that survivable, and this ceiling
+ * is what stops a bad hour on a public URL from exhausting the day's budget and
+ * taking the live tier down for everybody.
+ */
+const GLOBAL_LIVE_CALLS_PER_DAY = 40;
+
 async function fromLive(slug: string) {
-  const base = process.env.PROFILE_SERVICE_URL;
-  const key = process.env.PROFILE_SERVICE_KEY;
-  if (!base) return null; // no service configured yet: skip straight to manual
+  const base = serviceUrl();
+  if (!base) return null; // no service configured: skip straight to manual
 
   const url = new URL(base);
   url.searchParams.set("url", canonicalLinkedinUrl(slug));
+  url.searchParams.set("fields", CONSENTED_FIELDS);
+
+  const headers: Record<string, string> = { accept: "application/json" };
+  const key = process.env.LINKEDIN_API_KEY || process.env.PROFILE_SERVICE_KEY;
+  // The service authenticates with x-api-key, not a bearer token. It is
+  // optional on this deployment today and may not be tomorrow.
+  if (key) headers["x-api-key"] = key;
 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), LIVE_TIMEOUT_MS);
   try {
     const res = await fetch(url, {
       signal: controller.signal,
-      headers: key ? { Authorization: `Bearer ${key}` } : undefined,
+      headers,
       cache: "no-store",
     });
     if (!res.ok) return null;
-    const body = (await res.json()) as ServiceProfile;
+
+    const body = (await res.json()) as ServiceResponse;
+    const source = body.meta?.source ?? body.source;
     const freshness =
-      body.meta?.source === "live"
+      source === "live"
         ? ("live" as const)
-        : body.meta?.source === "stale"
+        : source === "stale"
           ? ("stale" as const)
           : ("cached" as const);
     return { raw: body, freshness };
@@ -192,6 +266,7 @@ export async function importProfile(
         freshness: cacheHit.freshness,
         slug,
         profile,
+        limitations: cacheHit.raw.limitations ?? [],
       };
     }
   }
@@ -211,6 +286,16 @@ export async function importProfile(
     }
   }
 
+  const liveToday = await prisma.profileImport.count({
+    where: {
+      tier: "live",
+      fetchedAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+    },
+  });
+  if (liveToday >= GLOBAL_LIVE_CALLS_PER_DAY) {
+    return { ok: false, reason: "quota_exhausted", slug, fallback: "manual" };
+  }
+
   const live = await fromLive(slug);
   if (live) {
     const profile = toImported(live.raw);
@@ -223,18 +308,25 @@ export async function importProfile(
         raw: live.raw,
         ip: ctx.ip,
       });
-      return { ok: true, tier: "live", freshness: live.freshness, slug, profile };
+      return {
+        ok: true,
+        tier: "live",
+        freshness: live.freshness,
+        slug,
+        profile,
+        limitations: live.raw.limitations ?? [],
+      };
     }
   }
 
   await recordImport({
     slug,
     tier: "manual",
-    status: process.env.PROFILE_SERVICE_URL ? "timeout" : "failed",
+    status: serviceUrl() ? "timeout" : "failed",
     freshness: null,
     raw: null,
     ip: ctx.ip,
-    error: process.env.PROFILE_SERVICE_URL
+    error: serviceUrl()
       ? "service did not answer in time"
       : "no profile service configured",
   });
@@ -261,6 +353,11 @@ async function recordImport(args: {
   ip?: string | null;
   error?: string;
 }) {
+  // What we actually asked for, as the service reports it back, rather than a
+  // list we wrote down once and hoped stayed true.
+  const fieldsUsed = args.raw?.meta?.fields?.length
+    ? args.raw.meta.fields
+    : CONSENTED_FIELDS.split(",");
   await prisma.profileImport.create({
     data: {
       sourceUrl: canonicalLinkedinUrl(args.slug),
@@ -269,6 +366,7 @@ async function recordImport(args: {
       status: args.status,
       freshness: args.freshness ?? undefined,
       rawPayload: stripInternal(args.raw),
+      fieldsUsed,
       ipHash: args.ip ? hashIp(args.ip) : undefined,
       errorMessage: args.error,
     },
@@ -277,5 +375,5 @@ async function recordImport(args: {
 
 /** Whether tier 2 is wired up. Surfaced in the UI so the state is never a lie. */
 export function liveTierConfigured() {
-  return Boolean(process.env.PROFILE_SERVICE_URL);
+  return Boolean(serviceUrl());
 }

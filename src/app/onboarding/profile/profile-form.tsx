@@ -177,6 +177,17 @@ export function ProfileStep() {
                     : "Read once from your public profile. We will not read it again."}
                 {resolved.freshness === "stale" && " It may be out of date."}
               </p>
+
+              {resolved.limitations.length > 0 && (
+                // The service reports where its own answer is thin. Passing
+                // that on costs nothing and is the same instinct as the dash:
+                // say what you do not know rather than filling the space.
+                <ul className="space-y-1 rounded-card border border-line bg-surface-3 p-3 text-xs text-ink-soft">
+                  {resolved.limitations.map((l) => (
+                    <li key={l}>{l}</li>
+                  ))}
+                </ul>
+              )}
               <button
                 type="button"
                 onClick={() => router.push("/onboarding/card")}

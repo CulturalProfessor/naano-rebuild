@@ -19,6 +19,26 @@ export const PRICE_PER_FOLLOWER_CENTS = 13;
 const PRICE_ROUNDING_EUROS = 5;
 
 /**
+ * The band the 13c rule was calibrated against.
+ *
+ * The recon's creators ran roughly 3,000 to 11,000 followers, and B2B LinkedIn
+ * creators generally live in the thousands. The arithmetic keeps working above
+ * that, but it stops meaning anything: paste a public figure with twelve
+ * million followers and it recommends a price north of a million euro. That is
+ * a real thing a curious visitor will do on the first try.
+ *
+ * We still show the number rather than silently capping it, because a capped
+ * price would be a quiet lie about what the rule computed. We say instead that
+ * it is outside the range the rule was built for, and hand the creator the
+ * field. Same instinct as the dash: name the limit, do not paper over it.
+ */
+export const CALIBRATED_FOLLOWER_CEILING = 150_000;
+
+export function priceIsCalibrated(followerCount: number): boolean {
+  return followerCount <= CALIBRATED_FOLLOWER_CEILING;
+}
+
+/**
  * The recommended starting price. The creator can change it now or later, and
  * most eventually do, which is why this is a default and not a stored truth.
  */
