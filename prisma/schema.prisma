@@ -1,0 +1,450 @@
+// naano — data model
+// Transcribed from docs/PLAN.md section 2. Field provenance is marked in comments:
+//   [I] imported from the profile service   [D] derived, never stored as fact
+//   [M] entered by a human                  [S] seeded for the demo
+//   [X] measured by us from our own events  [—] deliberately absent, renders as a dash
+// All money is integer cents. Balances are always derived from LedgerEntry,
+// never stored in a column, because money in a mutable integer goes wrong on camera.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------- enums
+
+enum Role {
+  creator
+  brand
+}
+
+enum CardStatus {
+  importing
+  draft
+  live
+}
+
+// Drives the "Data ——— Pending" bar on the marketplace card.
+enum DataState {
+  pending
+  partial
+  complete
+}
+
+// Nothing stops someone pasting a profile that is not theirs. We say so
+// rather than implying we checked. See PLAN.md 2.1.
+enum VerificationState {
+  unverified
+  verified
+}
+
+enum ImportTier {
+  cache
+  live
+  manual
+}
+
+enum ImportStatus {
+  reading
+  ok
+  timeout
+  failed
+}
+
+// Straight from the profile service's meta block.
+enum MetaFreshness {
+  live
+  cached
+  stale
+}
+
+enum CampaignStatus {
+  draft
+  open
+  closed
+}
+
+enum OfferStatus {
+  offered
+  countered
+  accepted
+  declined
+  expired
+}
+
+enum ApplicationStatus {
+  pending
+  accepted
+  rejected
+}
+
+enum BookingStatus {
+  accepted
+  drafting // modelled, not built in the first pass
+  in_review // modelled, not built in the first pass
+  approved // modelled, not built in the first pass
+  posted
+  measuring
+  completed
+  paid
+}
+
+enum LedgerKind {
+  wallet_topup
+  booking_hold
+  booking_charge
+  creator_earning
+  payout
+}
+
+enum PayoutStatus {
+  scheduled
+  paid
+}
+
+// ---------------------------------------------------------------- identity
+
+model Account {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String // [M] bcrypt. No password reset in this build.
+  role         Role // [M]
+  createdAt    DateTime @default(now())
+  lastSeenAt   DateTime @default(now())
+
+  brand   Brand?
+  creator Creator?
+  ledger  LedgerEntry[]
+
+  @@map("accounts")
+}
+
+model Brand {
+  id        String   @id @default(cuid())
+  accountId String   @unique
+  name      String // [M]
+  slug      String   @unique
+  logoUrl   String? // [M/S]
+  website   String? // [M]
+  // Pre-filled by generation in the real product; a seeded template here.
+  valueProposition String? // [M]
+  icps             Json     @default("[]") // [M/S] three {title, description}
+  // A seeded brand that answers on its own so one visitor can walk the whole
+  // loop alone. Labelled on every row it appears in. See PLAN.md section 6.
+  autoRespond      Boolean  @default(false)
+  createdAt        DateTime @default(now())
+
+  account   Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  campaigns Campaign[]
+  offers    Offer[]
+  bookings  Booking[]
+
+  @@map("brands")
+}
+
+// ---------------------------------------------------------------- the card
+// The object both sides share. The creator builds it, the brand browses it.
+
+model Creator {
+  id        String @id @default(cuid())
+  accountId String @unique
+
+  linkedinUrl String  @unique // [M] the only thing typed in step 2
+  urlSlug     String  @unique // [D] normalized; the dedupe key
+  fullName    String // [I]
+  displayName String // [D] first name + last initial, as "Shubham P."
+  avatarUrl   String? // [I]
+  headline    String? // [I]
+  country     String // [I], confirmed [M] in step 3
+  countryCode String // [D] for the flag badge
+
+  followerCount Int // [I] the one number the whole price rests on
+  industries    String[] // [M] up to 3
+
+  // Default is round(followers x 0.13) to the nearest 5, editable forever.
+  // 2,438 followers gave EUR 315 in the recon: 315/2438 = 0.1292.
+  pricePerPostCents Int
+
+  // [X] in production, [S] for seeded creators, null for a new signup.
+  // Null cascades: no median views means no CPM, and both render as a dash.
+  medianViews Int?
+
+  cardStatus        CardStatus        @default(importing)
+  dataState         DataState         @default(pending)
+  verificationState VerificationState @default(unverified)
+
+  // Gates applying, accepting, invoicing and withdrawing.
+  // Does NOT gate being listed: the card goes live first.
+  taxProfileComplete Boolean @default(false)
+
+  // Seeded creators that answer on their own. Labelled wherever shown.
+  autoRespond Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  account      Account         @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  imports      ProfileImport[]
+  bundles      Bundle[]
+  offers       Offer[]
+  applications Application[]
+  bookings     Booking[]
+  payouts      Payout[]
+
+  @@index([cardStatus])
+  @@map("creators")
+}
+
+// The audit trail for the consent sentence, and the reason that sentence is
+// safe to make. It promises a SINGLE read of five named fields; this table is
+// what makes the promise checkable rather than decorative.
+model ProfileImport {
+  id        String  @id @default(cuid())
+  creatorId String?
+
+  sourceUrl String
+  urlSlug   String // normalized; the cache key for tier 1
+
+  tier   ImportTier
+  status ImportStatus   @default(reading)
+  // Freshness as reported by the service, surfaced in the UI.
+  freshness MetaFreshness?
+
+  rawPayload Json?
+  // The five fields we told the creator we would read, stored explicitly:
+  // name, photo, headline, country, follower count.
+  fieldsUsed String[] @default(["name", "photo", "headline", "country", "followerCount"])
+
+  errorMessage String?
+  fetchedAt    DateTime @default(now())
+
+  creator Creator? @relation(fields: [creatorId], references: [id], onDelete: SetNull)
+
+  @@index([urlSlug])
+  @@map("profile_imports")
+}
+
+model Bundle {
+  id        String @id @default(cuid())
+  creatorId String
+
+  postCount       Int // [M]
+  totalPriceCents Int // [M]
+  // [D] unit = total / count; savings = count * pricePerPost - total.
+  // The recon: 5 posts at EUR 1340 = EUR 268/post, "brand saves EUR 235".
+  isPrimary Boolean @default(true)
+
+  creator Creator @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  @@map("bundles")
+}
+
+// ---------------------------------------------------------------- demand
+
+model Campaign {
+  id      String @id @default(cuid())
+  brandId String
+
+  name            String // [M] "Main campaign"
+  briefProduct    String // [M]
+  briefAudience   String // [D] from the brand's ICPs
+  // Constant, and the sharpest sentence in either walkthrough.
+  briefGuardrail  String  @default("Creators can adapt the angle to their expertise, while keeping every product claim factual.")
+  channel         String  @default("linkedin")
+  regions         String[] @default([])
+  industries      String[] @default([])
+  postDeadlineDays Int     @default(14)
+  budgetCapCents  Int? // the "EUR 1500 cap" the matcher honoured
+
+  status    CampaignStatus @default(open)
+  createdAt DateTime       @default(now())
+
+  brand        Brand         @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  offers       Offer[]
+  applications Application[]
+  bookings     Booking[]
+  leads        Lead[]
+
+  @@index([status])
+  @@map("campaigns")
+}
+
+// Door one into the booking machine: the brand reaches out.
+model Offer {
+  id         String @id @default(cuid())
+  campaignId String
+  creatorId  String
+  brandId    String
+
+  // Snapshotted at creation. The creator can change their price tomorrow and
+  // the offer must not move underneath either party.
+  listPriceCents  Int
+  offerPriceCents Int // [M]
+  discountPct     Int // [D]
+
+  postBy          DateTime // [M] defaults to now + 14 days
+  workMode        String   @default("specific_brief")
+  requiresApproval Boolean @default(false) // modelled, not read in the first pass
+
+  status    OfferStatus @default(offered)
+  // "The creator receives the offer immediately and can accept or decline it
+  // within 48 hours." Read off the offer modal. It is a real state.
+  expiresAt DateTime
+  counterPriceCents Int?
+  note              String?
+  createdAt         DateTime @default(now())
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  creator  Creator  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  brand    Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  booking  Booking?
+
+  @@index([creatorId, status])
+  @@index([campaignId])
+  @@map("offers")
+}
+
+// Door two: the creator reaches out. Terminates in the same Booking.
+model Application {
+  id         String @id @default(cuid())
+  campaignId String
+  creatorId  String
+
+  matchScore Int // [D] same scorer both sides
+  note       String?
+  status     ApplicationStatus @default(pending)
+  createdAt  DateTime          @default(now())
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  creator  Creator  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  booking  Booking?
+
+  @@unique([campaignId, creatorId])
+  @@map("applications")
+}
+
+// ---------------------------------------------------------------- the contract
+
+model Booking {
+  id            String  @id @default(cuid())
+  offerId       String? @unique
+  applicationId String? @unique
+  campaignId    String
+  creatorId     String
+  brandId       String
+
+  agreedPriceCents Int // [D] frozen at acceptance
+  postBy           DateTime
+  requiresApproval Boolean  @default(false)
+
+  status BookingStatus @default(accepted)
+
+  draftContent String? // modelled, not read in the first pass
+  postUrl      String? // [M]
+  postedAt     DateTime?
+  // We do not read LinkedIn. This is the creator's number and the UI says so.
+  selfReportedViews Int?
+
+  // Every click resolves to exactly one creator, one campaign, one brand.
+  trackingCode String @unique
+
+  createdAt   DateTime  @default(now())
+  completedAt DateTime?
+
+  offer       Offer?       @relation(fields: [offerId], references: [id], onDelete: SetNull)
+  application Application? @relation(fields: [applicationId], references: [id], onDelete: SetNull)
+  campaign    Campaign     @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  creator     Creator      @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  brand       Brand        @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  clicks  ClickEvent[]
+  leads   Lead[]
+  payout  Payout?
+  ledger  LedgerEntry[]
+
+  @@index([creatorId, status])
+  @@index([brandId, status])
+  @@map("bookings")
+}
+
+// ---------------------------------------------------------------- attribution
+// The only part of the product that is genuinely ours rather than a view of
+// LinkedIn. Clicks and leads are measured; views are self-reported.
+
+model ClickEvent {
+  id           String   @id @default(cuid())
+  bookingId    String
+  trackingCode String
+  occurredAt   DateTime @default(now())
+  referrer     String?
+  uaFamily     String?
+  ipHash       String? // hashed, never stored raw
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+  @@map("click_events")
+}
+
+model Lead {
+  id           String   @id @default(cuid())
+  bookingId    String
+  campaignId   String
+  trackingCode String
+
+  email     String // [M] by the visitor
+  company   String?
+  occurredAt DateTime @default(now())
+
+  // The softest number in the model. Real pipeline value comes from a CRM we
+  // are not integrating. This is a per-campaign assumed deal value, and the UI
+  // shows the multiplier next to the total rather than hiding it.
+  pipelineValueCents Int
+
+  booking  Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+  @@index([campaignId])
+  @@map("leads")
+}
+
+// ---------------------------------------------------------------- money
+// Three ledger rows per booking: a hold at accepted, a charge at completed,
+// a payout at paid. Every balance is a sum over this table.
+
+model LedgerEntry {
+  id        String  @id @default(cuid())
+  accountId String
+  bookingId String?
+
+  direction   String // "credit" | "debit"
+  amountCents Int
+  kind        LedgerKind
+  memo        String?
+  createdAt   DateTime   @default(now())
+
+  account Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  booking Booking? @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+
+  @@index([accountId])
+  @@map("ledger_entries")
+}
+
+model Payout {
+  id        String @id @default(cuid())
+  creatorId String
+  bookingId String @unique
+
+  amountCents  Int
+  status       PayoutStatus @default(scheduled)
+  scheduledFor DateTime
+  paidAt       DateTime?
+
+  creator Creator @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([creatorId, status])
+  @@map("payouts")
+}
