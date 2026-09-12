@@ -23,11 +23,13 @@ export async function AppHeader({
     role === "brand"
       ? [
           { href: "/brand", label: "Campaigns" },
+          { href: "/brand/matching", label: "AI matching" },
           { href: "/marketplace", label: "Marketplace" },
           { href: "/brand/offers", label: "Offers" },
         ]
       : [
           { href: "/creator", label: "Studio" },
+          { href: "/creator/opportunities", label: "Opportunities" },
           { href: "/creator/earnings", label: "Earnings" },
           { href: "/marketplace", label: "Marketplace" },
         ];

@@ -103,10 +103,10 @@ export default async function CreatorHome() {
                 not have to wait for one to find you.
               </p>
               <Link
-                href={`/c/${creator.urlSlug}`}
+                href="/creator/opportunities"
                 className="mt-4 inline-block rounded-card bg-brand px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-strong"
               >
-                See how brands see you
+                Browse open campaigns
               </Link>
             </div>
           ) : (

@@ -18,10 +18,28 @@ const regionNames =
     ? new Intl.DisplayNames(["en"], { type: "region" })
     : null;
 
+/**
+ * Codes the profile service emits that are not the ISO code the rest of the
+ * world uses. Intl resolves both of these to a country name, which is exactly
+ * why they are dangerous: nothing looks wrong until the flag renders as two
+ * letters and the region lookup quietly misses. Found by a creator in the
+ * United Kingdom scoring zero on a campaign targeting Europe.
+ */
+const CODE_ALIASES: Record<string, string> = {
+  UK: "GB", // the service's spelling; ISO says GB
+  FX: "FR", // metropolitan France, deprecated in ISO 3166
+  EL: "GR", // the EU's spelling for Greece
+};
+
+export function canonicalCountryCode(code: string): string {
+  const upper = code.trim().toUpperCase();
+  return CODE_ALIASES[upper] ?? upper;
+}
+
 /** "IE" -> "Ireland". Returns null for anything that is not a real region. */
 export function countryNameFor(code: string): string | null {
   if (!/^[A-Za-z]{2}$/.test(code)) return null;
-  const upper = code.toUpperCase();
+  const upper = canonicalCountryCode(code);
   try {
     const name = regionNames?.of(upper);
     // Intl echoes the input back when it does not recognise the region.
@@ -38,6 +56,10 @@ const codeByName = (() => {
   for (let a = 65; a <= 90; a++) {
     for (let b = 65; b <= 90; b++) {
       const code = String.fromCharCode(a, b);
+      // Aliases resolve to the same display name as their canonical code and
+      // would otherwise overwrite it, since they come later in the alphabet.
+      // That is how "United Kingdom" started resolving to UK instead of GB.
+      if (code in CODE_ALIASES) continue;
       const name = countryNameFor(code);
       if (name) map.set(name.toLowerCase(), code);
     }
@@ -88,10 +110,9 @@ export function resolveLocation(raw: string | null | undefined): ResolvedLocatio
 
   // Bare country code, the shape the service warns about.
   if (/^[A-Za-z]{2}$/.test(value)) {
-    const name = countryNameFor(value);
-    return name
-      ? { country: name, countryCode: value.toUpperCase() }
-      : { country: value.toUpperCase(), countryCode: "" };
+    const code = canonicalCountryCode(value);
+    const name = countryNameFor(code);
+    return name ? { country: name, countryCode: code } : { country: code, countryCode: "" };
   }
 
   // "City, Region, Country" - the country is the last segment.
@@ -111,4 +132,52 @@ export function resolveLocation(raw: string | null | undefined): ResolvedLocatio
   }
 
   return { country: tail, countryCode: "" };
+}
+
+/**
+ * Regions, as the campaign form offers them.
+ *
+ * Deliberately coarse. A campaign says "Europe · North America" and a creator
+ * has a country code, and the only question the matcher asks is whether one
+ * sits inside the other. A finer taxonomy would be more correct and would
+ * change no answer this product gives.
+ */
+export const REGIONS = [
+  "Europe",
+  "North America",
+  "Latin America",
+  "Asia Pacific",
+  "Middle East & Africa",
+] as const;
+
+export type Region = (typeof REGIONS)[number];
+
+const REGION_BY_CODE: Record<string, Region> = {};
+const fill = (region: Region, codes: string[]) => {
+  for (const c of codes) REGION_BY_CODE[c] = region;
+};
+
+fill("Europe", [
+  "AL","AT","BA","BE","BG","BY","CH","CY","CZ","DE","DK","EE","ES","FI","FR",
+  "GB","GR","HR","HU","IE","IS","IT","LT","LU","LV","MD","ME","MK","MT","NL",
+  "NO","PL","PT","RO","RS","SE","SI","SK","UA","XK",
+]);
+fill("North America", ["CA", "US", "MX", "PR"]);
+fill("Latin America", [
+  "AR","BO","BR","CL","CO","CR","CU","DO","EC","GT","HN","NI","PA","PE","PY",
+  "SV","UY","VE",
+]);
+fill("Asia Pacific", [
+  "AU","BD","CN","HK","ID","IN","JP","KR","LK","MY","NP","NZ","PH","PK","SG",
+  "TH","TW","VN",
+]);
+fill("Middle East & Africa", [
+  "AE","BH","CI","DZ","EG","ET","GH","IL","JO","KE","KW","LB","MA","NG","OM",
+  "QA","RW","SA","SN","TN","TR","TZ","UG","ZA",
+]);
+
+/** Null for a country we have not placed. The matcher treats that as unknown
+ *  rather than as a mismatch, because the honest answer is that we do not know. */
+export function regionForCountry(countryCode: string): Region | null {
+  return REGION_BY_CODE[canonicalCountryCode(countryCode)] ?? null;
 }
