@@ -7,7 +7,12 @@ export default function CreatorSignupPage() {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="flex flex-col px-6 py-10 sm:px-12 lg:px-16">
-        <div className="mb-10 font-display text-lg font-bold tracking-tight">naano</div>
+        <Link
+          href="/"
+          className="mb-10 inline-block font-display text-lg font-bold tracking-tight"
+        >
+          naano
+        </Link>
         <div className="mx-auto w-full max-w-md flex-1">
           <Link href="/register" className="mb-4 inline-block text-sm text-ink-soft hover:text-ink">
             ← Back

@@ -3,7 +3,7 @@ import { CardSkeleton, PanelSkeleton, Skeleton, StatGridSkeleton } from "@/compo
 /** The public card, in outline. Same two-column geometry as the real page. */
 export default function Loading() {
   return (
-    <main className="sky-bg grain min-h-screen">
+    <main className="sky-bg grain flex-1">
       <div className="rise-in relative z-10 mx-auto grid max-w-5xl items-start gap-10 px-6 py-14 lg:grid-cols-[380px_1fr]">
         <div>
           <CardSkeleton />

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 import { MarketplaceCard } from "@/components/marketplace-card";
@@ -103,9 +104,12 @@ export function ProfileStep() {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="flex flex-col px-6 py-10 sm:px-12 lg:px-16">
-        <div className="mb-10 font-display text-lg font-bold tracking-tight">
+        <Link
+          href="/"
+          className="mb-10 inline-block font-display text-lg font-bold tracking-tight"
+        >
           naano
-        </div>
+        </Link>
 
         <div className="mx-auto w-full max-w-md flex-1">
           <p className="text-xs font-semibold uppercase tracking-widest text-brand">

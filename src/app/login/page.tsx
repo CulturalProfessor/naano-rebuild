@@ -7,7 +7,12 @@ export default function LoginPage() {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="flex flex-col px-6 py-10 sm:px-12 lg:px-16">
-        <div className="mb-16 font-display text-lg font-bold tracking-tight">naano</div>
+        <Link
+          href="/"
+          className="mb-16 inline-block font-display text-lg font-bold tracking-tight"
+        >
+          naano
+        </Link>
         <div className="mx-auto w-full max-w-md flex-1">
           <h1 className="font-display text-3xl">Sign in</h1>
           <p className="mt-2 text-ink-soft">Welcome back.</p>

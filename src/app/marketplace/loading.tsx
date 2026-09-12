@@ -9,7 +9,7 @@ const PILL_WIDTHS = ["w-12", "w-16", "w-20", "w-14", "w-24", "w-16"] as const;
  */
 export default function Loading() {
   return (
-    <main className="sky-bg grain min-h-screen">
+    <main className="sky-bg grain flex-1">
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-12">
         <header className="mb-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-brand">
