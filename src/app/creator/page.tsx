@@ -3,7 +3,6 @@ import { requireCreator } from "@/lib/auth";
 import { offersForCreator, isLive } from "@/lib/offers";
 import { runAutoResponses } from "@/lib/cold-start";
 import { prisma } from "@/lib/db";
-import { AppHeader } from "@/components/app-header";
 import { OfferRow, type InboxOffer } from "./offer-row";
 import { formatDay, formatDayTime, requestNow } from "@/lib/dates";
 import { formatEuros } from "@/lib/pricing";
@@ -11,7 +10,7 @@ import { formatEuros } from "@/lib/pricing";
 export const metadata = { title: "Creator studio — naano" };
 
 export default async function CreatorHome() {
-  const { account, creator } = await requireCreator();
+  const { creator } = await requireCreator();
 
   // The seeded counterparties answer on a page load by whoever is waiting.
   // No scheduler, so nothing runs while nobody is watching.
@@ -67,7 +66,6 @@ export default async function CreatorHome() {
 
   return (
     <>
-      <AppHeader accountId={account.id} role="creator" active="/creator" />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>

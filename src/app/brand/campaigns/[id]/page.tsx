@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireBrand } from "@/lib/auth";
 import { campaignDashboard, type PostRow } from "@/lib/dashboard";
-import { AppHeader } from "@/components/app-header";
 import { CampaignStatusForm } from "./status-form";
 import {
   formatEuros,
@@ -21,7 +20,7 @@ export default async function CampaignDashboard({
   params,
 }: PageProps<"/brand/campaigns/[id]">) {
   const { id } = await params;
-  const { account, brand } = await requireBrand();
+  const { brand } = await requireBrand();
   const data = await campaignDashboard(brand.id, id);
   if (!data) notFound();
 
@@ -29,7 +28,6 @@ export default async function CampaignDashboard({
 
   return (
     <>
-      <AppHeader accountId={account.id} role="brand" active="/brand/campaigns" />
       <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
         <Link href="/brand/campaigns" className="text-sm text-ink-soft hover:text-ink">
           ← Back to campaigns

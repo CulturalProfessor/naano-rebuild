@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireCreator } from "@/lib/auth";
 import { bookingForCreator, requestOrigin } from "@/lib/bookings";
-import { AppHeader } from "@/components/app-header";
 import { MessageThread } from "@/components/message-thread";
 import { threadFor, markThreadRead } from "@/lib/messages";
 import { CopyField } from "@/components/copy-field";
@@ -16,7 +15,7 @@ export default async function CreatorBooking({
   params,
 }: PageProps<"/creator/bookings/[id]">) {
   const { id } = await params;
-  const { account, creator } = await requireCreator();
+  const { creator } = await requireCreator();
   const [booking, origin] = await Promise.all([
     bookingForCreator(creator.id, id),
     requestOrigin(),
@@ -32,7 +31,6 @@ export default async function CreatorBooking({
 
   return (
     <>
-      <AppHeader accountId={account.id} role="creator" active="/creator" />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-10">
         <Link href="/creator" className="text-sm text-ink-soft hover:text-ink">
           ← Back to the studio

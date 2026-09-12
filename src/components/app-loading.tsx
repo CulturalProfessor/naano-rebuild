@@ -1,5 +1,4 @@
 import {
-  HeaderSkeleton,
   PanelSkeleton,
   RowListSkeleton,
   Skeleton,
@@ -8,10 +7,9 @@ import {
 /**
  * The signed-in page fallback.
  *
- * It keeps the header, because the nav is the one part of a signed-in screen
- * that is already known before the query returns — losing it on every
- * navigation is what makes an app feel like it reloads rather than moves.
- * Callers pass the title as real text for the same reason.
+ * No header in here: the real one lives in the section's layout now and stays
+ * on screen while this renders underneath it. Callers still pass the title as
+ * real text, because a page's name is known before its query returns.
  */
 export function AppPageLoading({
   title,
@@ -27,9 +25,7 @@ export function AppPageLoading({
   rows?: number;
 }) {
   return (
-    <>
-      <HeaderSkeleton />
-      <main className={`rise-in mx-auto w-full flex-1 px-6 py-10 ${width}`}>
+    <main className={`rise-in mx-auto w-full flex-1 px-6 py-10 ${width}`}>
         <h1 className="font-display text-3xl">{title}</h1>
         {subtitle && <Skeleton className="mt-3 h-4 w-2/3 max-w-md" />}
 
@@ -46,7 +42,6 @@ export function AppPageLoading({
             <RowListSkeleton count={rows} />
           </div>
         )}
-      </main>
-    </>
+    </main>
   );
 }

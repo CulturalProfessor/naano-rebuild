@@ -1,58 +1,29 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { signOut } from "@/app/actions/auth";
 import { SubmitButton } from "@/components/action-button";
+import { AppNav } from "@/components/app-nav";
+import { Skeleton } from "@/components/loading";
 import { walletBalanceCents } from "@/lib/money";
 import { unreadCountFor } from "@/lib/messages";
 import { currentAccount } from "@/lib/session";
 import { formatEuros } from "@/lib/pricing";
 
 /**
- * The signed-in header. The wallet chip is a sum over the ledger, computed on
- * every render rather than read from a column, which is the same rule the rest
- * of the money in this product follows.
+ * The signed-in header.
+ *
+ * It lives in a layout, not in a page. Rendering it inside every page meant it
+ * was part of the page segment, so every navigation tore it down and put a
+ * skeleton in its place: the nav you had just clicked vanished while the thing
+ * you clicked to was loading. In a layout it renders once per section and
+ * stays put while the page underneath swaps.
+ *
+ * Nothing here blocks that. The component itself is synchronous, and the two
+ * pieces that need a query — the wallet and the unread count — stream in
+ * behind their own boundaries. A number that changes is not a reason to make
+ * the whole chrome wait.
  */
-export async function AppHeader({
-  accountId,
-  role,
-  active,
-}: {
-  accountId: string;
-  role: "creator" | "brand";
-  active?: string;
-}) {
-  const party = role === "brand" ? "brand" : "creator";
-  // currentAccount already carries both ids and is memoised for this request,
-  // so asking it here costs nothing. A second account lookup here was running
-  // on every signed-in page.
-  const viewer = await currentAccount();
-  const partyId = party === "brand" ? viewer?.brand?.id : viewer?.creator?.id;
-
-  const [balance, unread] = await Promise.all([
-    walletBalanceCents(accountId),
-    partyId ? unreadCountFor(party, partyId) : Promise.resolve(0),
-  ]);
-
-  const links =
-    role === "brand"
-      ? [
-          { href: "/brand", label: "Overview" },
-          { href: "/brand/campaigns", label: "Campaigns" },
-          { href: "/brand/matching", label: "AI matching" },
-          { href: "/marketplace", label: "Marketplace" },
-          { href: "/brand/offers", label: "Offers" },
-          { href: "/brand/messages", label: "Messages", badge: unread },
-          { href: "/brand/billing", label: "Billing" },
-          { href: "/brand/account", label: "Account" },
-        ]
-      : [
-          { href: "/creator", label: "Studio" },
-          { href: "/creator/opportunities", label: "Opportunities" },
-          { href: "/creator/messages", label: "Messages", badge: unread },
-          { href: "/creator/earnings", label: "Earnings" },
-          { href: "/marketplace", label: "Marketplace" },
-          { href: "/creator/account", label: "My card" },
-        ];
-
+export function AppHeader({ role }: { role: "creator" | "brand" }) {
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-surface/85 backdrop-blur">
       {/* On a narrow screen the nav drops to its own row rather than pushing
@@ -65,40 +36,19 @@ export async function AppHeader({
           naano
         </Link>
 
-        <nav className="order-last -mx-1 flex w-full items-center gap-1 overflow-x-auto text-sm sm:order-none sm:mx-0 sm:w-auto sm:overflow-visible">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`flex shrink-0 items-center gap-1.5 rounded-pill px-3 py-1.5 transition-colors ${
-                active === l.href
-                  ? "bg-brand-soft font-medium text-brand-strong"
-                  : "text-ink-soft hover:text-ink"
-              }`}
-            >
-              {l.label}
-              {/* A count, not a dot: "3 waiting" is actionable, a dot is not. */}
-              {"badge" in l && l.badge ? (
-                <span className="grid h-4 min-w-4 place-items-center rounded-pill bg-brand px-1 text-[10px] font-semibold text-white">
-                  {l.badge}
-                </span>
-              ) : null}
-            </Link>
-          ))}
-        </nav>
+        <AppNav
+          role={role}
+          unread={
+            <Suspense fallback={null}>
+              <UnreadBadge role={role} />
+            </Suspense>
+          }
+        />
 
         <div className="ml-auto flex items-center gap-3">
-          <Link
-            href={role === "brand" ? "/brand/billing" : "/creator/earnings"}
-            className="rounded-pill border border-line px-3 py-1.5 text-sm tabular-nums transition-colors hover:border-ink-mute"
-            title={
-              role === "brand"
-                ? "Play money. Every balance is a sum over the ledger."
-                : "Earnings credited, minus what has been paid out."
-            }
-          >
-            {formatEuros(balance)}
-          </Link>
+          <Suspense fallback={<Skeleton className="h-8 w-16 rounded-pill" />}>
+            <WalletChip role={role} />
+          </Suspense>
           <form action={signOut}>
             <SubmitButton variant="quiet" size="sm" pendingLabel="Signing out…">
               Sign out
@@ -107,5 +57,43 @@ export async function AppHeader({
         </div>
       </div>
     </header>
+  );
+}
+
+/** A sum over the ledger on every render, never a stored column. */
+async function WalletChip({ role }: { role: "creator" | "brand" }) {
+  const viewer = await currentAccount();
+  if (!viewer) return null;
+  const balance = await walletBalanceCents(viewer.id);
+
+  return (
+    <Link
+      href={role === "brand" ? "/brand/billing" : "/creator/earnings"}
+      className="rounded-pill border border-line px-3 py-1.5 text-sm tabular-nums transition-colors hover:border-ink-mute"
+      title={
+        role === "brand"
+          ? "Play money. Every balance is a sum over the ledger."
+          : "Earnings credited, minus what has been paid out."
+      }
+    >
+      {formatEuros(balance)}
+    </Link>
+  );
+}
+
+/** A count, not a dot: "3 waiting" is actionable, a dot is not. */
+async function UnreadBadge({ role }: { role: "creator" | "brand" }) {
+  const viewer = await currentAccount();
+  const party = role === "brand" ? "brand" : "creator";
+  const partyId = party === "brand" ? viewer?.brand?.id : viewer?.creator?.id;
+  if (!partyId) return null;
+
+  const unread = await unreadCountFor(party, partyId);
+  if (unread === 0) return null;
+
+  return (
+    <span className="grid h-4 min-w-4 place-items-center rounded-pill bg-brand px-1 text-[10px] font-semibold text-white">
+      {unread}
+    </span>
   );
 }

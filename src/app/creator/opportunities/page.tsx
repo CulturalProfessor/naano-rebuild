@@ -1,7 +1,6 @@
 import { requireCreator } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { runAutoResponses } from "@/lib/cold-start";
-import { AppHeader } from "@/components/app-header";
 import { ApplyButton } from "./apply-button";
 import { scoreMatch } from "@/lib/matching";
 import { formatEuros } from "@/lib/pricing";
@@ -18,7 +17,7 @@ export const metadata = { title: "Opportunities — naano" };
  * the number on screen is about them rather than decoration.
  */
 export default async function Opportunities() {
-  const { account, creator } = await requireCreator();
+  const { creator } = await requireCreator();
 
   await runAutoResponses();
 
@@ -66,11 +65,6 @@ export default async function Opportunities() {
 
   return (
     <>
-      <AppHeader
-        accountId={account.id}
-        role="creator"
-        active="/creator/opportunities"
-      />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-10">
         <h1 className="font-display text-3xl">Opportunities</h1>
         <p className="mt-1 max-w-2xl text-ink-soft">

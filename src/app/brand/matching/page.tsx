@@ -3,7 +3,6 @@ import { requireBrand } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { openCampaignsForBrand } from "@/lib/offers";
 import { INDUSTRIES } from "@/lib/queries";
-import { AppHeader } from "@/components/app-header";
 import { rationaleFromModel, type RationaleSource } from "@/lib/ai";
 import { OfferModal } from "@/components/offer-modal";
 import {
@@ -33,7 +32,7 @@ const SUGGESTED = [
 export default async function Matching({
   searchParams,
 }: PageProps<"/brand/matching">) {
-  const { account, brand } = await requireBrand();
+  const { brand } = await requireBrand();
   const sp = await searchParams;
   const prompt = typeof sp.q === "string" ? sp.q.slice(0, 300) : "";
 
@@ -115,7 +114,6 @@ export default async function Matching({
 
   return (
     <>
-      <AppHeader accountId={account.id} role="brand" active="/brand/matching" />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-10">
         <nav className="inline-flex rounded-pill border border-line bg-surface p-1 text-sm">
           <span className="rounded-pill bg-brand px-4 py-1.5 font-medium text-white">

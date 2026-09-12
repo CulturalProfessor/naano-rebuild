@@ -19,9 +19,7 @@ export async function SiteHeader({ active }: { active?: string }) {
   const viewer = await currentAccount();
 
   if (viewer) {
-    return (
-      <AppHeader accountId={viewer.id} role={viewer.role} active={active} />
-    );
+    return <AppHeader role={viewer.role} />;
   }
 
   return (

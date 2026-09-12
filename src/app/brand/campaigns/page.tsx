@@ -2,14 +2,13 @@ import Link from "next/link";
 import { requireBrand } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { runAutoResponses } from "@/lib/cold-start";
-import { AppHeader } from "@/components/app-header";
 import { formatEuros } from "@/lib/pricing";
 import { formatDay } from "@/lib/dates";
 
 export const metadata = { title: "Campaigns — naano" };
 
 export default async function BrandCampaigns() {
-  const { account, brand } = await requireBrand();
+  const { brand } = await requireBrand();
 
   await runAutoResponses();
 
@@ -56,7 +55,6 @@ export default async function BrandCampaigns() {
 
   return (
     <>
-      <AppHeader accountId={account.id} role="brand" active="/brand/campaigns" />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-10">
         <p className="text-xs font-semibold uppercase tracking-widest text-brand">
           {brand.name}

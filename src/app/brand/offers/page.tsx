@@ -2,7 +2,6 @@ import Link from "next/link";
 import { requireBrand } from "@/lib/auth";
 import { offersForBrand, isLive } from "@/lib/offers";
 import { runAutoResponses } from "@/lib/cold-start";
-import { AppHeader } from "@/components/app-header";
 import { Countdown } from "@/components/countdown";
 import { formatEuros } from "@/lib/pricing";
 import { formatDay, formatDayTime, requestNow } from "@/lib/dates";
@@ -30,7 +29,7 @@ function agreedOrOffered(o: {
 }
 
 export default async function BrandOffers() {
-  const { account, brand } = await requireBrand();
+  const { brand } = await requireBrand();
   await runAutoResponses();
 
   const [offers, applications] = await Promise.all([
@@ -62,7 +61,6 @@ export default async function BrandOffers() {
 
   return (
     <>
-      <AppHeader accountId={account.id} role="brand" active="/brand/offers" />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-10">
         {applications.length > 0 && (
           <section className="mb-12">

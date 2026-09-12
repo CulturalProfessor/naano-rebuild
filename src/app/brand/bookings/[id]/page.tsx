@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireBrand } from "@/lib/auth";
 import { bookingForBrand, requestOrigin } from "@/lib/bookings";
-import { AppHeader } from "@/components/app-header";
 import { MessageThread } from "@/components/message-thread";
 import { threadFor, markThreadRead } from "@/lib/messages";
 import { CopyField } from "@/components/copy-field";
@@ -16,7 +15,7 @@ export default async function BrandBooking({
   params,
 }: PageProps<"/brand/bookings/[id]">) {
   const { id } = await params;
-  const { account, brand } = await requireBrand();
+  const { brand } = await requireBrand();
   const [booking, origin] = await Promise.all([
     bookingForBrand(brand.id, id),
     requestOrigin(),
@@ -36,7 +35,6 @@ export default async function BrandBooking({
 
   return (
     <>
-      <AppHeader accountId={account.id} role="brand" active="/brand" />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-10">
         <Link href="/brand/campaigns" className="text-sm text-ink-soft hover:text-ink">
           ← Back to campaigns

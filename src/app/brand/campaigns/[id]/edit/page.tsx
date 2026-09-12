@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireBrand } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { AppHeader } from "@/components/app-header";
 import { CampaignForm } from "@/components/campaign-form";
 
 export const metadata = { title: "Edit the brief — naano" };
@@ -10,7 +9,7 @@ export const metadata = { title: "Edit the brief — naano" };
 export default async function EditCampaign({
   params,
 }: PageProps<"/brand/campaigns/[id]/edit">) {
-  const { account, brand } = await requireBrand();
+  const { brand } = await requireBrand();
   const { id } = await params;
 
   const campaign = await prisma.campaign.findFirst({
@@ -32,7 +31,6 @@ export default async function EditCampaign({
 
   return (
     <>
-      <AppHeader accountId={account.id} role="brand" active="/brand/campaigns" />
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-10">
         <Link
           href={`/brand/campaigns/${campaign.id}`}

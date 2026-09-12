@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { requireCreator } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { AppHeader } from "@/components/app-header";
 import { CreatorAccountForm } from "./account-form";
 import { derivePricePerPostCents, compactNumber } from "@/lib/pricing";
 
 export const metadata = { title: "My card — naano" };
 
 export default async function CreatorAccount() {
-  const { account, creator } = await requireCreator();
+  const { creator } = await requireCreator();
 
   const row = await prisma.creator.findUniqueOrThrow({
     where: { id: creator.id },
@@ -39,7 +38,6 @@ export default async function CreatorAccount() {
 
   return (
     <>
-      <AppHeader accountId={account.id} role="creator" active="/creator/account" />
       <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>

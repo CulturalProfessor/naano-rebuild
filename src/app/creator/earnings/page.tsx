@@ -2,7 +2,6 @@ import Link from "next/link";
 import { requireCreator } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { walletBalanceCents, ledgerFor, earningsSummary } from "@/lib/money";
-import { AppHeader } from "@/components/app-header";
 import { WithdrawForm } from "./withdraw-form";
 import { formatEuros } from "@/lib/pricing";
 import { formatDay, formatDayTime } from "@/lib/dates";
@@ -32,7 +31,6 @@ export default async function Earnings() {
 
   return (
     <>
-      <AppHeader accountId={account.id} role="creator" active="/creator/earnings" />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-10">
         <h1 className="font-display text-3xl">Earnings</h1>
         <p className="mt-1 text-ink-soft">

@@ -1,6 +1,5 @@
 import { requireBrand } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { AppHeader } from "@/components/app-header";
 import { BrandAccountForm, type Icp } from "./account-form";
 
 export const metadata = { title: "Account — naano" };
@@ -17,7 +16,6 @@ export default async function BrandAccount() {
 
   return (
     <>
-      <AppHeader accountId={account.id} role="brand" active="/brand/account" />
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-10">
         <h1 className="font-display text-3xl">Account</h1>
         <p className="mt-1 text-ink-soft">
