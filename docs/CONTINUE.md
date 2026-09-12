@@ -15,136 +15,188 @@ thing is good to use. A stranger must be able to hit the live URL, sign up with
 their own LinkedIn profile, and get a real card — that is confirmed scope, not
 an assumption.
 
+**Live at https://naano-ashy.vercel.app**, on the Vercel project
+`culturalprofessors-projects/naano`, against Supabase over the transaction
+pooler. Repo: https://github.com/CulturalProfessor/naano-rebuild, branch
+`master`, pushed and clean.
+
+**Your first job is UI breakage I am about to describe.** I will paste the
+specific problems in my next message. Read the two docs below before you touch
+anything, then fix what I report, walking each screen in a browser rather than
+reasoning about the CSS.
+
 **Read `docs/PLAN.md` first, all seven sections.** It is the argued plan: recon
 of both sides, the data model with field provenance, the cut with reasons, the
 build order with time boxes, the stranger path, and the visual system
-transcribed from naano.com's own stylesheet. Then read `docs/DEPLOY.md`. Do not
-re-derive decisions that are already argued there; if you disagree with one, say
-so once and move on.
+transcribed from naano.com's own stylesheet. Section 7 is the one that matters
+for UI work: the tokens are a transcription of naano's own stylesheet, not a
+theme choice. Then read `docs/DEPLOY.md`. Do not re-derive decisions that are
+already argued there; if you disagree with one, say so once and move on.
 
-## What is already built and verified
+## What is built and verified
 
-Five commits, `c864009..dfe1627`. Next.js 16.3.5 + React 19 + TypeScript,
-Tailwind v4, Prisma 7.10.0 on Postgres. Build and lint are clean.
+Eleven commits, `c864009..c8bdb93`. Next.js 16.3.5 + React 19 + TypeScript,
+Tailwind v4, Prisma 7.10.0 on Postgres. Build and lint are clean. Every flow
+below was walked in a browser and checked against the database, not just read.
 
-- **Schema**: all 13 entities from PLAN section 2, migrated, with provenance
-  markers in comments. Money is integer cents; balances derive from
-  `LedgerEntry` and are never a column.
-- **Seed**: 29 cached profiles in `data/cached-profiles.json`, shaped exactly
-  like the live service's response. 26 become creators, 4 of those deliberately
-  with no post history. 3 are left **unclaimed** so a signup on camera resolves
-  from cache with no live call. 4 brands with open campaigns, 6 completed
-  bookings with clicks, leads, payouts and ledger rows.
-- **Auth**: email + bcrypt + signed HTTP-only cookie. Scope enforced in
-  `src/lib/auth.ts` (`requireBrand`, `requireCreator`), not in pages.
-- **The marketplace card** (`src/components/marketplace-card.tsx`): one
-  component, renders in five places.
-- **Marketplace grid** at `/marketplace` with industry, country and price
-  filters. Public card page at `/c/[slug]`.
-- **Creator onboarding, all four steps**, walked end to end in a browser. Step 2
-  is built to the recon: consent sentence verbatim, reading state in two places
-  at once from one piece of state, card skeleton that is the real card.
-- **The importer** (`src/lib/profile-importer.ts`): three-tier chain, cache then
-  live then manual. Wired to the real service and measured — cache 132ms, live
-  4.1s, write-back so a repeat is a cache hit at 145ms.
-- **Supabase**: migrated and seeded over the pooler, app verified against it.
+**Foundations.** All 13 entities from PLAN section 2, migrated, with provenance
+markers in comments. Money is integer cents and balances derive from
+`LedgerEntry`. Auth is email + bcrypt + a signed HTTP-only cookie, scoped in
+`src/lib/auth.ts` rather than in pages. The seed builds 26 creators from
+`data/cached-profiles.json`, 4 of them deliberately with no post history, plus 4
+brands with open campaigns and 6 completed bookings carrying clicks, leads,
+payouts and ledger rows. Three cached profiles are left unclaimed so a signup on
+camera resolves from cache with no live call.
+
+**Creator onboarding, all four steps**, with the three-tier importer behind step
+2: cache, then live, then manual entry that never dead-ends a signup.
+
+**The whole two-sided loop.** Offer modal → offer → creator inbox with a live
+48-hour countdown → accept, counter or decline → booking → post URL → tracking
+code → `/r/[code]` click capture → campaign landing page → lead → brand
+completes → creator withdraws. Both booking detail pages exist. Counter-offers
+work in both directions.
+
+**The campaign dashboard** at `/brand/campaigns/[id]`, grouped under three
+headings by how much each number can be trusted: measured by naano, self-reported
+by creators, estimated on a stated assumption.
+
+**Money.** Three ledger rows per booking, no stored balance anywhere. The tax
+profile gates the withdrawal and nothing else.
+
+**The matcher.** One scorer in `src/lib/matching.ts` serving both sides: the
+brand's shortlist at `/brand/matching` with a written rationale, and the
+creator's `/creator/opportunities` with Apply. Applications are the second door
+into the same booking machine.
+
+**Cold start.** Two seeded creators and one seeded brand answer automatically,
+labelled on the row itself, driven by a page load rather than a scheduler.
+
+**A README** with the four load-bearing decisions, the stub list with reasons,
+the absent list, and the rough edges named before a judge finds them.
+
+### Routes
+
+```
+/                       landing, with live counts read from the database
+/marketplace            grid, filters on industry, country, price cap
+/c/[slug]               public card; a signed-in brand gets the offer modal here
+/register, /login       role picker, signup, signin
+/onboarding/*           creator steps 2-4 and the brand campaign form
+/creator                studio: offer inbox with countdowns, bookings
+/creator/opportunities  open campaigns scored against the creator's own card
+/creator/earnings       balance, scheduled payouts, the ledger, withdraw
+/creator/bookings/[id]  brief, tracking link, post URL, self-reported views
+/brand                  campaigns with briefs, bookings
+/brand/matching         prompt box, deterministic shortlist, written rationale
+/brand/offers           applications, then every offer sent, with counters
+/brand/campaigns/[id]   the dashboard
+/brand/bookings/[id]    metrics, the post, complete the booking
+/r/[code]               tracking redirect, a real HTTP route
+/go/[code]              campaign landing page and lead form
+```
 
 ## What is NOT built
 
-`/creator` and `/brand` are placeholder pages. Everything from the offer modal
-onward is unbuilt. **The app has never been deployed to Vercel** — PLAN says
-deploy in hour one and that is still outstanding. Do it first.
-
-## Build order from here
-
-Follow PLAN section 4 from the 8.5-hour mark. Condensed:
-
-1. **Deploy to Vercel now**, before any feature. Variables are in
-   `docs/DEPLOY.md`. Generate a fresh `SESSION_SECRET`.
-2. **Offer modal → Offer row → creator inbox → accept → Booking.** This is the
-   milestone that makes the path run across both sides; protect it above
-   everything. The modal is the densest screen in the product and the recon
-   detail is in PLAN section 1.2 under B4: discount tiles at 10/20/30 plus
-   Other, post-by date defaulting to 14 days, campaign select, and the 48-hour
-   notice. The approval checkbox is deliberately cut (PLAN section 3).
-3. **Booking detail both sides**, post URL submission, tracking code issued.
-4. **`/r/[code]` redirect**, click capture, campaign landing page, lead form.
-   This is the only part of the product that is genuinely ours rather than a
-   view of LinkedIn. Never cut it.
-5. **Brand campaign dashboard**: views, clicks, leads, estimated pipeline, cost,
-   CPM, CPL. Creator earnings view.
-6. **Ledger, wallet, payouts.** Three ledger rows per booking.
-7. **Match scorer**, brand shortlist with a written rationale, creator
-   Opportunities with Apply. The rationale is the product, not the ranking.
-8. **Cold start** (PLAN section 6): the labelled auto-responding counterparties
-   so one visitor can walk the whole loop alone.
-9. Polish, demo seed, record, README.
-
-If hours run short the sacrifice order is: payout ledger collapses to a status
-flip, then the brand dashboard loses its per-post table, then the rationale
-drops to one sentence. Never auth, the importer chain, the tracking chain, or
-Opportunities.
+- **The UI problems I am about to report.** Nothing else starts until those are
+  fixed.
+- **The demo seed pass and the recording.** PLAN section 4 hours 21.5 to 23.5.
+  Nothing on screen should be empty or absurd, then rehearse twice and record
+  once. The five-minute script is at the end of PLAN section 4.
+- The content approval loop, profile ownership verification, password reset,
+  the Deal Link referral, EN/FR. All deliberately absent, all argued in PLAN
+  section 3 and listed in the README.
 
 ## Constraints that must survive
 
 - **The dash rule.** A field with no data renders as an em dash next to a
   Pending bar. Never a zero, never a guess. `Metric` in `src/lib/pricing.ts`
-  makes the bad case unrepresentable; keep using it. This is the load-bearing
-  product decision.
+  makes the bad case unrepresentable; keep using it. The one subtlety the
+  dashboard already encodes: before a post exists, clicks are unknown and render
+  as a dash; once it exists, zero clicks is a real measurement and renders as 0.
 - **The price is derived before the creator has an opinion**, at 13 cents per
   follower rounded to the nearest 5, and the brand can only move it inside a
-  10/20/30 band. That is what makes the marketplace liquid at cold start.
+  10/20/30 band. The band is enforced server-side in `src/app/actions/offers.ts`,
+  not just in the tiles.
 - **CPM is derived, never stored**, and is null whenever median views is null.
 - **Only the five consented fields** are ever read from the profile service, by
   name via its `fields` parameter. Do not widen this.
 - **Views are self-reported and labelled as such.** Clicks and leads are ours.
-  Pipeline value is lead count times a stated assumption, with the multiplier
-  shown next to the total.
-- Warm neutrals under a hot blue, blue-tinted shadows. Tokens are in
+  Pipeline value is lead count times `Campaign.assumedDealValueCents`, with the
+  multiplier shown next to every total it feeds.
+- **The auto-responder label is not negotiable.** "Demo brand, responds
+  automatically" sits on the row itself, in the same type as everything else.
+  Unlabelled it would be a lie about liquidity.
+- **Warm neutrals under a hot blue, blue-tinted shadows.** Tokens are in
   `src/app/globals.css`, transcribed from naano.com. Do not substitute Tailwind
-  `slate`.
+  `slate`, and do not introduce a component library.
 - Seeded creators are invented people, never real identities.
 
 ## Gotchas already paid for
 
+- **`postinstall: prisma generate` in `package.json` must stay.** Vercel starts
+  from a clean `node_modules` and Prisma 7 generates no client on its own. The
+  first production build failed type checking on every `@prisma/client` import
+  because of this.
+- **Migrations do not run during the Vercel build.** Apply them from here with
+  `./scripts/db-supabase.sh migrate` before deploying a schema change, or the
+  deployed app queries columns that do not exist.
+- **After a Prisma migration, restart the dev server.** A stale client silently
+  fails writes with a validation error the UI reports as a generic 500. This
+  cost a debugging round trip.
+- **The profile service reports the UK as `UK` and France as `FX`.** Intl
+  resolves both to a country name, so nothing looks wrong while the flag renders
+  as two letters and the region lookup misses. `canonicalCountryCode` in
+  `src/lib/geo.ts` fixes it, and the alias entries are skipped when the
+  name-to-code table is built so they cannot overwrite `GB` and `FR`.
 - **Cache Components is off** in `next.config.ts` and should stay off. Every
   page is per-user and database-backed.
-- **Prisma is pinned to 7.10.0.** npm's `latest` tag points at an 8.0 RC with a
+- **Prisma is pinned to 7.10.0.** npm's `latest` points at an 8.0 RC with a
   restructured CLI. Prisma 7 has no `url` in the schema: it lives in
-  `prisma.config.ts`, and the runtime client needs the `@prisma/adapter-pg`
-  driver adapter.
+  `prisma.config.ts`, and the runtime client needs `@prisma/adapter-pg`.
 - **Supabase's direct host is IPv6-only** and unusable from Vercel. Use the
-  pooler: 6543 transaction for the app, 5432 session for migrations. Details in
-  `docs/DEPLOY.md`.
+  pooler: 6543 transaction for the app, 5432 session for migrations.
 - **The profile service allows 150 calls a day, shared, and does not cache
   repeats.** One signup costs 3. The app caps itself at 40 live calls a day and
   writes every read back into its own cache. Do not remove that cap.
 - **Number inputs**: `min=1` with `step=5` makes the browser's valid set
-  1, 6, 11… and rejects every derived price. Cost a full signup flow once.
+  1, 6, 11… and rejects every derived price. The offer modal uses `step="any"`
+  for exactly this reason. Cost a full signup flow once.
+- **Countdowns and dates are formatted on the server** and passed down as props.
+  Formatting a date in a client component hydrates differently in any browser
+  whose locale or time zone is not the server's. `requestNow` and `formatDayTime`
+  in `src/lib/dates.ts` exist for this.
+- **React's compiler lint rejects `Date.now()` inside a component**, including a
+  Server Component, and rejects `setState` in an effect body. The offer modal
+  lets the native `<dialog>` own its open state for that reason, and Tailwind's
+  reset zeroes the margin a dialog centres itself with, so it needs `m-auto`.
 - `server-only` throws in CLI scripts; `scripts/tsconfig.json` stubs it.
-- After a Prisma migration, restart the dev server or it runs a stale client.
 
 ## Working commands
 
 ```bash
-pnpm dev                       # local, against docker Postgres on 5434
+docker start naano-pg          # local Postgres on 5434
+pnpm dev                       # local
 pnpm seed                      # wipe and reseed local
 pnpm profiles                  # regenerate data/cached-profiles.json
 pnpm probe <linkedin-url>      # exercise the importer chain from the CLI
-./scripts/db-supabase.sh seed  # reseed Supabase over the transaction pooler
+./scripts/db-supabase.sh migrate   # apply migrations to Supabase
+./scripts/db-supabase.sh seed      # wipe and reseed Supabase
+npx vercel deploy --prod --yes     # deploy; the CLI is already linked
 pnpm build && pnpm lint
 ```
 
-Local Postgres runs in docker as container `naano-pg` on port 5434. Start it
-with `docker start naano-pg` if it is not running.
-
-Demo logins, password `naano-demo` for all: `orbisearch@demo.naano.test` is a
-brand, `priya-shah@demo.naano.test` is a creator with a live offer already in
-their inbox and the 48-hour clock running. Unclaimed profiles for a live signup
-demo: `dana-whitmore`, `theo-brennan`, `sana-iqbal`.
+Demo logins, password `naano-demo` for all: `orbisearch@demo.naano.test` and
+`huxley-hr@demo.naano.test` are brands, `priya-shah@demo.naano.test` is a
+creator with a live offer and the 48-hour clock running. Unclaimed profiles for
+a live signup demo, all three still free: `dana-whitmore`, `theo-brennan`,
+`sana-iqbal`. If you consume one while testing, delete the account afterwards so
+it is available for the recording.
 
 ## How to work
 
 Walk each flow in a browser before calling it done. Every real bug so far was
 found by clicking, not by reading. Verify against the database rather than
-assuming a write landed. Keep commit messages explaining why, not what.
+assuming a write landed. For UI work specifically: check 375 wide as well as
+desktop, and check that nothing scrolls horizontally. Keep commit messages
+explaining why, not what.
