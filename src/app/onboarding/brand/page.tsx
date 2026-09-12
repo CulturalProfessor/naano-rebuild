@@ -6,7 +6,7 @@ import { INDUSTRIES } from "@/lib/queries";
 import { saveBrandProfile } from "@/app/actions/brand-onboarding";
 import { SubmitButton } from "@/components/action-button";
 
-export const metadata = { title: "Your company — naano" };
+export const metadata = { title: "Your company · naano" };
 
 const GUARDRAIL =
   "Creators can adapt the angle to their expertise, while keeping every product claim factual.";

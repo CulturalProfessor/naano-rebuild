@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AuthForm } from "@/components/auth-form";
 
-export const metadata = { title: "Create your brand account — naano" };
+export const metadata = { title: "Create your brand account · naano" };
 
 export default function BrandSignupPage() {
   return (

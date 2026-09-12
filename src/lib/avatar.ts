@@ -4,8 +4,8 @@ import "server-only";
  * Copying the profile picture, once.
  *
  * The profile service returns a signed CDN URL. A browser usually cannot load
- * it — the host refuses off-site requests, and the signature expires within
- * days — so a real signup ended up with an empty circle on the card they had
+ * it. The host refuses off-site requests, and the signature expires within
+ * days, so a real signup ended up with an empty circle on the card they had
  * just built. Proxying the URL does not fix the expiry: once it lapses there
  * is nothing left to proxy. The only thing that survives is the bytes, taken
  * server-to-server while the URL is still good.

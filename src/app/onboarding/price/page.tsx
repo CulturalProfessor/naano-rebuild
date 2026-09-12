@@ -3,7 +3,7 @@ import { requireAccount } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { PriceForm } from "./price-form";
 
-export const metadata = { title: "Set your price — naano" };
+export const metadata = { title: "Set your price · naano" };
 
 export default async function PriceStepPage() {
   const account = await requireAccount();

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const metadata = { title: "Not found — naano" };
+export const metadata = { title: "Not found · naano" };
 
 /**
  * Next's default 404 is a black page with no navigation on it at all, which is

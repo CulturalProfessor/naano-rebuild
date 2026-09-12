@@ -2,7 +2,7 @@ import { requireCreator } from "@/lib/auth";
 import { MessagesScreen } from "@/components/messages-screen";
 import { openThread } from "@/lib/messages";
 
-export const metadata = { title: "Messages — naano" };
+export const metadata = { title: "Messages · naano" };
 
 export default async function CreatorMessages({
   searchParams,

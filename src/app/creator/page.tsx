@@ -7,7 +7,7 @@ import { OfferRow, type InboxOffer } from "./offer-row";
 import { formatDay, formatDayTime, requestNow } from "@/lib/dates";
 import { formatEuros } from "@/lib/pricing";
 
-export const metadata = { title: "Creator studio — naano" };
+export const metadata = { title: "Creator studio · naano" };
 
 export default async function CreatorHome() {
   const { creator } = await requireCreator();

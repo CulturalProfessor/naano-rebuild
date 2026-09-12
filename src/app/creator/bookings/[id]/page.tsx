@@ -9,7 +9,7 @@ import { PostForm } from "./post-form";
 import { formatEuros, compactNumber, DASH } from "@/lib/pricing";
 import { formatDay, formatDayTime } from "@/lib/dates";
 
-export const metadata = { title: "Booking — naano" };
+export const metadata = { title: "Booking · naano" };
 
 export default async function CreatorBooking({
   params,

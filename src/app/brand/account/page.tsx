@@ -2,7 +2,7 @@ import { requireBrand } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { BrandAccountForm, type Icp } from "./account-form";
 
-export const metadata = { title: "Account — naano" };
+export const metadata = { title: "Account · naano" };
 
 export default async function BrandAccount() {
   const { account, brand } = await requireBrand();

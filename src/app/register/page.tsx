@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const metadata = { title: "Create your account — naano" };
+export const metadata = { title: "Create your account · naano" };
 
 const ROLES = [
   {

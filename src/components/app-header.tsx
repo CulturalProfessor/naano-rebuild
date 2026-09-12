@@ -19,7 +19,7 @@ import { formatEuros } from "@/lib/pricing";
  * stays put while the page underneath swaps.
  *
  * Nothing here blocks that. The component itself is synchronous, and the two
- * pieces that need a query — the wallet and the unread count — stream in
+ * two pieces that need a query, the wallet and the unread count, stream in
  * behind their own boundaries. A number that changes is not a reason to make
  * the whole chrome wait.
  */

@@ -7,7 +7,7 @@ import { useState } from "react";
  *
  * A real LinkedIn profile hands us a CDN URL that the browser often cannot
  * load: the host refuses off-site requests, and a signed URL expires. The
- * server cannot tell — it never fetches the image — so the only place to
+ * server cannot tell, because it never fetches the image, so the only place to
  * notice is the browser, which is why this one piece of the card is a client
  * component. Without it a genuine signup gets an empty grey circle on the
  * card they just built, which is the worst possible first impression.

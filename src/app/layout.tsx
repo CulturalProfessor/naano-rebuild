@@ -18,7 +18,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "naano — the B2B LinkedIn creator marketplace",
+  title: "naano · the B2B LinkedIn creator marketplace",
   description:
     "Brands find vetted LinkedIn creators, brief them, track posts through clicks and leads to pipeline, and pay them out.",
 };

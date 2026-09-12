@@ -9,7 +9,7 @@ import { CounterActions } from "./counter-actions";
 import { ApplicationActions } from "./application-actions";
 import { prisma } from "@/lib/db";
 
-export const metadata = { title: "Offers — naano" };
+export const metadata = { title: "Offers · naano" };
 
 const STATUS_COPY: Record<string, string> = {
   offered: "Awaiting response",

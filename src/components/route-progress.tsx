@@ -8,7 +8,7 @@ import { usePathname, useSearchParams } from "next/navigation";
  *
  * Every screen in this product is database-backed and per-user, so no
  * navigation is instant. Route-level loading.tsx covers the destination, but
- * there is a gap before that fallback renders — on a marketplace filter click
+ * there is a gap before that fallback renders, on a marketplace filter click
  * especially, where the whole point is that the filter bar must stay put and
  * only the grid may fall back. The rail covers that gap: one pixel of motion
  * at the top of the window that says the click landed.

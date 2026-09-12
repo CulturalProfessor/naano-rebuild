@@ -9,7 +9,7 @@
  * Everything here is a Server Component. The interactive pieces live next
  * door: <ActionButton> for pending forms, <RouteProgress> for navigation.
  *
- * The visual language is the marketplace card's "Data ——— Pending" bar,
+ * The visual language is the marketplace card's "Data / Pending" bar,
  * reused at every scale. Warm surfaces, a hot blue, no grey-blue anywhere.
  * See docs/PLAN.md section 7.
  */
@@ -110,7 +110,7 @@ export function LoadingBar({ className = "" }: { className?: string }) {
 
 /**
  * The page-level wait, for a route whose shape is genuinely unknown. Prefer a
- * skeleton wherever the shape IS known — this is the fallback, not the default.
+ * skeleton wherever the shape IS known. This is the fallback, not the default.
  */
 export function PageLoading({
   title = "Loading",

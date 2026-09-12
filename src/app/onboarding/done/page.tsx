@@ -4,7 +4,7 @@ import { requireAccount } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { MarketplaceCard } from "@/components/marketplace-card";
 
-export const metadata = { title: "Your marketplace card — naano" };
+export const metadata = { title: "Your marketplace card · naano" };
 
 export default async function DonePage() {
   const account = await requireAccount();

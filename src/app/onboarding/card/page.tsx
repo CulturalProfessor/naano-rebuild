@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { INDUSTRIES, MAX_INDUSTRIES } from "@/lib/queries";
 import { CardStep } from "./card-step";
 
-export const metadata = { title: "Complete your creator card — naano" };
+export const metadata = { title: "Complete your creator card · naano" };
 
 export default async function CardStepPage() {
   const account = await requireAccount();

@@ -3,10 +3,10 @@ import { requireBrand } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { walletBalanceCents, ledgerFor } from "@/lib/money";
 import { TopUpForm } from "./top-up-form";
-import { formatEuros } from "@/lib/pricing";
+import { formatEuros, DASH } from "@/lib/pricing";
 import { formatDayTime } from "@/lib/dates";
 
-export const metadata = { title: "Billing — naano" };
+export const metadata = { title: "Billing · naano" };
 
 const KIND_LABEL: Record<string, string> = {
   wallet_topup: "Top-up",
@@ -107,7 +107,7 @@ export default async function BrandBilling() {
                             {row.booking.creator.displayName}
                           </Link>
                         ) : (
-                          (row.memo ?? "—")
+                          (row.memo ?? DASH)
                         )}
                       </td>
                       <td

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireBrand } from "@/lib/auth";
 import { CampaignForm } from "@/components/campaign-form";
 
-export const metadata = { title: "New campaign — naano" };
+export const metadata = { title: "New campaign · naano" };
 
 export default async function NewCampaign() {
   await requireBrand();

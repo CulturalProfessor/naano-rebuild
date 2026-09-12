@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { CreatorAccountForm } from "./account-form";
 import { derivePricePerPostCents, compactNumber } from "@/lib/pricing";
 
-export const metadata = { title: "My card — naano" };
+export const metadata = { title: "My card · naano" };
 
 export default async function CreatorAccount() {
   const { creator } = await requireCreator();

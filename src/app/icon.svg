@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="naano">
+  <!--
+    The wordmark's own letter on the app's own blue. Drawn as a stroked path
+    rather than set as text, because a favicon is rasterised in contexts where
+    the font is not guaranteed and a missing face would render a blank tile.
+
+    The tile repeats the treatment already on the marketplace card, where the
+    LinkedIn glyph and the country flag sit in rounded squares of the same
+    radius. #1652f0 is the marketing blue from the token file.
+  -->
+  <rect width="64" height="64" rx="15" fill="#1652f0" />
+  <path
+    d="M21 47V25M21 33c0-6 4.6-10 10.5-10S42 27 42 33v14"
+    fill="none"
+    stroke="#fff"
+    stroke-width="7.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

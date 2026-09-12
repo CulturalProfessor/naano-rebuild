@@ -9,7 +9,7 @@ import { formatEuros, compactNumber, deriveCpmCents, DASH } from "@/lib/pricing"
 import { formatDay, formatDayTime } from "@/lib/dates";
 import { CompleteForm } from "./complete-form";
 
-export const metadata = { title: "Booking — naano" };
+export const metadata = { title: "Booking · naano" };
 
 export default async function BrandBooking({
   params,

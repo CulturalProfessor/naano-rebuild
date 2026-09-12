@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AuthForm } from "@/components/auth-form";
 
-export const metadata = { title: "Create your creator account — naano" };
+export const metadata = { title: "Create your creator account · naano" };
 
 export default function CreatorSignupPage() {
   return (

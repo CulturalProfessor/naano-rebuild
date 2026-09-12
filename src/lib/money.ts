@@ -33,9 +33,9 @@ export async function walletBalanceCents(accountId: string): Promise<number> {
 
 /** The three rows a booking writes, named once so the memos stay consistent. */
 export const LEDGER_MEMO = {
-  hold: "Booking accepted — funds held",
-  charge: "Post published — booking charged",
-  earning: "Post published — earning credited",
+  hold: "Booking accepted, funds held",
+  charge: "Post published, booking charged",
+  earning: "Post published, earning credited",
   payout: "Payout sent",
 } as const;
 

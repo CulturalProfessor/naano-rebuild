@@ -20,7 +20,7 @@ import {
 } from "@/lib/pricing";
 import { daysFromNow, isoDate } from "@/lib/dates";
 
-export const metadata = { title: "AI matching — naano" };
+export const metadata = { title: "AI matching · naano" };
 
 const SUGGESTED = [
   "Find 4 creators for my brief. Prioritise strong audience and content fit.",

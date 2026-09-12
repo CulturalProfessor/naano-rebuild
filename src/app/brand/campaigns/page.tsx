@@ -5,7 +5,7 @@ import { runAutoResponses } from "@/lib/cold-start";
 import { formatEuros } from "@/lib/pricing";
 import { formatDay } from "@/lib/dates";
 
-export const metadata = { title: "Campaigns — naano" };
+export const metadata = { title: "Campaigns · naano" };
 
 export default async function BrandCampaigns() {
   const { brand } = await requireBrand();

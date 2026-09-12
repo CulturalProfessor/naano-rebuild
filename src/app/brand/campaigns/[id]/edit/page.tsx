@@ -4,7 +4,7 @@ import { requireBrand } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { CampaignForm } from "@/components/campaign-form";
 
-export const metadata = { title: "Edit the brief — naano" };
+export const metadata = { title: "Edit the brief · naano" };
 
 export default async function EditCampaign({
   params,

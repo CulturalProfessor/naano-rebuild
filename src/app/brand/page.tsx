@@ -9,7 +9,7 @@ import { formatEuros, compactNumber, DASH } from "@/lib/pricing";
 import { PanelSkeleton, Skeleton } from "@/components/loading";
 import { formatDay } from "@/lib/dates";
 
-export const metadata = { title: "Overview — naano" };
+export const metadata = { title: "Overview · naano" };
 
 /**
  * The brand's first screen.

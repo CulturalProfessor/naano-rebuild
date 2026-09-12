@@ -16,7 +16,7 @@ import { ActionButton } from "@/components/action-button";
  * "Your selection" and "Make an offer", the two brand modals from the recon.
  *
  * Everything a booking needs is decided here: price, deadline, brief, campaign
- * and an expiry clock. That density is the point — it is the reason a brand can
+ * and an expiry clock. That density is the point. It is the reason a brand can
  * book a creator without a call, and it is why this is the screen most worth
  * getting right on the brand side.
  *

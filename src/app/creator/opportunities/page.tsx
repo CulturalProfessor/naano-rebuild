@@ -5,7 +5,7 @@ import { ApplyButton } from "./apply-button";
 import { scoreMatch } from "@/lib/matching";
 import { formatEuros } from "@/lib/pricing";
 
-export const metadata = { title: "Opportunities — naano" };
+export const metadata = { title: "Opportunities · naano" };
 
 /**
  * The second door, from the creator's side.

@@ -6,7 +6,7 @@ import { WithdrawForm } from "./withdraw-form";
 import { formatEuros } from "@/lib/pricing";
 import { formatDay, formatDayTime } from "@/lib/dates";
 
-export const metadata = { title: "Earnings — naano" };
+export const metadata = { title: "Earnings · naano" };
 
 const KIND_LABEL: Record<string, string> = {
   wallet_topup: "Top-up",

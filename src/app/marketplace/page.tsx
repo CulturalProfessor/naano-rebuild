@@ -8,7 +8,7 @@ import { formatEuros } from "@/lib/pricing";
 import { currentAccount } from "@/lib/session";
 
 export const metadata = {
-  title: "Creator marketplace — naano",
+  title: "Creator marketplace · naano",
 };
 
 const PRICE_CAPS = [50000, 100000, 150000] as const;

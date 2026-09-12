@@ -54,7 +54,7 @@ function LinkedInGlyph() {
   );
 }
 
-/** "Data ——— Pending". The bar is empty until a post history exists. */
+/** The "Data / Pending" bar. It stays empty until a post history exists. */
 function DataBar({ state }: { state: CardCreator["dataState"] }) {
   const pct = state === "complete" ? 100 : state === "partial" ? 45 : 0;
   const label =
@@ -162,7 +162,7 @@ export function MarketplaceCard({
       {/* identity */}
       <div className="flex flex-1 flex-col items-center px-6 pb-1 pt-3 text-center">
         <h3 className="font-display text-xl font-semibold tracking-tight">
-          {creator.displayName || "—"}
+          {creator.displayName || DASH}
         </h3>
         {creator.industries.length > 0 ? (
           <p className="mt-1 text-sm text-ink-soft">

@@ -14,7 +14,7 @@ import {
   type Metric,
 } from "@/lib/pricing";
 
-export const metadata = { title: "Campaign — naano" };
+export const metadata = { title: "Campaign · naano" };
 
 export default async function CampaignDashboard({
   params,

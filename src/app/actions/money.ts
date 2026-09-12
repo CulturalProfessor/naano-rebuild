@@ -20,8 +20,8 @@ import type { ActionState } from "./offers";
  * acceptance and never moves, so writing a second brand debit at completion
  * would charge the brand twice unless another row reversed the first. One row
  * that says what it is beats three that cancel out. `booking_charge` stays in
- * the enum for the case this build does not have — a hold released and
- * re-charged at a different amount — the same treatment the unbuilt approval
+ * the enum for the case this build does not have, a hold released and
+ * re-charged at a different amount, the same treatment the unbuilt approval
  * states get.
  */
 

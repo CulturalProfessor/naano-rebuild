@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AuthForm } from "@/components/auth-form";
 
-export const metadata = { title: "Sign in — naano" };
+export const metadata = { title: "Sign in · naano" };
 
 export default function LoginPage() {
   return (
@@ -31,8 +31,8 @@ export default function LoginPage() {
               Password <code className="text-ink">naano-demo</code> for all of them.
             </p>
             <ul className="mt-2 space-y-1 text-ink-soft">
-              <li><code className="text-ink">orbisearch@demo.naano.test</code> — a brand</li>
-              <li><code className="text-ink">priya-shah@demo.naano.test</code> — a creator with a live offer</li>
+              <li><code className="text-ink">orbisearch@demo.naano.test</code> is a brand</li>
+              <li><code className="text-ink">priya-shah@demo.naano.test</code> is a creator with a live offer</li>
             </ul>
           </div>
         </div>

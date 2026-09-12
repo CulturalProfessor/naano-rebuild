@@ -109,7 +109,7 @@ is money that goes wrong on camera.
 - **Messaging.** One thread per booking, both sides, with unread counts. Not a
   general inbox: a message only exists inside a deal both parties already
   agreed to, which is the whole access model and is why there is no contacts
-  list, no block list and no spam surface. No realtime either — messages land
+  list, no block list and no spam surface. No realtime either: messages land
   on the next render, because claiming live delivery with a poll would be the
   same kind of lie as an estimated impression count.
 - **Payments.** No Stripe. A wallet top-up writes a ledger row and a payout flips
