@@ -35,6 +35,22 @@ stops Prisma using prepared statements that transaction mode cannot hold.
 
 Both are verified working for this project on `aws-0-ap-south-1`.
 
+## The live deployment
+
+Production is `https://naano-ashy.vercel.app`, on the Vercel project
+`culturalprofessors-projects/naano`, running against the Supabase transaction
+pooler.
+
+Two things bite on a first deploy:
+
+- **Prisma 7 does not generate a client on install.** Vercel starts from a
+  clean `node_modules`, so the first build fails type checking on every import
+  from `@prisma/client`. `postinstall: prisma generate` in `package.json` is
+  what fixes it, and it has to stay there.
+- **Migrations do not run in the build.** Apply them from here with
+  `./scripts/db-supabase.sh migrate` before deploying a schema change, or the
+  deployed app queries columns the database does not have.
+
 ## Vercel environment variables
 
 | Variable | Value |
