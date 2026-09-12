@@ -10,7 +10,8 @@
     "profiles": "tsx scripts/build-profiles.ts",
     "seed": "tsx prisma/seed.ts",
     "db:push": "prisma migrate dev",
-    "probe": "tsx --tsconfig scripts/tsconfig.json scripts/probe-importer.ts"
+    "probe": "tsx --tsconfig scripts/tsconfig.json scripts/probe-importer.ts",
+    "db:supabase": "./scripts/db-supabase.sh"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.0",
