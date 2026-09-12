@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { cookies } from "next/headers";
 import { createHmac, timingSafeEqual, randomBytes } from "node:crypto";
 import { prisma } from "./db";
@@ -88,8 +89,12 @@ export async function readSession(): Promise<Session | null> {
  * Server Functions are reachable by direct POST, not only through our own UI,
  * so every one of them resolves the viewer through here rather than trusting a
  * caller-supplied id.
+ *
+ * Wrapped in React's cache so the layout, the page and the header each ask for
+ * the viewer and the database is asked once. Measured before this: three
+ * identical account lookups to render one creator card.
  */
-export async function currentAccount() {
+export const currentAccount = cache(async () => {
   const session = await readSession();
   if (!session) return null;
 
@@ -106,7 +111,7 @@ export async function currentAccount() {
     },
   });
   return account ?? null;
-}
+});
 
 export type CurrentAccount = NonNullable<
   Awaited<ReturnType<typeof currentAccount>>

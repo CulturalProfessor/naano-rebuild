@@ -3,7 +3,7 @@ import { signOut } from "@/app/actions/auth";
 import { SubmitButton } from "@/components/action-button";
 import { walletBalanceCents } from "@/lib/money";
 import { unreadCountFor } from "@/lib/messages";
-import { prisma } from "@/lib/db";
+import { currentAccount } from "@/lib/session";
 import { formatEuros } from "@/lib/pricing";
 
 /**
@@ -21,11 +21,11 @@ export async function AppHeader({
   active?: string;
 }) {
   const party = role === "brand" ? "brand" : "creator";
-  const sides = await prisma.account.findUnique({
-    where: { id: accountId },
-    select: { brand: { select: { id: true } }, creator: { select: { id: true } } },
-  });
-  const partyId = party === "brand" ? sides?.brand?.id : sides?.creator?.id;
+  // currentAccount already carries both ids and is memoised for this request,
+  // so asking it here costs nothing. A second account lookup here was running
+  // on every signed-in page.
+  const viewer = await currentAccount();
+  const partyId = party === "brand" ? viewer?.brand?.id : viewer?.creator?.id;
 
   const [balance, unread] = await Promise.all([
     walletBalanceCents(accountId),

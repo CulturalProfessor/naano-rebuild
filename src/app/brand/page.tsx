@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { runAutoResponses } from "@/lib/cold-start";
 import { AppHeader } from "@/components/app-header";
 import { walletBalanceCents } from "@/lib/money";
-import { threadsFor } from "@/lib/messages";
+import { unreadCountFor } from "@/lib/messages";
 import { formatEuros, compactNumber, DASH } from "@/lib/pricing";
 import { formatDay } from "@/lib/dates";
 
@@ -30,7 +30,7 @@ export default async function BrandOverview() {
     clicks,
     leads,
     balance,
-    threads,
+    unread,
     campaignCount,
   ] = await Promise.all([
     prisma.booking.findMany({
@@ -58,7 +58,7 @@ export default async function BrandOverview() {
     prisma.clickEvent.count({ where: { booking: { brandId: brand.id } } }),
     prisma.lead.count({ where: { booking: { brandId: brand.id } } }),
     walletBalanceCents(account.id),
-    threadsFor("brand", brand.id),
+    unreadCountFor("brand", brand.id),
     prisma.campaign.count({ where: { brandId: brand.id } }),
   ]);
 
@@ -67,7 +67,6 @@ export default async function BrandOverview() {
   const awaiting = offerCounts.find((c) => c.status === "offered")?._count._all ?? 0;
   const countered =
     offerCounts.find((c) => c.status === "countered")?._count._all ?? 0;
-  const unread = threads.filter((t) => t.unread).length;
 
   // Self-reported, and only from the posts that reported. Summing a null as
   // zero would quietly turn "we do not know" into "nobody saw it".

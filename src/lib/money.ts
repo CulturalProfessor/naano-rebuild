@@ -8,6 +8,15 @@ import { prisma } from "./db";
  * two writers, one lost update, and a wallet that disagrees with its own
  * history. Summing is slower and always tells the truth.
  */
+/*
+  Deliberately NOT wrapped in React's cache, unlike currentAccount.
+
+  Three Server Functions read the balance as a precondition, then write ledger
+  rows, and the re-render that follows happens inside the same request. A
+  memoised read would hand that render the balance from before the write, so
+  the wallet chip would show the old number until the next navigation. One
+  indexed aggregate over a handful of rows is cheaper than that class of bug.
+*/
 export async function walletBalanceCents(accountId: string): Promise<number> {
   const rows = await prisma.ledgerEntry.groupBy({
     by: ["direction"],
