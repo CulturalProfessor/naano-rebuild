@@ -36,7 +36,9 @@ export async function AppHeader({
 
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-surface/85 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center gap-6 px-6 py-3">
+      {/* On a narrow screen the nav drops to its own row rather than pushing
+          the wallet and sign-out off the right edge. */}
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-2 px-6 py-3">
         <Link
           href={role === "brand" ? "/brand" : "/creator"}
           className="font-display text-lg font-bold tracking-tight"
@@ -44,12 +46,12 @@ export async function AppHeader({
           naano
         </Link>
 
-        <nav className="flex items-center gap-1 text-sm">
+        <nav className="order-last -mx-1 flex w-full items-center gap-1 overflow-x-auto text-sm sm:order-none sm:mx-0 sm:w-auto sm:overflow-visible">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className={`rounded-pill px-3 py-1.5 transition-colors ${
+              className={`shrink-0 rounded-pill px-3 py-1.5 transition-colors ${
                 active === l.href
                   ? "bg-brand-soft font-medium text-brand-strong"
                   : "text-ink-soft hover:text-ink"
