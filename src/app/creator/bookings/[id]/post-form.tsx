@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { submitPost, reportViews } from "@/app/actions/bookings";
 import type { ActionState } from "@/app/actions/offers";
+import { ActionButton } from "@/components/action-button";
 
 /**
  * The creator publishes, then tells us where. Two separate writes, because the
@@ -41,12 +42,9 @@ export function PostForm({
             placeholder="https://www.linkedin.com/posts/…"
             className="min-w-0 flex-1 rounded-card border border-line bg-surface-2 px-3 py-2 text-sm outline-none focus:border-brand"
           />
-          <button
-            disabled={savingUrl}
-            className="rounded-card bg-brand px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-strong disabled:bg-ink-mute"
-          >
-            {savingUrl ? "Saving…" : postUrl ? "Update" : "Mark as posted"}
-          </button>
+          <ActionButton pending={savingUrl} pendingLabel="Saving…">
+            {postUrl ? "Update" : "Mark as posted"}
+          </ActionButton>
         </div>
         <Feedback state={urlState} />
       </form>
@@ -67,12 +65,13 @@ export function PostForm({
               placeholder="The number LinkedIn shows you"
               className="min-w-0 flex-1 rounded-card border border-line bg-surface-2 px-3 py-2 text-sm outline-none focus:border-brand"
             />
-            <button
-              disabled={savingViews}
-              className="rounded-card border border-line px-4 py-2.5 text-sm font-medium hover:border-ink-mute disabled:opacity-50"
+            <ActionButton
+              variant="secondary"
+              pending={savingViews}
+              pendingLabel="Saving…"
             >
-              {savingViews ? "Saving…" : "Save"}
-            </button>
+              Save
+            </ActionButton>
           </div>
           <p className="mt-1.5 text-xs text-ink-soft">
             naano does not read LinkedIn. This is your number, and it is labelled

@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { signUp, signIn, type AuthState } from "@/app/actions/auth";
+import { ActionButton } from "@/components/action-button";
 
 export function AuthForm({
   mode,
@@ -67,13 +68,9 @@ export function AuthForm({
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full rounded-card bg-brand px-4 py-3 font-medium text-white transition-colors hover:bg-brand-strong disabled:opacity-70"
-      >
-        {pending ? "One moment…" : cta}
-      </button>
+      <ActionButton type="submit" size="lg" pending={pending} pendingLabel="One moment…">
+        {cta}
+      </ActionButton>
     </form>
   );
 }

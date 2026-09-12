@@ -9,6 +9,7 @@ import {
   type ActionState,
 } from "@/app/actions/offers";
 import { Countdown } from "@/components/countdown";
+import { ActionButton } from "@/components/action-button";
 import { formatEuros } from "@/lib/pricing";
 
 /**
@@ -180,13 +181,14 @@ export function OfferRow({
           </button>
           <form action={acceptAction}>
             <input type="hidden" name="offerId" value={offer.id} />
-            <button
+            <ActionButton
               type="submit"
               disabled={busy}
-              className="rounded-card bg-brand px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-strong disabled:bg-ink-mute"
+              pending={accepting}
+              pendingLabel="Accepting…"
             >
-              {accepting ? "Accepting…" : `Accept · ${formatEuros(offer.offerPriceCents)}`}
-            </button>
+              {`Accept · ${formatEuros(offer.offerPriceCents)}`}
+            </ActionButton>
           </form>
         </footer>
       )}
@@ -226,13 +228,14 @@ export function OfferRow({
             >
               Cancel
             </button>
-            <button
+            <ActionButton
               type="submit"
               disabled={busy}
-              className="rounded-card bg-brand px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-strong disabled:bg-ink-mute"
+              pending={countering}
+              pendingLabel="Sending…"
             >
-              {countering ? "Sending…" : "Send counter"}
-            </button>
+              Send counter
+            </ActionButton>
           </div>
         </form>
       )}
@@ -256,13 +259,15 @@ export function OfferRow({
             >
               Keep it
             </button>
-            <button
+            <ActionButton
               type="submit"
+              variant="danger"
               disabled={busy}
-              className="rounded-card border border-danger px-4 py-2.5 text-sm font-medium text-danger hover:bg-danger-soft disabled:opacity-50"
+              pending={declining}
+              pendingLabel="Declining…"
             >
-              {declining ? "Declining…" : "Decline"}
-            </button>
+              Decline
+            </ActionButton>
           </div>
         </form>
       )}

@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 import { MarketplaceCard } from "@/components/marketplace-card";
+import { ActionButton } from "@/components/action-button";
 import {
   readProfile,
   saveManualProfile,
@@ -35,29 +36,23 @@ const EMPTY_CARD: DraftCard = {
 
 function SubmitButton({ done, pending }: { done: boolean; pending: boolean }) {
   return (
-    <button
+    <ActionButton
       type="submit"
-      disabled={pending || done}
-      className="w-full rounded-card bg-brand px-4 py-3 font-medium text-white transition-colors hover:bg-brand-strong disabled:opacity-70"
+      size="lg"
+      disabled={done}
+      pending={pending}
+      pendingLabel="Reading your profile…"
     >
-      {pending
-        ? "Reading your profile…"
-        : done
-          ? "Profile read"
-          : "Authorise a one-time read"}
-    </button>
+      {done ? "Profile read" : "Authorise a one-time read"}
+    </ActionButton>
   );
 }
 
 function ManualButton({ pending }: { pending: boolean }) {
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full rounded-card bg-brand px-4 py-3 font-medium text-white transition-colors hover:bg-brand-strong disabled:opacity-70"
-    >
-      {pending ? "Saving…" : "Use these details"}
-    </button>
+    <ActionButton type="submit" size="lg" pending={pending} pendingLabel="Saving…">
+      Use these details
+    </ActionButton>
   );
 }
 
@@ -200,8 +195,20 @@ export function ProfileStep() {
 
           {showManual && (
             <form action={manualAction} className="mt-8 space-y-4">
-              <p className="rounded-card border border-line bg-surface-3 p-4 text-sm text-ink">
-                {state.message}
+              {/*
+                A rejected manual save answers here too. Rendering only the
+                read step's message left a form that looked like it had done
+                nothing when it had in fact refused, and said why.
+              */}
+              <p
+                className={`rounded-card border p-4 text-sm ${
+                  manualState.status === "manual" && manualState.message
+                    ? "border-danger/30 bg-danger-soft text-danger"
+                    : "border-line bg-surface-3 text-ink"
+                }`}
+              >
+                {(manualState.status === "manual" && manualState.message) ||
+                  state.message}
               </p>
 
               <input

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MarketplaceCard, type CardCreator } from "@/components/marketplace-card";
+import { SubmitButton } from "@/components/action-button";
 import { OnboardingPane } from "@/components/onboarding-pane";
 import { savePrice } from "@/app/actions/onboarding";
 import {
@@ -178,14 +179,11 @@ export function PriceForm({
         </div>
       )}
 
-      <button
-        type="submit"
-        className="w-full rounded-card bg-brand px-4 py-3 font-medium text-white transition-colors hover:bg-brand-strong"
-      >
+      <SubmitButton size="lg" pendingLabel="Building your card…">
         {bundleOpen
           ? "Confirm my offer and create my profile"
           : "Create my marketplace profile"}
-      </button>
+      </SubmitButton>
       </form>
     </OnboardingPane>
   );

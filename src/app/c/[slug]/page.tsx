@@ -28,7 +28,7 @@ export default async function PublicCardPage({ params }: PageProps<"/c/[slug]">)
 
   return (
     <main className="sky-bg grain min-h-screen">
-      <div className="relative z-10 mx-auto grid max-w-5xl gap-10 px-6 py-14 lg:grid-cols-[380px_1fr]">
+      <div className="relative z-10 mx-auto grid max-w-5xl items-start gap-10 px-6 py-14 lg:grid-cols-[380px_1fr]">
         <div>
           <MarketplaceCard
             creator={{

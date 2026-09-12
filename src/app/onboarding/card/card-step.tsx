@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MarketplaceCard, type CardCreator } from "@/components/marketplace-card";
+import { SubmitButton } from "@/components/action-button";
 import { OnboardingPane } from "@/components/onboarding-pane";
 import { saveCardDetails } from "@/app/actions/onboarding";
 import { compactNumber } from "@/lib/pricing";
@@ -123,13 +124,9 @@ export function CardStep({
           </p>
         </div>
 
-        <button
-          type="submit"
-          disabled={picked.length === 0}
-          className="w-full rounded-card bg-brand px-4 py-3 font-medium text-white transition-colors hover:bg-brand-strong disabled:opacity-60"
-        >
+        <SubmitButton size="lg" disabled={picked.length === 0} pendingLabel="Saving…">
           Continue
-        </button>
+        </SubmitButton>
       </form>
     </OnboardingPane>
   );

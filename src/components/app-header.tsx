@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { signOut } from "@/app/actions/auth";
+import { SubmitButton } from "@/components/action-button";
 import { walletBalanceCents } from "@/lib/money";
 import { formatEuros } from "@/lib/pricing";
 
@@ -74,7 +75,9 @@ export async function AppHeader({
             {formatEuros(balance)}
           </span>
           <form action={signOut}>
-            <button className="text-sm text-ink-soft hover:text-ink">Sign out</button>
+            <SubmitButton variant="quiet" size="sm" pendingLabel="Signing out…">
+              Sign out
+            </SubmitButton>
           </form>
         </div>
       </div>

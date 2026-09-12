@@ -68,7 +68,7 @@ function DataBar({ state }: { state: CardCreator["dataState"] }) {
   const label =
     state === "complete" ? "Complete" : state === "partial" ? "Partial" : "Pending";
   return (
-    <div className="flex items-center gap-3 px-5 py-3 text-[11px] text-ink-soft">
+    <div className="flex shrink-0 items-center gap-3 px-5 py-3 text-[11px] text-ink-soft">
       <span>Data</span>
       <span className="h-1 flex-1 overflow-hidden rounded-pill bg-line">
         <span
@@ -133,10 +133,10 @@ export function MarketplaceCard({
 
   return (
     <article
-      className={`overflow-hidden rounded-hero bg-surface shadow-[var(--shadow-hero)] ${className}`}
+      className={`flex h-full flex-col overflow-hidden rounded-hero bg-surface shadow-[var(--shadow-hero)] ${className}`}
     >
       {/* header */}
-      <div className="relative h-24 bg-gradient-to-br from-brand to-brand-strong">
+      <div className="relative h-24 shrink-0 bg-gradient-to-br from-brand to-brand-strong">
         <span className="absolute left-4 top-4 grid h-8 w-8 place-items-center rounded-[10px] bg-white/95">
           <LinkedInGlyph />
         </span>
@@ -157,8 +157,8 @@ export function MarketplaceCard({
       </div>
 
       {/* avatar */}
-      <div className="-mt-10 flex justify-center">
-        <div className="h-20 w-20 overflow-hidden rounded-full bg-surface-3 ring-4 ring-white">
+      <div className="relative z-10 -mt-10 flex shrink-0 justify-center">
+        <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full bg-surface-3 ring-4 ring-white">
           {creator.avatarUrl ? (
             // Seeded avatars are illustrated and deterministic. A plain img
             // keeps a dead image host from taking the card down with it.
@@ -177,7 +177,7 @@ export function MarketplaceCard({
       </div>
 
       {/* identity */}
-      <div className="px-6 pb-1 pt-3 text-center">
+      <div className="flex flex-1 flex-col items-center px-6 pb-1 pt-3 text-center">
         <h3 className="font-display text-xl font-semibold tracking-tight">
           {creator.displayName || "—"}
         </h3>
@@ -203,7 +203,7 @@ export function MarketplaceCard({
       <DataBar state={creator.dataState} />
 
       {/* metrics */}
-      <div className="flex divide-x divide-line border-t border-line">
+      <div className="flex shrink-0 divide-x divide-line border-t border-line">
         <Metric
           label="Followers"
           value={formatCountMetric(metricOf(creator.followerCount))}
@@ -222,21 +222,27 @@ export function MarketplaceCard({
         />
       </div>
 
-      {(bundle || cpm !== null) && (
-        <div className="flex flex-wrap items-center justify-center gap-2 border-t border-line px-4 py-3">
-          {bundle && creator.bundle && (
-            <span className="rounded-pill bg-brand-soft px-3 py-1 text-xs font-medium text-brand-strong">
-              {creator.bundle.postCount}-post bundle ·{" "}
-              {formatEuros(creator.bundle.totalPriceCents)}
-            </span>
-          )}
-          {cpm !== null && (
-            <span className="rounded-pill bg-surface-3 px-3 py-1 text-xs text-ink-soft">
-              {formatEuros(cpm)} CPM
-            </span>
-          )}
-        </div>
-      )}
+      {/*
+        Always rendered, so the metric strip above it lands on the same
+        baseline in every card of a row. CPM keeps the dash rule rather than
+        disappearing: no median views is a fact about the creator, not a
+        reason to change the shape of the card.
+      */}
+      <div className="flex min-h-[49px] shrink-0 flex-wrap items-center justify-center gap-2 border-t border-line px-4 py-3">
+        {bundle && creator.bundle && (
+          <span className="rounded-pill bg-brand-soft px-3 py-1 text-xs font-medium text-brand-strong">
+            {creator.bundle.postCount}-post bundle ·{" "}
+            {formatEuros(creator.bundle.totalPriceCents)}
+          </span>
+        )}
+        <span
+          className={`rounded-pill bg-surface-3 px-3 py-1 text-xs ${
+            cpm === null ? "text-ink-mute" : "text-ink-soft"
+          }`}
+        >
+          {cpm === null ? `${DASH} CPM` : `${formatEuros(cpm)} CPM`}
+        </span>
+      </div>
     </article>
   );
 }

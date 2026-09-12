@@ -195,12 +195,39 @@ export async function saveManualProfile(
 
   // Without a URL there is no dedupe key, so fall back to a per-account one.
   const urlSlug = slug ?? `manual-${account.id.slice(-10)}`;
+  const linkedinUrl = slug ? canonicalLinkedinUrl(slug) : rawUrl || "";
+
+  // Both of those columns are unique. The importer already refuses a profile
+  // another account has claimed, but it drops the person into this form with
+  // the URL still filled in, and typing the details by hand used to reach the
+  // upsert and come back as a 500. A claimed profile is a thing to say, not a
+  // thing to crash on.
+  if (urlSlug || linkedinUrl) {
+    const taken = await prisma.creator.findFirst({
+      where: {
+        accountId: { not: account.id },
+        OR: [
+          ...(urlSlug ? [{ urlSlug }] : []),
+          ...(linkedinUrl ? [{ linkedinUrl }] : []),
+        ],
+      },
+      select: { id: true },
+    });
+    if (taken) {
+      return {
+        status: "manual",
+        message:
+          "A card already exists for that profile. Sign in to the account that claimed it, or use your own profile URL.",
+        slug,
+      };
+    }
+  }
 
   const creator = await prisma.creator.upsert({
     where: { accountId: account.id },
     create: {
       accountId: account.id,
-      linkedinUrl: slug ? canonicalLinkedinUrl(slug) : rawUrl || "",
+      linkedinUrl,
       urlSlug,
       fullName: profile.fullName,
       displayName: deriveDisplayName(profile.fullName),
@@ -231,7 +258,7 @@ export async function saveManualProfile(
   await prisma.profileImport.create({
     data: {
       creatorId: creator.id,
-      sourceUrl: slug ? canonicalLinkedinUrl(slug) : rawUrl || "",
+      sourceUrl: linkedinUrl,
       urlSlug,
       tier: "manual",
       status: "ok",

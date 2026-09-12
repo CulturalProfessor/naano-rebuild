@@ -3,6 +3,7 @@ import { requireAccount } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { INDUSTRIES } from "@/lib/queries";
 import { saveBrandProfile } from "@/app/actions/brand-onboarding";
+import { SubmitButton } from "@/components/action-button";
 
 export const metadata = { title: "Your company — naano" };
 
@@ -151,12 +152,9 @@ export default async function BrandOnboardingPage() {
               </span>
             </label>
 
-            <button
-              type="submit"
-              className="w-full rounded-card bg-brand px-4 py-3 font-medium text-white transition-colors hover:bg-brand-strong"
-            >
+            <SubmitButton size="lg" pendingLabel="Creating your campaign…">
               Create my first campaign
-            </button>
+            </SubmitButton>
           </form>
         </div>
       </div>

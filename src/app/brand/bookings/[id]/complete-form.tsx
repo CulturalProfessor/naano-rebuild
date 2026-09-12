@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { completeBooking } from "@/app/actions/money";
 import type { ActionState } from "@/app/actions/offers";
+import { ActionButton } from "@/components/action-button";
 import { formatEuros } from "@/lib/pricing";
 
 /**
@@ -40,12 +41,13 @@ export function CompleteForm({
           {state.error ?? state.ok}
         </p>
       )}
-      <button
-        disabled={pending}
-        className="mt-4 rounded-card bg-brand px-5 py-3 font-medium text-white transition-colors hover:bg-brand-strong disabled:bg-ink-mute"
+      <ActionButton
+        className="mt-4 px-5 py-3"
+        pending={pending}
+        pendingLabel="Completing…"
       >
-        {pending ? "Completing…" : "Complete the booking"}
-      </button>
+        Complete the booking
+      </ActionButton>
     </form>
   );
 }

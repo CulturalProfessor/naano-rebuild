@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { respondToCounter, type ActionState } from "@/app/actions/offers";
+import { ActionButton } from "@/components/action-button";
 import { formatEuros } from "@/lib/pricing";
 
 /**
@@ -39,22 +40,16 @@ export function CounterActions({
         <form action={action}>
           <input type="hidden" name="offerId" value={offerId} />
           <input type="hidden" name="decision" value="decline" />
-          <button
-            disabled={pending}
-            className="rounded-card px-3 py-2.5 text-sm text-ink-soft hover:text-ink disabled:opacity-50"
-          >
+          <ActionButton variant="quiet" size="sm" disabled={pending}>
             Decline
-          </button>
+          </ActionButton>
         </form>
         <form action={action}>
           <input type="hidden" name="offerId" value={offerId} />
           <input type="hidden" name="decision" value="accept" />
-          <button
-            disabled={pending}
-            className="rounded-card bg-brand px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-strong disabled:bg-ink-mute"
-          >
-            {pending ? "Booking…" : `Accept · ${formatEuros(counterPriceCents)}`}
-          </button>
+          <ActionButton pending={pending} pendingLabel="Booking…">
+            {`Accept · ${formatEuros(counterPriceCents)}`}
+          </ActionButton>
         </form>
       </div>
     </div>

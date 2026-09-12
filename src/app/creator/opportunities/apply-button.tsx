@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { applyToCampaign } from "@/app/actions/applications";
 import type { ActionState } from "@/app/actions/offers";
+import { ActionButton } from "@/components/action-button";
 
 /** Apply, with one line of context. The note is the only thing a creator can
  *  say before a brand decides, so it is on the same screen as the decision. */
@@ -72,12 +73,9 @@ export function ApplyButton({
         >
           Cancel
         </button>
-        <button
-          disabled={pending}
-          className="rounded-card bg-brand px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-strong disabled:bg-ink-mute"
-        >
-          {pending ? "Applying…" : "Send application"}
-        </button>
+        <ActionButton pending={pending} pendingLabel="Applying…">
+          Send application
+        </ActionButton>
       </div>
     </form>
   );

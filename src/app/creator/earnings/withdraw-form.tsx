@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { withdrawEarnings } from "@/app/actions/money";
 import type { ActionState } from "@/app/actions/offers";
+import { ActionButton } from "@/components/action-button";
 import { formatEuros } from "@/lib/pricing";
 
 /**
@@ -76,12 +77,9 @@ export function WithdrawForm({
         </p>
       )}
 
-      <button
-        disabled={pending}
-        className="rounded-card bg-brand px-5 py-3 font-medium text-white transition-colors hover:bg-brand-strong disabled:bg-ink-mute"
-      >
-        {pending ? "Paying out…" : `Withdraw ${formatEuros(availableCents)}`}
-      </button>
+      <ActionButton className="px-5 py-3" pending={pending} pendingLabel="Paying out…">
+        {`Withdraw ${formatEuros(availableCents)}`}
+      </ActionButton>
     </form>
   );
 }

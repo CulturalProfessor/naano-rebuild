@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { submitLead, type LeadState } from "@/app/actions/leads";
+import { ActionButton } from "@/components/action-button";
 
 /** The one place a stranger turns a click into something a brand can act on. */
 export function LeadForm({ code }: { code: string }) {
@@ -64,12 +65,9 @@ export function LeadForm({ code }: { code: string }) {
         </p>
       )}
 
-      <button
-        disabled={pending}
-        className="w-full rounded-card bg-brand px-5 py-3 font-medium text-white transition-colors hover:bg-brand-strong disabled:bg-ink-mute"
-      >
-        {pending ? "Sending…" : "Request a walkthrough"}
-      </button>
+      <ActionButton size="lg" pending={pending} pendingLabel="Sending…">
+        Request a walkthrough
+      </ActionButton>
       <p className="text-xs text-ink-soft">
         Your email goes to this brand and to nobody else. There is no mailing
         list in this build and no email is ever sent.

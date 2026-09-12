@@ -10,6 +10,7 @@ import {
   discountPctOf,
   formatEuros,
 } from "@/lib/pricing";
+import { ActionButton } from "@/components/action-button";
 
 /**
  * "Your selection" and "Make an offer", the two brand modals from the recon.
@@ -294,15 +295,14 @@ export function OfferModal({
               >
                 Back
               </button>
-              <button
+              <ActionButton
                 type="submit"
-                disabled={submitting || outOfBand || !campaignId}
-                className="rounded-card bg-brand px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-strong disabled:cursor-not-allowed disabled:bg-ink-mute"
+                disabled={outOfBand || !campaignId}
+                pending={submitting}
+                pendingLabel="Sending the offer…"
               >
-                {submitting
-                  ? "Sending…"
-                  : `Send offer · ${formatEuros(offerCents || 0)}`}
-              </button>
+                {`Send offer · ${formatEuros(offerCents || 0)}`}
+              </ActionButton>
             </footer>
           </form>
         )}

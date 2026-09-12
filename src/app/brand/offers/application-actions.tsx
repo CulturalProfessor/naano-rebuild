@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { respondToApplication } from "@/app/actions/applications";
 import type { ActionState } from "@/app/actions/offers";
+import { ActionButton } from "@/components/action-button";
 import { formatEuros } from "@/lib/pricing";
 
 /** Accepting an application books at the creator's listed price. There was no
@@ -34,22 +35,16 @@ export function ApplicationActions({
         <form action={action}>
           <input type="hidden" name="applicationId" value={applicationId} />
           <input type="hidden" name="decision" value="reject" />
-          <button
-            disabled={pending}
-            className="rounded-card px-3 py-2.5 text-sm text-ink-soft hover:text-ink disabled:opacity-50"
-          >
+          <ActionButton variant="quiet" size="sm" disabled={pending}>
             Decline
-          </button>
+          </ActionButton>
         </form>
         <form action={action}>
           <input type="hidden" name="applicationId" value={applicationId} />
           <input type="hidden" name="decision" value="accept" />
-          <button
-            disabled={pending}
-            className="rounded-card bg-brand px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-strong disabled:bg-ink-mute"
-          >
-            {pending ? "Booking…" : `Book · ${formatEuros(listPriceCents)}`}
-          </button>
+          <ActionButton pending={pending} pendingLabel="Booking…">
+            {`Book · ${formatEuros(listPriceCents)}`}
+          </ActionButton>
         </form>
       </div>
     </div>
