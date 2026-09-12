@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireBrand } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import { runAutoResponses } from "@/lib/cold-start";
 import { AppHeader } from "@/components/app-header";
 import { formatEuros } from "@/lib/pricing";
 import { formatDay } from "@/lib/dates";
@@ -9,6 +10,8 @@ export const metadata = { title: "Campaigns — naano" };
 
 export default async function BrandHome() {
   const { account, brand } = await requireBrand();
+
+  await runAutoResponses();
 
   const [campaigns, offerCounts, bookings] = await Promise.all([
     prisma.campaign.findMany({

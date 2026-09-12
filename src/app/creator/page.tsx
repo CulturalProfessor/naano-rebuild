@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireCreator } from "@/lib/auth";
 import { offersForCreator, isLive } from "@/lib/offers";
+import { runAutoResponses } from "@/lib/cold-start";
 import { prisma } from "@/lib/db";
 import { AppHeader } from "@/components/app-header";
 import { OfferRow, type InboxOffer } from "./offer-row";
@@ -11,6 +12,10 @@ export const metadata = { title: "Creator studio — naano" };
 
 export default async function CreatorHome() {
   const { account, creator } = await requireCreator();
+
+  // The seeded counterparties answer on a page load by whoever is waiting.
+  // No scheduler, so nothing runs while nobody is watching.
+  await runAutoResponses();
 
   const [offers, bookings] = await Promise.all([
     offersForCreator(creator.id),

@@ -25,7 +25,7 @@ export function ApplyButton({
         {applied === "pending"
           ? "Applied · waiting on the brand"
           : applied === "accepted"
-            ? "Accepted"
+            ? "Accepted · see your offers and bookings"
             : "Not selected"}
       </span>
     );

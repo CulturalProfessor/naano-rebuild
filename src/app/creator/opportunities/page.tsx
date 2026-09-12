@@ -1,5 +1,6 @@
 import { requireCreator } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import { runAutoResponses } from "@/lib/cold-start";
 import { AppHeader } from "@/components/app-header";
 import { ApplyButton } from "./apply-button";
 import { scoreMatch } from "@/lib/matching";
@@ -18,6 +19,8 @@ export const metadata = { title: "Opportunities — naano" };
  */
 export default async function Opportunities() {
   const { account, creator } = await requireCreator();
+
+  await runAutoResponses();
 
   const [card, campaigns, applications] = await Promise.all([
     prisma.creator.findUniqueOrThrow({

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireBrand } from "@/lib/auth";
 import { offersForBrand, isLive } from "@/lib/offers";
+import { runAutoResponses } from "@/lib/cold-start";
 import { AppHeader } from "@/components/app-header";
 import { Countdown } from "@/components/countdown";
 import { formatEuros } from "@/lib/pricing";
@@ -30,6 +31,8 @@ function agreedOrOffered(o: {
 
 export default async function BrandOffers() {
   const { account, brand } = await requireBrand();
+  await runAutoResponses();
+
   const [offers, applications] = await Promise.all([
     offersForBrand(brand.id),
     // Door two. A creator who applied is a creator who already said yes, so
